@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="StudyHub Practice — 20 revision questions per subtopic.">
+<title>StudyHub Practice</title>
+<style>
+:root{--primary:#0369a1;--primary-dark:#075985;--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#475569;--border:#cbd5e1;--accent:#e0f2fe;--good:#15803d;--bad:#b91c1c;--shadow:0 10px 25px rgba(15,23,42,.08)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{background:linear-gradient(180deg,#eef7fb 0,#f8fafc 30%,var(--bg) 100%);color:var(--text);line-height:1.6;min-height:100vh;padding-bottom:60px}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:1rem 1.25rem;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.header-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.logo{font-weight:900;font-size:1.5rem;color:var(--primary);text-decoration:none}.logo span{color:var(--text)}
+.back{color:var(--primary-dark);font-weight:700;text-decoration:none}
+main{max-width:1100px;margin:2rem auto;padding:0 1rem}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:1.25rem;margin-bottom:1.25rem}
+.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+label{font-size:.85rem;font-weight:800;color:var(--muted);display:block;margin-bottom:.35rem}
+select,button,textarea{font:inherit}
+select{width:100%;padding:.75rem;border:2px solid var(--border);border-radius:9px;background:#fff;color:var(--text);outline:none}select:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--accent)}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:900;color:var(--primary);margin-bottom:.25rem}
+h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;margin-bottom:.6rem}h2{margin-bottom:.55rem}.muted{color:var(--muted)}
+.summary{background:#f8fafc;border-left:5px solid var(--primary);padding:1rem;border-radius:0 9px 9px 0;margin-top:1rem}
+.progress-row{display:flex;justify-content:space-between;gap:1rem;font-weight:800;margin-bottom:.35rem}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,#0369a1,#0ea5e9);width:0%;transition:.25s}
+.question-number{font-size:.85rem;color:var(--muted);font-weight:800}.question{font-size:1.4rem;font-weight:750;margin:.5rem 0 1rem}.answer{min-height:120px;width:100%;padding:.9rem;border:1px solid var(--border);border-radius:10px;resize:vertical;outline:none}.answer:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}.btn{border:0;border-radius:9px;padding:.7rem 1rem;font-weight:800;cursor:pointer;background:var(--primary);color:white}.btn.secondary{background:#e2e8f0;color:#0f172a}.btn.good{background:var(--good)}.btn.bad{background:var(--bad)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.answer-box{display:none;margin-top:1rem;padding:1rem;border-radius:10px;background:#ecfdf5;border:1px solid #86efac}.answer-box.show{display:block}.answer-guidance{color:#14532d}
+.score{text-align:center;padding:1rem;background:#f8fafc;border:1px dashed var(--border);border-radius:12px}.score strong{font-size:1.7rem;color:var(--primary)}
+.hidden{display:none!important}.warning{padding:1rem;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}.copy-area textarea{min-height:180px;background:#0f172a;color:#f8fafc;border:0;border-radius:10px;padding:1rem;width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.small{font-size:.85rem}
+@media(max-width:850px){.controls{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.controls{grid-template-columns:1fr}.question{font-size:1.15rem}.header-inner{align-items:flex-start}.actions .btn{width:100%}}
+@media print{header,.controls,.actions,.copy-area,.back{display:none!important}body{background:#fff}main{max-width:none}.panel{box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">Study<span>Hub</span></a>
+    <a class="back" href="index.html">← Back to StudyHub</a>
+  </div>
+</header>
+<main>
+  <section class="panel">
+    <div class="kicker">Practice mode</div>
+    <h1>20 questions per subtopic</h1>
+    <p class="muted">Choose a year, subject, topic and subtopic. Questions can be shuffled into a new order at any time.</p>
+  </section>
+
+  <section class="panel controls">
+    <div><label for="year">Year</label><select id="year"></select></div>
+    <div><label for="subject">Subject</label><select id="subject"></select></div>
+    <div><label for="topic">Topic</label><select id="topic"></select></div>
+    <div><label for="subtopic">Subtopic</label><select id="subtopic"></select></div>
+  </section>
+
+  <section id="introPanel" class="panel"></section>
+
+  <section id="questionPanel" class="panel hidden">
+    <div class="question-number" id="qNumber"></div>
+    <div class="progress-row"><span>Practice progress</span><span id="progressText">0%</span></div>
+    <div class="progress"><div id="progressFill"></div></div>
+    <div class="question" id="questionText"></div>
+    <textarea class="answer" id="answer" placeholder="Type your answer here. You can then reveal the answer guidance and decide whether you got it right."></textarea>
+    <div class="actions">
+      <button class="btn" id="showAnswer">Show answer guidance</button>
+      <button class="btn secondary" id="clearAnswer">Clear answer</button>
+    </div>
+    <div id="answerBox" class="answer-box">
+      <strong>Answer guidance</strong>
+      <div id="answerGuidance" class="answer-guidance" style="margin-top:.4rem"></div>
+    </div>
+    <div class="actions">
+      <button class="btn good" id="gotRight">✓ I got it right</button>
+      <button class="btn bad" id="needRevision">↺ I need to revise it</button>
+      <button class="btn secondary" id="nextQuestion">Next question →</button>
+    </div>
+  </section>
+
+  <section id="finishPanel" class="panel hidden">
+    <div class="kicker">Completed</div>
+    <h2>Practice session finished</h2>
+    <div class="score" style="margin:1rem 0"><div>Score</div><strong id="finalScore">0 / 20</strong><div id="finalPercent">0%</div></div>
+    <div class="actions">
+      <button class="btn" id="shuffleAgain">Shuffle and retry</button>
+      <button class="btn secondary" id="copyPracticePrompt">Copy AI practice prompt</button>
+      <button class="btn secondary" onclick="window.print()">Print results</button>
+    </div>
+  </section>
+
+  <section class="panel copy-area">
+    <div class="kicker">Use another AI</div>
+    <h2>Copy a practice prompt</h2>
+    <p class="muted small" style="margin-bottom:.75rem">Paste this into ChatGPT or another AI tool to get a live one-question-at-a-time practice session for the selected subtopic.</p>
+    <textarea id="aiPrompt" readonly></textarea>
+    <div class="actions"><button class="btn" id="copyPrompt">Copy prompt</button></div>
+  </section>
+</main>
+
+<script>
+const state={data:null,qs:[],index:0,score:0,answered:false,meta:null};
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function titleCase(s){return String(s).replace(/\s+/g,' ').trim()}
+function subjectType(s){
+  const x=s.toLowerCase();
+  if(['maths'].includes(x))return 'maths';
+  if(['biology','chemistry','physics'].includes(x))return 'science';
+  if(['history','geography','religious studies'].includes(x))return 'humanities';
+  if(['english','english language','english literature'].includes(x))return 'english';
+  if(['french','german','spanish','latin'].includes(x))return 'language';
+  if(['classical civilisation'].includes(x))return 'classics';
+  if(['computer science'].includes(x))return 'computing';
+  if(['design & technology','art & design – fine art','art & design – graphics','music','physical education'].includes(x))return 'practical';
+  return 'general';
+}
+function guidance(type,sub,topic,year){
+  const common=`Base your answer on the revision material for Year ${year} ${topic} → ${sub}. A strong answer should use precise subject terminology, specific facts/examples where applicable, and explain the point rather than only naming it.`;
+  if(type==='maths')return `${common} For calculations, show your method, substitute values carefully, use the correct units where relevant, and check whether your final answer is sensible.`;
+  if(type==='science')return `${common} Include correct scientific terminology. Where relevant, use equations, units, required practical details, particle explanations, diagrams or cause-and-effect reasoning.`;
+  if(type==='humanities')return `${common} Include precise evidence such as dates, people, places, processes, case-study details or beliefs. Build a clear explanation of causes, consequences, significance, impact or interpretation where relevant.`;
+  if(type==='english')return `${common} Use precise evidence from the studied work where appropriate. Explain the writer's methods, effects and interpretations, and connect your analysis to the question and context.`;
+  if(type==='language')return `${common} Give accurate vocabulary and grammar. Where relevant, use different time frames, opinions, reasons, conjunctions, pronouns and developed sentences rather than isolated words.`;
+  if(type==='classics')return `${common} Use specific ancient evidence, sources, people, places, beliefs, practices or historical context where relevant.`;
+  if(type==='computing')return `${common} Use precise technical terminology, algorithms, examples or pseudocode where appropriate.`;
+  return common;
+}
+function buildQuestions(year,subject,topic,sub){
+  const type=subjectType(subject), s=titleCase(sub), t=titleCase(topic);
+  const q=[
+    {q:`Define or explain ${s}.`,a:`Give a precise definition/explanation of ${s}, including what it is and its key features.`,tag:'Recall'},
+    {q:`List at least three key facts you need to know about ${s}.`,a:`Give three or more accurate, specific facts about ${s} from your revision material.`,tag:'Recall'},
+    {q:`Why is ${s} important within ${t}?`,a:`Explain the role or importance of ${s} within the wider topic ${t}.`,tag:'Explain'},
+    {q:`Explain how ${s} works or happens.`,a:`Describe the process, method, sequence or mechanism involved in ${s}.`,tag:'Explain'},
+    {q:`Give a specific example that demonstrates ${s}.`,a:`Provide a relevant example and explain how it demonstrates ${s}.`,tag:'Application'},
+    {q:`What terminology must you use when answering questions about ${s}? Give at least four terms.`,a:`List four or more precise subject terms that would improve an answer about ${s}.`,tag:'Vocabulary'},
+    {q:`What is a common misconception or mistake students might make about ${s}?`,a:`State a likely mistake and explain the correct idea.`,tag:'Misconception'},
+    {q:`How would you explain ${s} to a student who has never studied it before?`,a:`Give a clear explanation using simple language first, then add the essential technical terminology.`,tag:'Teach'},
+    {q:`What is the relationship between ${s} and another idea in ${t}?`,a:`Name a connected idea and explain the relationship between it and ${s}.`,tag:'Connections'},
+    {q:`What would happen if a key factor related to ${s} changed?`,a:`Identify a relevant factor, predict the change and explain why.`,tag:'Application'},
+    {q:`Compare ${s} with a closely related idea from ${t}.`,a:`State at least one similarity and one difference, then explain why the difference matters.`,tag:'Compare'},
+    {q:`What evidence, example or observation could you use to support an answer about ${s}?`,a:`Give precise supporting evidence, an example, observation, source, case study or worked example as appropriate.`,tag:'Evidence'},
+    {q:`Write an exam-style question that a teacher could ask about ${s}.`,a:`Your question should be specific, answerable from the curriculum and suitable for Year ${year}.`,tag:'Exam skill'},
+    {q:`Now answer the exam-style question you just created about ${s}.`,a:`Give a complete answer with precise detail and clear explanation.`,tag:'Exam skill'},
+    {q:`What are the most important things you should memorise for ${s}?`,a:`List the essential facts, definitions, formulae, vocabulary, evidence, dates or processes relevant to ${s}.`,tag:'Recall'},
+    {q:`How could a question about ${s} be made more difficult?`,a:`Suggest an application, comparison, multi-step or unfamiliar-context question using ${s}.`,tag:'Challenge'},
+    {q:`Answer this challenge: apply your knowledge of ${s} to an unfamiliar example.`,a:`Choose an unfamiliar example and explain how your knowledge of ${s} would help you solve or analyse it.`,tag:'Challenge'},
+    {q:`What should you check before submitting an answer about ${s}?`,a:`Check accuracy, key terminology, evidence/calculations, units where relevant, explanation and that you answered the exact question.`,tag:'Exam technique'},
+    {q:`Give yourself a one-minute verbal explanation of ${s}. What would you say?`,a:`Your explanation should cover the definition, the main process/idea, one example and one important detail.`,tag:'Active recall'},
+    {q:`Final test: without looking at your notes, explain ${s} in as much accurate detail as you can.`,a:`Your answer should cover the full subtopic rather than just one fact. Use this as a final retrieval check.`,tag:'Final recall'}
+  ];
+  if(type==='maths'){
+    q[0]={q:`What is ${s}, and what is the main mathematical idea behind it?`,a:`State the mathematical definition/rule and what it allows you to calculate or prove.`,tag:'Recall'};
+    q[3]={q:`Describe the method you would use to solve a typical ${s} problem.`,a:`Set out a clear sequence of mathematical steps, including substitutions, simplification and checks where relevant.`,tag:'Method'};
+    q[9]={q:`Write a calculation involving ${s}, then solve it showing every step.`,a:`Create a valid example, solve it correctly and show a clear method.`,tag:'Calculation'};
+    q[12]={q:`Write a GCSE-style problem about ${s}.`,a:`Your question should require more than a simple definition and should involve reasoning or calculation.`,tag:'Exam skill'};
+    q[13]={q:`Solve the GCSE-style problem you just created.`,a:`Show a full method and give a final answer with appropriate units where needed.`,tag:'Exam skill'};
+  } else if(type==='language'){
+    q[0]={q:`Write five useful words or phrases for the subtopic ${s}.`,a:`Give five accurate items of vocabulary that are directly useful for ${s}.`,tag:'Vocabulary'};
+    q[3]={q:`Write three accurate sentences about ${s}, using as much detail as your level allows.`,a:`Your sentences should use correct grammar and topic vocabulary.`,tag:'Writing'};
+    q[9]={q:`Translate a short sentence about ${s} into the language you are studying.`,a:`Write a grammatically accurate sentence using vocabulary linked to ${s}.`,tag:'Translation'};
+    q[12]={q:`Write a speaking question about ${s} that could appear in a school language assessment.`,a:`Create a natural question that lets you demonstrate vocabulary and grammar from ${s}.`,tag:'Speaking'};
+    q[13]={q:`Answer the speaking question you created using a developed answer.`,a:`Give a developed response with an opinion/reason where appropriate and accurate tense use.`,tag:'Speaking'};
+  } else if(type==='english'){
+    q[0]={q:`What are the most important ideas, techniques or content you need to know for ${s}?`,a:`Give precise literary or language knowledge relevant to ${s}.`,tag:'Recall'};
+    q[3]={q:`How could you analyse ${s} in a strong paragraph?`,a:`Use evidence, identify the writer's method, analyse effects and connect to interpretation/context where relevant.`,tag:'Analysis'};
+    q[9]={q:`Create an analytical paragraph question about ${s}, then outline your answer.`,a:`Give a clear argument, suitable evidence and analysis of the writer's choices.`,tag:'Analysis'};
+    q[12]={q:`Write an exam-style English question about ${s}.`,a:`The question should invite analysis rather than simple recall.`,tag:'Exam skill'};
+    q[13]={q:`Plan a strong answer to the exam-style question you created.`,a:`Give a thesis/argument, evidence, analysis and a contextual or comparative link where relevant.`,tag:'Exam skill'};
+  }
+  return shuffle(q);
+}
+function makePrompt(year,subject,topic,sub){
+ return `I am a Year ${year} student revising ${subject}.\n\nTopic: ${topic}\nSubtopic: ${sub}\n\nAct as a revision tutor. Create 20 practice questions based ONLY on this year, subject, topic and subtopic. Ask ONE question at a time and wait for my answer. Mark my answer, explain what I did well, explain what I got wrong, give a useful hint if I am struggling, then continue. Use a mixture of recall, explanation, application and exam-style questions appropriate to this subject. Do not reveal all answers at once. At the end, give me a score, percentage, strengths, weaknesses and a short revision plan. Start with Question 1.`;
+}
+async function loadData(){
+  try{
+    const res=await fetch('index.html');
+    const html=await res.text();
+    const match=html.match(/const CURRICULUM_DATA\s*=\s*(\{[\s\S]*?\});\s*CURRICULUM_DATA\[11\]/);
+    if(!match)throw new Error('CURRICULUM_DATA not found in index.html');
+    state.data=Function('"use strict"; return ('+match[1]+');')();
+  }catch(e){
+    $('introPanel').innerHTML=`<div class="warning"><strong>Could not load StudyHub curriculum data.</strong><p style="margin-top:.4rem">Make sure this file is named <code>practice.html</code> and sits in the same folder as your main <code>index.html</code>.</p></div>`;
+    throw e;
+  }
+  populateYears();
+  const p=new URLSearchParams(location.search);
+  if(p.get('year'))$('year').value=p.get('year');
+  populateSubjects();
+  if(p.get('subject'))$('subject').value=p.get('subject');
+  populateTopics();
+  if(p.get('topic'))$('topic').value=p.get('topic');
+  populateSubtopics();
+  if(p.get('subtopic'))$('subtopic').value=p.get('subtopic');
+  updateIntro();
+}
+function populateYears(){
+ const years=Object.keys(state.data).filter(y=>y!=='11'&&y!=='0');
+ $('year').innerHTML=years.map(y=>`<option value="${esc(y)}">Year ${esc(y)}</option>`).join('')+`<option value="11">GCSE Recap</option>`;
+ $('year').onchange=()=>{populateSubjects();populateTopics();populateSubtopics();updateIntro();};
+}
+function recapData(){
+ const out={};
+ ['9','10'].forEach(y=>Object.entries(state.data[y]||{}).forEach(([s,topics])=>{out[s]=[...(out[s]||[]),...topics];}));
+ return out;
+}
+function selectedYearData(){return $('year').value==='11'?recapData():(state.data[$('year').value]||{});}
+function populateSubjects(){const d=selectedYearData();$('subject').innerHTML=Object.keys(d).sort().map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');$('subject').onchange=()=>{populateTopics();populateSubtopics();updateIntro();};}
+function populateTopics(){const d=selectedYearData(),s=$('subject').value,topics=d[s]||[];$('topic').innerHTML=topics.map(t=>`<option value="${esc(t.title)}">${esc(t.title)}</option>`).join('');$('topic').onchange=()=>{populateSubtopics();updateIntro();};}
+function populateSubtopics(){const d=selectedYearData(),s=$('subject').value,t=$('topic').value,topic=(d[s]||[]).find(x=>x.title===t);const subs=topic?.subs||[];$('subtopic').innerHTML=subs.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');$('subtopic').onchange=()=>{updateIntro();};}
+function meta(){return {year:$('year').value,subject:$('subject').value,topic:$('topic').value,sub:$('subtopic').value}}
+function updateIntro(){const m=meta();if(!m.subject||!m.topic||!m.sub){$('introPanel').innerHTML='<p class="muted">Choose a year, subject, topic and subtopic.</p>';return}const d=selectedYearData(),topic=(d[m.subject]||[]).find(x=>x.title===m.topic);$('introPanel').innerHTML=`<div class="kicker">${esc(m.subject)} • ${m.year==='11'?'GCSE Recap':'Year '+esc(m.year)}</div><h2>${esc(m.topic)}</h2><p><strong>Subtopic:</strong> ${esc(m.sub)}</p><div class="summary"><strong>Topic summary:</strong> ${esc(topic?.summary||'Use the supplied curriculum list as the focus for this revision session.')}</div><div class="actions"><button class="btn" id="startPractice">Start 20 questions</button><button class="btn secondary" id="shuffleStart">Start shuffled</button></div>`;$('startPractice').onclick=()=>startPractice(false);$('shuffleStart').onclick=()=>startPractice(true);$('aiPrompt').value=makePrompt(m.year,m.subject,m.topic,m.sub);}
+function startPractice(shuffleIt=true){const m=meta();const questions=buildQuestions(m.year,m.subject,m.topic,m.sub);state.meta=m;state.qs=shuffleIt?questions:questions;state.index=0;state.score=0;state.answered=false;$('finishPanel').classList.add('hidden');$('questionPanel').classList.remove('hidden');$('copyPracticePrompt').onclick=()=>navigator.clipboard.writeText(makePrompt(m.year,m.subject,m.topic,m.sub));renderQuestion();window.scrollTo({top:$('questionPanel').offsetTop-90,behavior:'smooth'});}
+function renderQuestion(){const q=state.qs[state.index];$('qNumber').textContent=`Question ${state.index+1} of ${state.qs.length} • ${q.tag}`;$('questionText').textContent=q.q;$('answer').value='';$('answerBox').classList.remove('show');$('answerGuidance').textContent=q.a;$('progressText').textContent=Math.round((state.index/state.qs.length)*100)+'%';$('progressFill').style.width=(state.index/state.qs.length*100)+'%';state.answered=false;$('gotRight').disabled=false;$('needRevision').disabled=false;$('nextQuestion').disabled=true;$('showAnswer').disabled=false;}
+$('showAnswer').onclick=()=>{$('answerBox').classList.add('show');};
+$('clearAnswer').onclick=()=>{$('answer').value='';};
+$('gotRight').onclick=()=>mark(true);
+$('needRevision').onclick=()=>mark(false);
+function mark(correct){if(state.answered)return;state.answered=true;if(correct)state.score++;$('gotRight').disabled=true;$('needRevision').disabled=true;$('nextQuestion').disabled=false;$('answerBox').classList.add('show');}
+$('nextQuestion').onclick=()=>{state.index++;if(state.index>=state.qs.length){finish()}else renderQuestion();};
+function finish(){$('questionPanel').classList.add('hidden');$('finishPanel').classList.remove('hidden');const pct=Math.round(state.score/state.qs.length*100);$('finalScore').textContent=`${state.score} / ${state.qs.length}`;$('finalPercent').textContent=`${pct}%`;window.scrollTo({top:$('finishPanel').offsetTop-90,behavior:'smooth'});}
+$('shuffleAgain').onclick=()=>startPractice(true);
+$('copyPrompt').onclick=async()=>{await navigator.clipboard.writeText($('aiPrompt').value);$('copyPrompt').textContent='Copied ✓';setTimeout(()=>$('copyPrompt').textContent='Copy prompt',1300)};
+$('copyPracticePrompt').onclick=async()=>{await navigator.clipboard.writeText($('aiPrompt').value)};
+loadData();
+</script>
+</body>
+</html>
