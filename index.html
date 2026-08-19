@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyHub — Your school revision, organised.</title>
+  <meta name="description" content="Structured revision material, checklists, notes, and interactive practice for UK secondary and grammar school students (Years 7-11).">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="StudyHub — Your school revision, organised.">
+  <meta property="og:description" content="Comprehensive UK secondary curriculum revision platform for Years 7, 8, 9, 10, and GCSE Recap.">
+  <meta property="og:type" content="website">
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --bg-card-hover: rgba(51, 65, 85, 0.8);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-primary: #6366f1;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --accent-success: #10b981;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      --radius: 12px;
+    }
+
+    [data-theme="light"] {
+      --bg-main: #f8fafc;
+      --bg-card: rgba(255, 255, 255, 0.8);
+      --bg-card-hover: rgba(241, 245, 249, 1);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-primary: #4f46e5;
+      --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      --accent-success: #059669;
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    [data-theme="light"] header {
+      background: rgba(248, 250, 252, 0.8);
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text-main);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Container */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Ad Banner Slot */
+    .ad-slot {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin: 1.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .search-box {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 1rem;
+      outline: none;
+      box-shadow: var(--shadow-lg);
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Progress Bar */
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: var(--border-color);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent-gradient);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Topic Layout */
+    .topic-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+    }
+
+    .action-btn {
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .action-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+
+    .checklist-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-primary);
+    }
+
+    /* AI Assistant Modal */
+    .ai-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      border: none;
+      z-index: 200;
+    }
+
+    .ai-chat-panel {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 2rem;
+      width: 360px;
+      max-width: calc(100vw - 4rem);
+      height: 480px;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      z-index: 200;
+    }
+
+    .ai-chat-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-chat-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+
+    .ai-chat-input {
+      padding: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ai-chat-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+    }
+
+    @media print {
+      header, .ai-fab, .ai-chat-panel, .ad-slot, .action-btn { display: none !important; }
+      body { background: white; color: black; }
+      .card { border: none; }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a class="logo" onclick="app.navigate('home')">StudyHub</a>
+      <ul class="nav-links">
+        <li><a onclick="app.navigate('home')">Home</a></li>
+        <li><a onclick="app.navigate('gcse-recap')">GCSE Recap</a></li>
+        <li><a onclick="app.navigate('progress')">My Progress</a></li>
+      </ul>
+      <button class="theme-toggle" onclick="app.toggleTheme()">🌓 Theme</button>
+    </div>
+  </header>
+
+  <main id="app-viewport">
+    <!-- Dynamic Views Mount Point -->
+  </main>
+
+  <div class="ad-slot">Advertisement Placeholder</div>
+
+  <!-- AI Assistant Widget -->
+  <button class="ai-fab" onclick="app.toggleAI()" title="StudyHub AI Assistant">🤖</button>
+  <div class="ai-chat-panel" id="ai-panel">
+    <div class="ai-chat-header">
+      <div>
+        <strong>StudyHub AI</strong>
+        <div style="font-size: 0.75rem; color: var(--text-muted);" id="ai-context-label">Context: General</div>
+      </div>
+      <button onclick="app.toggleAI()" style="background:none; border:none; color:var(--text-main); cursor:pointer;">✕</button>
+    </div>
+    <div class="ai-chat-body" id="ai-chat-messages">
+      <p style="color: var(--text-muted);">Hello! I am your AI study assistant. Select a topic or ask me any question to start revising.</p>
+    </div>
+    <div class="ai-chat-input">
+      <input type="text" id="ai-user-input" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') app.sendAIMessage()">
+      <button class="action-btn" style="margin:0;" onclick="app.sendAIMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Curriculum Data Architecture
+    const CURRICULUM = {
+      7: {
+        title: "Year 7",
+        description: "Key Stage 3 Foundation",
+        subjects: {
+          "Biology": [
+            { id: "y7-bio-cells", name: "Cells & Organisation", subtopics: ["Animal & Plant Cells", "Light Microscope", "Specialised Cells"] },
+            { id: "y7-bio-plants", name: "Flowering Plant Reproduction", subtopics: ["Flower Structure", "Pollination", "Seed Dispersal"] },
+            { id: "y7-bio-var", name: "Variation & Classification", subtopics: ["Genetic Variation", "Binomial System", "Vertebrates & Arthropods"] }
+          ],
+          "Chemistry": [
+            { id: "y7-chem-particles", name: "Particle Theory", subtopics: ["States of Matter", "Changes of State", "Diffusion"] },
+            { id: "y7-chem-compounds", name: "Elements, Mixtures & Compounds", subtopics: ["Chemical Symbols", "Separation Techniques", "Solubility"] }
+          ],
+          "Maths": [
+            { id: "y7-maths-num", name: "Factors & Multiples", subtopics: ["HCF & LCM", "BIDMAS", "Negative Numbers"] },
+            { id: "y7-maths-alg", name: "Algebraic Expressions", subtopics: ["Simplifying", "Substitution", "Single Brackets"] }
+          ]
+        }
+      },
+      8: {
+        title: "Year 8",
+        description: "Key Stage 3 Intermediate",
+        subjects: {
+          "Biology": [
+            { id: "y8-bio-health", name: "Fitness & Health", subtopics: ["Nutrients & Diet", "Drugs & Alcohol", "Energy Requirements"] },
+            { id: "y8-bio-circ", name: "Heart & Circulation", subtopics: ["Blood Vessels", "Heart Structure", "Double Circulation"] }
+          ],
+          "French": [
+            { id: "y8-fr-ville", name: "En ville & Shopping", subtopics: ["Shops & Quantities", "Prices", "Partitive Articles"] }
+          ]
+        }
+      },
+      9: {
+        title: "Year 9",
+        description: "GCSE Foundation Year",
+        subjects: {
+          "Chemistry": [
+            { 
+              id: "y9-chem-atomic", 
+              name: "Atomic Structure & Periodic Table", 
+              subtopics: ["Subatomic Particles", "Electron Configuration", "Isotopes"],
+              checklist: [
+                "Understand atomic structure (protons, neutrons, electrons)",
+                "Know relative masses and electrical charges",
+                "Calculate subatomic particles using Atomic and Mass Numbers",
+                "Define isotopes and relative atomic mass calculations"
+              ],
+              notes: "Atoms consist of a central nucleus containing protons and neutrons, surrounded by electrons in shells. Protons have a relative charge of +1, neutrons 0, and electrons -1."
+            }
+          ]
+        }
+      },
+      10: {
+        title: "Year 10",
+        description: "GCSE Core Curriculum",
+        subjects: {
+          "Physics": [
+            { id: "y10-phys-waves", name: "Waves & Wave Equation", subtopics: ["Transverse & Longitudinal", "Wave Speed Equation", "Reflection & Refraction"] }
+          ]
+        }
+      }
+    };
+
+    // State Engine & Router
+    class StudyHubApp {
+      constructor() {
+        this.currentView = 'home';
+        this.progress = JSON.parse(localStorage.getItem('studyhub_progress') || '{}');
+        this.activeContext = { year: null, subject: null, topic: null };
+        this.init();
+      }
+
+      init() {
+        this.render();
+      }
+
+      toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+      }
+
+      navigate(view, params = {}) {
+        this.currentView = view;
+        this.params = params;
+        this.render();
+        window.scrollTo(0, 0);
+      }
+
+      toggleChecklist(id) {
+        this.progress[id] = !this.progress[id];
+        localStorage.setItem('studyhub_progress', JSON.stringify(this.progress));
+        this.render();
+      }
+
+      toggleAI() {
+        const panel = document.getElementById('ai-panel');
+        panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+      }
+
+      sendAIMessage() {
+        const input = document.getElementById('ai-user-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const body = document.getElementById('ai-chat-messages');
+        body.innerHTML += `<p style="margin-top:0.5rem;"><strong>You:</strong> ${text}</p>`;
+        input.value = '';
+
+        // Simulated Context-Aware AI Response
+        setTimeout(() => {
+          const topicName = this.activeContext.topic ? this.activeContext.topic.name : "General Revision";
+          body.innerHTML += `<p style="margin-top:0.5rem; color:var(--accent-primary);"><strong>StudyHub AI:</strong> Regarding <em>${topicName}</em>: Here is a breakdown to help you understand this concept better...</p>`;
+          body.scrollTop = body.scrollHeight;
+        }, 600);
+      }
+
+      render() {
+        const viewport = document.getElementById('app-viewport');
+        if (this.currentView === 'home') {
+          viewport.innerHTML = this.renderHome();
+        } else if (this.currentView === 'year') {
+          viewport.innerHTML = this.renderYearView(this.params.year);
+        } else if (this.currentView === 'topic') {
+          viewport.innerHTML = this.renderTopicView(this.params.year, this.params.subject, this.params.topic);
+        } else if (this.currentView === 'gcse-recap') {
+          viewport.innerHTML = this.renderGCSERecap();
+        } else if (this.currentView === 'progress') {
+          viewport.innerHTML = this.renderProgress();
+        }
+      }
+
+      renderHome() {
+        this.activeContext = { year: null, subject: null, topic: null };
+        document.getElementById('ai-context-label').innerText = "Context: Home";
+
+        return `
+          <section class="hero">
+            <h1>Your revision. Organised.</h1>
+            <p>Find your subjects, topics, revision notes and practice resources all in one place.</p>
+            <div class="search-box">
+              <input type="text" placeholder="Search for a subject, topic or subtopic (e.g. Atomic Structure)..." oninput="app.handleSearch(this.value)">
+            </div>
+          </section>
+
+          <h2>Select Your Year Group</h2>
+          <div class="grid">
+            <div class="card" onclick="app.navigate('year', {year: 7})">
+              <span class="badge">Key Stage 3</span>
+              <div class="card-title">Year 7</div>
+              <div class="card-desc">Foundational concepts in Sciences, Maths, and Humanities.</div>
+            </div>
+            <div class="card" onclick="app.navigate('year', {year: 8})">
+              <span class="badge">Key Stage 3</span>
+              <div class="card-title">Year 8</div>
+              <div class="card-desc">Intermediate depth and skills consolidation.</div>
+            </div>
+            <div class="card" onclick="app.navigate('year', {year: 9})">
+              <span class="badge">GCSE Foundation</span>
+              <div class="card-title">Year 9</div>
+              <div class="card-desc">Start of GCSE preparation and core concepts.</div>
+            </div>
+            <div class="card" onclick="app.navigate('year', {year: 10})">
+              <span class="badge">GCSE Core</span>
+              <div class="card-title">Year 10</div>
+              <div class="card-desc">Full GCSE curriculum and exam specs.</div>
+            </div>
+            <div class="card" style="border-color: var(--accent-primary);" onclick="app.navigate('gcse-recap')">
+              <span class="badge" style="background:var(--accent-gradient); color:white;">Year 11</span>
+              <div class="card-title">GCSE Recap</div>
+              <div class="card-desc">Consolidate and review Year 9 & 10 GCSE content.</div>
+            </div>
+          </div>
+        `;
+      }
+
+      renderYearView(year) {
+        const yearData = CURRICULUM[year];
+        if (!yearData) return `<p>Year data coming soon.</p>`;
+
+        let subjectsHtml = '';
+        for (const [subjectName, topics] of Object.entries(yearData.subjects)) {
+          subjectsHtml += `
+            <div class="card">
+              <div class="card-title">${subjectName}</div>
+              <div class="card-desc">${topics.length} Key Topics</div>
+              <div style="margin-top:1rem;">
+                ${topics.map(t => `<div style="padding:0.25rem 0; font-size:0.9rem; color:var(--text-muted);" onclick="app.navigate('topic', {year:${year}, subject:'${subjectName}', topic:'${t.id}'})">• ${t.name}</div>`).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="topic-header">
+            <button class="action-btn secondary" onclick="app.navigate('home')">← Back</button>
+            <h1 style="margin-top:1rem;">${yearData.title} Revision</h1>
+            <p style="color:var(--text-muted);">${yearData.description}</p>
+          </div>
+          <div class="grid">${subjectsHtml}</div>
+        `;
+      }
+
+      renderTopicView(year, subjectName, topicId) {
+        const topic = CURRICULUM[year]?.subjects[subjectName]?.find(t => t.id === topicId);
+        if (!topic) return `<p>Topic content available soon.</p>`;
+
+        this.activeContext = { year, subject: subjectName, topic };
+        document.getElementById('ai-context-label').innerText = `Context: Year ${year} ${subjectName} > ${topic.name}`;
+
+        const checklist = topic.checklist || ["Understand core definitions", "Memorise key terms", "Complete practice questions"];
+
+        return `
+          <div class="topic-header">
+            <button class="action-btn secondary" onclick="app.navigate('year', {year:${year}})">← Back to ${subjectName}</button>
+            <h1 style="margin-top:1rem;">${topic.name}</h1>
+            <span class="badge">Year ${year} ${subjectName}</span>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h2>Revision Checklist</h2>
+            <div style="margin-top: 1rem;">
+              ${checklist.map((item, idx) => {
+                const key = `${topicId}-${idx}`;
+                const checked = this.progress[key] ? 'checked' : '';
+                return `
+                  <div class="checklist-item" onclick="app.toggleChecklist('${key}')">
+                    <input type="checkbox" ${checked}>
+                    <span>${item}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h2>Revision Notes</h2>
+            <div class="card" style="margin-top: 1rem; cursor:default;">
+              <p>${topic.notes || "Detailed specification notes available for this topic."}</p>
+            </div>
+            <button class="action-btn" onclick="window.print()">Print Notes</button>
+            <button class="action-btn secondary" onclick="navigator.clipboard.writeText('${topic.notes || ''}'); alert('Notes copied!');">Copy Notes</button>
+          </div>
+        `;
+      }
+
+      renderGCSERecap() {
+        return `
+          <div class="topic-header">
+            <button class="action-btn secondary" onclick="app.navigate('home')">← Back Home</button>
+            <h1 style="margin-top:1rem;">Year 11 / GCSE Recap Mode</h1>
+            <p style="color:var(--text-muted);">Consolidate and review GCSE material from Years 9 and 10.</p>
+          </div>
+          <div class="grid">
+            <div class="card" onclick="app.navigate('year', {year: 9})">
+              <div class="card-title">Year 9 GCSE Foundations</div>
+              <div class="card-desc">Review core topics introduced in Year 9.</div>
+            </div>
+            <div class="card" onclick="app.navigate('year', {year: 10})">
+              <div class="card-title">Year 10 GCSE Content</div>
+              <div class="card-desc">Review depth specification material from Year 10.</div>
+            </div>
+          </div>
+        `;
+      }
+
+      renderProgress() {
+        const completedCount = Object.values(this.progress).filter(Boolean).length;
+        return `
+          <div class="topic-header">
+            <h1>My Revision Progress</h1>
+          </div>
+          <div class="card">
+            <div class="card-title">Checklist Progress</div>
+            <p style="font-size: 2rem; font-weight:800; color:var(--accent-primary); margin: 0.5rem 0;">${completedCount} Items Completed</p>
+            <p class="card-desc">Progress is saved automatically to local storage.</p>
+          </div>
+        `;
+      }
+
+      handleSearch(query) {
+        if (!query.trim()) return;
+        // Search filter handling can mount rendered search cards directly to the main viewport
+      }
+    }
+
+    const app = new StudyHubApp();
+  </script>
+</body>
+</html>
