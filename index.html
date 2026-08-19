@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyHub Advanced Revision Portal</title>
+  <style>
+    :root {
+      --primary: #0369a1;
+      --primary-dark: #075985;
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --accent: #e0f2fe;
+      --sub-bg: #f8fafc;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 500px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--accent);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: var(--text-muted);
+      width: 18px;
+      height: 18px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .year-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1rem;
+      overflow-x: auto;
+    }
+
+    .year-btn {
+      padding: 0.6rem 1.5rem;
+      border: none;
+      background: transparent;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .year-btn:hover {
+      background-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .year-btn.active {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(3, 105, 161, 0.4);
+    }
+
+    .subject-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-chip {
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      background-color: var(--card-bg);
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-muted);
+    }
+
+    .filter-chip:hover, .filter-chip.active {
+      background-color: var(--primary-dark);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-subject {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-summary {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      background: var(--sub-bg);
+      padding: 1rem;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      line-height: 1.7;
+    }
+
+    .expand-badge {
+      font-size: 0.85rem;
+      background: var(--accent);
+      color: var(--primary-dark);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Subtopics Container */
+    .subtopics-container {
+      display: none;
+      margin-top: 1.5rem;
+      border-top: 2px dashed var(--border);
+      padding-top: 1.5rem;
+      cursor: default;
+    }
+
+    .card.expanded .subtopics-container {
+      display: block;
+    }
+
+    .card.expanded {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    /* Individual Subtopic */
+    .subtopic {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: var(--card-bg);
+      overflow: hidden;
+    }
+
+    .subtopic-header {
+      padding: 1rem 1.25rem;
+      background: var(--sub-bg);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .subtopic-header:hover {
+      background: #e2e8f0;
+    }
+
+    .subtopic-header::after {
+      content: "+";
+      font-size: 1.4rem;
+      color: var(--primary);
+      font-weight: 400;
+    }
+
+    .subtopic.active .subtopic-header::after {
+      content: "−";
+    }
+
+    .subtopic-content {
+      display: none;
+      padding: 1.5rem;
+      font-size: 0.95rem;
+      color: #1e293b;
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+    }
+
+    .subtopic.active .subtopic-content {
+      display: block;
+    }
+
+    /* Rich Formatting inside Notes */
+    .subtopic-content h4 {
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      margin: 1.5rem 0 0.5rem 0;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .subtopic-content h4:first-child { margin-top: 0; }
+    
+    .subtopic-content p { margin-bottom: 1rem; }
+    
+    .subtopic-content ul, .subtopic-content ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .subtopic-content li { margin-bottom: 0.4rem; }
+
+    .formula-box {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 1.05rem;
+      text-align: center;
+      margin: 1rem 0;
+      letter-spacing: 1px;
+    }
+
+    .exam-tip {
+      background-color: #fef3c7;
+      border-left: 5px solid #d97706;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      color: #92400e;
+    }
+    .exam-tip strong { color: #78350f; font-size: 1.05rem; display: block; margin-bottom: 0.3rem;}
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .subtopic-header { font-size: 1rem; padding: 0.8rem 1rem; }
+      .subtopic-content { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        StudyHub Pro
+      </div>
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="search-input" placeholder="Deep search topics, subtopics, notes, keywords..." />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <nav class="year-tabs">
+      <button class="year-btn active" data-year="7">Year 7</button>
+      <button class="year-btn" data-year="8">Year 8</button>
+      <button class="year-btn" data-year="9">Year 9</button>
+      <button class="year-btn" data-year="10">Year 10</button>
+    </nav>
+
+    <div class="subject-filters" id="subject-filters"></div>
+    <div class="grid" id="topics-grid"></div>
+  </main>
+
+  <script>
+    /* 
+      MASSIVE DATA STRUCTURE 
+      Each Topic contains a detailed Summary, and an array of exhaustive Subtopics.
+    */
+    const CURRICULUM_DATA = {
+      7: {
+        "Biology": [
+          { 
+            title: "Cells, Tissues & Organs", 
+            summary: "This comprehensive topic covers the fundamental building blocks of all living organisms. It explores the intricate structures of plant and animal cells, the specific functions of each subcellular organelle, how to calculate and use microscopic magnification, and how cells group together to form complex tissues, organs, and organ systems necessary for survival.",
+            subtopics: [
+              {
+                title: "1. Animal and Plant Cell Structure",
+                notes: `
+                  <h4>The Eukaryotic Cell</h4>
+                  <p>All animals and plants are made of eukaryotic cells, meaning their genetic material is enclosed within a nucleus. While they share many basic features, plant cells possess specific structural adaptations to support the plant and produce food.</p>
+                  
+                  <h4>Shared Organelles (Found in both Animal and Plant Cells)</h4>
+                  <ul>
+                    <li><strong>Nucleus:</strong> Often described as the 'control center'. It contains chromosomes made of DNA, which dictate the proteins the cell produces and regulate all cellular activities.</li>
+                    <li><strong>Cytoplasm:</strong> A highly structured jelly-like substance mostly made of water and dissolved nutrients. It is the site of major anaerobic chemical reactions.</li>
+                    <li><strong>Cell Membrane:</strong> A selectively permeable lipid bilayer that dictates exactly which substances (like oxygen and glucose) can enter, and which waste products (like carbon dioxide) can exit.</li>
+                    <li><strong>Mitochondria:</strong> The powerhouse of the cell. These rod-shaped organelles are the site of aerobic respiration, releasing ATP (energy) for cellular processes. Highly active cells (like muscle cells) have thousands of them.</li>
+                    <li><strong>Ribosomes:</strong> Microscopic structures where protein synthesis occurs, translating genetic codes into functional proteins.</li>
+                  </ul>
+
+                  <h4>Plant-Only Organelles</h4>
+                  <ul>
+                    <li><strong>Rigid Cell Wall:</strong> Located completely outside the cell membrane, made of a tough carbohydrate called cellulose. It prevents the cell from bursting when filled with water.</li>
+                    <li><strong>Permanent Vacuole:</strong> A large central sac filled with cell sap (a weak solution of sugars and salts). It maintains internal turgor pressure to keep the plant upright.</li>
+                    <li><strong>Chloroplasts:</strong> Disc-shaped organelles containing the green pigment chlorophyll. They absorb light energy from the sun to drive the endothermic reaction of photosynthesis.</li>
+                  </ul>
+                `
+              },
+              {
+                title: "2. Specialised Cells & Differentiation",
+                notes: `
+                  <h4>What is Differentiation?</h4>
+                  <p>As organisms develop, unspecialised stem cells undergo differentiation. This means they develop specific shapes and subcellular structures to carry out highly specific functions perfectly.</p>
+                  
+                  <h4>Animal Specialised Cells</h4>
+                  <ul>
+                    <li><strong>Sperm Cells:</strong> Function to carry paternal DNA to the egg. Adaptations include a long flagellum (tail) for swimming, a middle section packed entirely with mitochondria for energy, and an acrosome in the head containing digestive enzymes to break through the egg membrane.</li>
+                    <li><strong>Nerve Cells (Neurons):</strong> Function to transmit electrical impulses rapidly across the body. They are extremely long (up to 1 metre) to cover distance, and have branched connections (dendrites) at their ends to connect to other neurons. They are insulated by a myelin sheath to speed up transmission.</li>
+                    <li><strong>Muscle Cells:</strong> Function to contract quickly for movement. They contain special protein fibres that slide over each other to shorten the cell, and contain exceptionally high numbers of mitochondria for constant energy supply.</li>
+                  </ul>
+
+                  <h4>Plant Specialised Cells</h4>
+                  <ul>
+                    <li><strong>Root Hair Cells:</strong> Found on the surface of plant roots. They have a long finger-like projection that massively increases the surface area for the absorption of water (via osmosis) and mineral ions (via active transport) from the soil. They lack chloroplasts because they are underground in the dark.</li>
+                    <li><strong>Xylem Cells:</strong> Form hollow tubes to transport water and dissolved minerals from roots to leaves. They are dead cells with hollow lumens, fortified with rings of a woody substance called lignin to withstand water pressure.</li>
+                  </ul>
+                `
+              },
+              {
+                title: "3. Microscopy & Magnification",
+                notes: `
+                  <h4>Using a Light Microscope</h4>
+                  <p>Light microscopes pass a beam of light through a thin specimen and then through glass lenses to magnify the image. To view a specimen (e.g., onion epidermis), you must place it flat on a glass slide, add a drop of stain (like iodine) to make transparent structures like the nucleus visible, and carefully lower a coverslip using a mounted needle to avoid trapping air bubbles.</p>
+                  
+                  <h4>Magnification Equation</h4>
+                  <p>To calculate how much bigger an image is compared to the real object, use the formula:</p>
+                  <div class="formula-box">Magnification = Image Size &divide; Actual Size</div>
+                  <p><strong>Crucial Rule:</strong> You must always ensure both sizes are in the same units before dividing.</p>
+                  <ul>
+                    <li>1 centimetre (cm) = 10 millimetres (mm)</li>
+                    <li>1 millimetre (mm) = 1,000 micrometres (&micro;m)</li>
+                    <li>1 micrometre (&micro;m) = 1,000 nanometres (nm)</li>
+                  </ul>
+                  
+                  <div class="exam-tip">
+                    <strong>Exam Tip:</strong>
+                    If an exam question gives you an image measuring 50mm, and tells you the actual size is 0.05mm, the magnification is 50 &divide; 0.05 = x1000. Never put units on the final magnification number!
+                  </div>
+                `
+              }
+            ]
+          }
+        ],
+        "Maths": [
+          { 
+            title: "Number Properties & BIDMAS", 
+            summary: "A rigorous mathematical foundation covering the correct order of operations (BIDMAS), the handling of negative numbers across all four operations, finding highest common factors and lowest common multiples using prime factorization, and the fundamental rules of indices.",
+            subtopics: [
+              {
+                title: "1. The Order of Operations (BIDMAS)",
+                notes: `
+                  <h4>Why BIDMAS Exists</h4>
+                  <p>Without a standard order of operations, a calculation like 2 + 3 &times; 4 could equal 20 (if you add first) or 14 (if you multiply first). BIDMAS ensures mathematicians worldwide get the exact same answer.</p>
+                  
+                  <h4>The Hierarchy</h4>
+                  <ol>
+                    <li><strong>B - Brackets:</strong> Calculate absolutely everything inside parentheses first. If there are nested brackets, work from the innermost outward.</li>
+                    <li><strong>I - Indices:</strong> Calculate powers, roots, and reciprocals.</li>
+                    <li><strong>D & M - Division and Multiplication:</strong> These carry equal weight. If both are present, calculate them from left to right.</li>
+                    <li><strong>A & S - Addition and Subtraction:</strong> These carry equal weight. Calculate from left to right.</li>
+                  </ol>
+
+                  <h4>Complex Example Walkthrough</h4>
+                  <p>Evaluate: <strong>50 - 2 &times; (4 + 2<sup>2</sup>)</strong></p>
+                  <ul>
+                    <li>Step 1 (Indices inside bracket): 2<sup>2</sup> = 4. Equation becomes 50 - 2 &times; (4 + 4)</li>
+                    <li>Step 2 (Bracket): 4 + 4 = 8. Equation becomes 50 - 2 &times; 8</li>
+                    <li>Step 3 (Multiplication): 2 &times; 8 = 16. Equation becomes 50 - 16</li>
+                    <li>Step 4 (Subtraction): 50 - 16 = 34. Final Answer = 34.</li>
+                  </ul>
+                `
+              }
+            ]
+          }
+        ]
+      },
+      9: {
+        "Chemistry": [
+          {
+            title: "Atomic Structure & The Periodic Table",
+            summary: "This advanced topic details the exact subatomic composition of matter, tracing the historical development of the atomic model from Dalton to Bohr. It explains how to interpret the modern Periodic Table, calculate atomic and mass numbers, define isotopes, and draw complex electronic configurations for the first 20 elements.",
+            subtopics: [
+              {
+                title: "1. Subatomic Particles & The Nucleus",
+                notes: `
+                  <h4>The Building Blocks of Matter</h4>
+                  <p>Atoms are the smallest indivisible units of an element that retain the properties of that element. They consist of a dense, positively charged central nucleus surrounded by a large volume of mostly empty space where negatively charged electrons orbit.</p>
+                  
+                  <h4>Properties of Subatomic Particles</h4>
+                  <ul>
+                    <li><strong>Proton:</strong> Relative Mass = 1. Relative Charge = +1. Located strictly in the nucleus.</li>
+                    <li><strong>Neutron:</strong> Relative Mass = 1. Relative Charge = 0 (neutral). Located strictly in the nucleus.</li>
+                    <li><strong>Electron:</strong> Relative Mass = 1/1836 (often written as ~0 or negligible). Relative Charge = -1. Found in fixed orbital shells.</li>
+                  </ul>
+
+                  <h4>Reading the Periodic Table Elements</h4>
+                  <p>Each element box shows two critical numbers:</p>
+                  <ul>
+                    <li><strong>Atomic Number (Bottom number):</strong> The number of protons. This defines the element. Because atoms are electrically neutral, the number of protons exactly equals the number of electrons.</li>
+                    <li><strong>Mass Number (Top number):</strong> The total number of protons + neutrons in the nucleus.</li>
+                  </ul>
+                  <p><em>To find the number of neutrons, simply calculate: Mass Number - Atomic Number.</em></p>
+                `
+              },
+              {
+                title: "2. Isotopes & Relative Atomic Mass",
+                notes: `
+                  <h4>Defining Isotopes</h4>
+                  <p>Isotopes are defined strictly as: <strong>Atoms of the exact same element (same number of protons) but with a different number of neutrons (and thus a different mass number).</strong></p>
+                  <p>Because they have the same number of outer-shell electrons, isotopes of an element react chemically in the exact same way. However, their physical properties (like density or radioactivity) may differ.</p>
+
+                  <h4>Calculating Relative Atomic Mass (Ar)</h4>
+                  <p>The mass number on the periodic table is rarely a whole number (e.g., Chlorine is 35.5). This is because it is a weighted average of all naturally occurring isotopes of that element.</p>
+                  <div class="formula-box">
+                    Ar = [ (&Sigma; (Isotope Mass &times; Isotope Abundance %) ) ] &divide; 100
+                  </div>
+                  
+                  <h4>Calculation Example: Chlorine</h4>
+                  <p>Chlorine exists as Cl-35 (75% abundance) and Cl-37 (25% abundance).</p>
+                  <p>Ar = ( (35 &times; 75) + (37 &times; 25) ) &divide; 100</p>
+                  <p>Ar = (2625 + 925) &divide; 100 = 3550 &divide; 100 = <strong>35.5</strong>.</p>
+                  <div class="exam-tip">
+                    <strong>Exam Tip:</strong>
+                    When writing the definition of an isotope in a 2-mark exam question, you must mention BOTH "same number of protons" and "different number of neutrons" to get full marks.
+                  </div>
+                `
+              }
+            ]
+          }
+        ]
+      },
+      10: {
+        "Physics": [
+          {
+            title: "Forces, Motion & Newton's Laws",
+            summary: "A rigorous exploration of classical mechanics. This topic requires deep understanding of scalar and vector quantities, calculating distance-time and velocity-time graphs, resolving resultant forces, and mastering Newton's three laws of motion including terminal velocity and momentum.",
+            subtopics: [
+              {
+                title: "1. Scalars, Vectors & Resultant Forces",
+                notes: `
+                  <h4>Scalars vs Vectors</h4>
+                  <p>Physical quantities are categorized into two types:</p>
+                  <ul>
+                    <li><strong>Scalar Quantities:</strong> Have magnitude (size) only. Examples: Speed (m/s), Distance (m), Mass (kg), Temperature (&deg;C), Time (s).</li>
+                    <li><strong>Vector Quantities:</strong> Have both magnitude AND a specific direction. Examples: Velocity (m/s North), Displacement (m), Force (N), Acceleration (m/s<sup>2</sup>), Weight (N).</li>
+                  </ul>
+                  
+                  <h4>Resultant Forces</h4>
+                  <p>When multiple forces act on a single object, they can be added together to find a single 'resultant force'. Because force is a vector, direction matters immensely. Forces acting in the same direction add together; forces in opposite directions subtract.</p>
+                  <p>Example: A car engine provides 5000 N of thrust forward, while air resistance causes 2000 N of drag backwards. The resultant force is 3000 N forward.</p>
+                `
+              },
+              {
+                title: "2. Newton's Three Laws of Motion",
+                notes: `
+                  <h4>Newton's First Law (Inertia)</h4>
+                  <p>An object will remain completely at rest, or continue moving at a constant velocity in a straight line, UNLESS acted upon by a non-zero resultant force.</p>
+                  <p>Crucial deduction: If an object is moving at a steady speed, the driving forces and resistive forces must be perfectly balanced (Resultant Force = 0).</p>
+                  
+                  <h4>Newton's Second Law (F = ma)</h4>
+                  <p>The acceleration of an object is directly proportional to the resultant force acting on it, and inversely proportional to its mass.</p>
+                  <div class="formula-box">Resultant Force (N) = Mass (kg) &times; Acceleration (m/s<sup>2</sup>)</div>
+                  
+                  <h4>Newton's Third Law (Action-Reaction)</h4>
+                  <p>Whenever two distinct objects interact, the forces they exert on each other are absolutely equal in magnitude and perfectly opposite in direction.</p>
+                  <div class="exam-tip">
+                    <strong>Exam Tip:</strong>
+                    Students often confuse balanced forces (1st law) with action-reaction (3rd law). Balanced forces act on the SAME object (e.g. gravity pulling a book down, table pushing book up). 3rd Law pairs act on TWO DIFFERENT objects (e.g. earth pulls book down, book pulls earth up).
+                  </div>
+                `
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    /* --- APPLICATION LOGIC --- */
+    let currentYear = 7;
+    let currentSubject = "All";
+    let searchQuery = "";
+
+    const yearBtns = document.querySelectorAll('.year-btn');
+    const subjectFiltersContainer = document.getElementById('subject-filters');
+    const topicsGrid = document.getElementById('topics-grid');
+    const searchInput = document.getElementById('search-input');
+
+    // Toggles the Main Topic Card
+    function toggleCard(cardElem) {
+      cardElem.classList.toggle('expanded');
+      const badgeSpan = cardElem.querySelector('.expand-badge');
+      if (badgeSpan) {
+        badgeSpan.textContent = cardElem.classList.contains('expanded') ? 'Hide Subtopics' : 'View Detailed Subtopics';
+      }
+    }
+
+    // Toggles the individual Subtopics (accordion style)
+    window.toggleSubtopic = function(subtopicElem, event) {
+      // Prevent the click from bubbling up and closing the main card
+      event.stopPropagation(); 
+      subtopicElem.classList.toggle('active');
+    }
+
+    function render() {
+      // 1. Update Year Tabs UI
+      yearBtns.forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.year) === currentYear);
+      });
+
+      // 2. Extract Data for current year
+      const yearData = CURRICULUM_DATA[currentYear] || {};
+      const subjects = ["All", ...Object.keys(yearData)];
+
+      if (!subjects.includes(currentSubject)) {
+        currentSubject = "All";
+      }
+
+      // 3. Render Subject Filter Chips
+      subjectFiltersContainer.innerHTML = subjects.map(sub => `
+        <button class="filter-chip ${sub === currentSubject ? 'active' : ''}" onclick="selectSubject('${sub}')">
+          ${sub}
+        </button>
+      `).join('');
+
+      let cardsHTML = '';
+      let matchCount = 0;
+      const filterSubjects = currentSubject === "All" ? Object.keys(yearData) : [currentSubject];
+
+      // 4. Generate the robust Nested Grid HTML
+      filterSubjects.forEach(sub => {
+        const topics = yearData[sub] || [];
+        topics.forEach(topic => {
+          
+          // Deep Search Logic
+          const q = searchQuery.toLowerCase().trim();
+          const matchesTitle = topic.title.toLowerCase().includes(q);
+          const matchesSummary = topic.summary.toLowerCase().includes(q);
+          const matchesSubject = sub.toLowerCase().includes(q);
+          
+          // Check if any subtopic title or notes matches the search query
+          const matchesSubtopics = topic.subtopics.some(subT => 
+            subT.title.toLowerCase().includes(q) || 
+            subT.notes.toLowerCase().includes(q)
+          );
+
+          if (q === "" || matchesTitle || matchesSummary || matchesSubject || matchesSubtopics) {
+            matchCount++;
+            
+            // Build the Subtopics HTML string
+            const subtopicsHTML = topic.subtopics.map(subT => `
+              <div class="subtopic" onclick="toggleSubtopic(this, event)">
+                <div class="subtopic-header">${subT.title}</div>
+                <div class="subtopic-content">
+                  ${subT.notes}
+                </div>
+              </div>
+            `).join('');
+
+            // Build the Main Card HTML string
+            cardsHTML += `
+              <div class="card" onclick="toggleCard(this)">
+                <div class="card-header">
+                  <div>
+                    <div class="card-subject">${sub}</div>
+                    <div class="card-title">${topic.title}</div>
+                  </div>
+                  <div class="expand-badge">View Detailed Subtopics</div>
+                </div>
+                
+                <div class="card-summary">
+                  <strong>Overview:</strong> ${topic.summary}
+                </div>
+                
+                <div class="subtopics-container" onclick="event.stopPropagation()">
+                  ${subtopicsHTML}
+                </div>
+              </div>
+            `;
+          }
+        });
+      });
+
+      // 5. Handle empty search states
+      if (matchCount === 0) {
+        topicsGrid.innerHTML = `
+          <div class="empty-state">
+            <h3>No detailed matches found</h3>
+            <p>Try refining your search terms across titles, summaries, or deep note contents.</p>
+          </div>
+        `;
+      } else {
+        topicsGrid.innerHTML = cardsHTML;
+      }
+    }
+
+    // Event listeners
+    function selectYear(yr) {
+      currentYear = yr;
+      currentSubject = "All";
+      render();
+    }
+
+    function selectSubject(sub) {
+      currentSubject = sub;
+      render();
+    }
+
+    yearBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectYear(parseInt(btn.dataset.year));
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      render();
+    });
+
+    // Initial load
+    render();
+  </script>
+</body>
+</html>
