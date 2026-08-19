@@ -4,96 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudyHub — Your school revision, organised.</title>
-  <meta name="description" content="Structured revision material, checklists, notes, and interactive practice for UK secondary and grammar school students (Years 7-11).">
-  
-  <!-- Open Graph -->
+  <meta name="description" content="Structured UK secondary and grammar school revision platform for Years 7, 8, 9, 10 and Year 11 GCSE Recap.">
   <meta property="og:title" content="StudyHub — Your school revision, organised.">
-  <meta property="og:description" content="Comprehensive UK secondary curriculum revision platform for Years 7, 8, 9, 10, and GCSE Recap.">
+  <meta property="og:description" content="Access complete subject revision notes, interactive checklists, practice questions, and AI revision prompts.">
   <meta property="og:type" content="website">
 
-  <!-- Inter Font -->
+  <!-- Inter & JetBrains Mono Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-main: #0f172a;
-      --bg-card: rgba(30, 41, 59, 0.7);
-      --bg-card-hover: rgba(51, 65, 85, 0.8);
+      --bg-main: #0b1329;
+      --bg-surface: #111c38;
+      --bg-card: rgba(23, 37, 72, 0.7);
+      --bg-card-hover: rgba(33, 52, 98, 0.85);
       --border-color: rgba(255, 255, 255, 0.1);
+      --border-focus: #6366f1;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --text-inverse: #0f172a;
       --accent-primary: #6366f1;
+      --accent-hover: #4f46e5;
       --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
       --accent-success: #10b981;
-      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-      --radius: 12px;
+      --accent-warning: #f59e0b;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
     }
 
     [data-theme="light"] {
       --bg-main: #f8fafc;
-      --bg-card: rgba(255, 255, 255, 0.8);
-      --bg-card-hover: rgba(241, 245, 249, 1);
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-card-hover: #f1f5f9;
       --border-color: rgba(0, 0, 0, 0.08);
+      --border-focus: #4f46e5;
       --text-main: #0f172a;
       --text-muted: #64748b;
+      --text-inverse: #ffffff;
       --accent-primary: #4f46e5;
+      --accent-hover: #4338ca;
       --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      --accent-success: #059669;
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
       --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-main);
       background-color: var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Header */
+    /* Accessibility Focus States */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    /* Header & Navigation */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(11, 19, 41, 0.85);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
     }
-
     [data-theme="light"] header {
-      background: rgba(248, 250, 252, 0.8);
+      background: rgba(248, 250, 252, 0.85);
     }
 
     .nav-container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 1rem 1.5rem;
+      padding: 0.85rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .logo {
-      font-size: 1.5rem;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      font-size: 1.6rem;
       font-weight: 800;
+      letter-spacing: -0.03em;
       background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      cursor: pointer;
-      text-decoration: none;
     }
+
+    .brand-tagline {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border-color);
+      padding-left: 0.75rem;
+      display: none;
+    }
+
+    @media (min-width: 640px) { .brand-tagline { display: inline; } }
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.25rem;
       list-style: none;
       align-items: center;
     }
@@ -101,7 +135,8 @@
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 600;
       transition: color 0.2s;
       cursor: pointer;
     }
@@ -111,16 +146,20 @@
     }
 
     .theme-toggle {
-      background: none;
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    /* Container */
+    /* Layout Main */
     main {
       max-width: 1280px;
       margin: 0 auto;
@@ -129,207 +168,378 @@
       width: 100%;
     }
 
-    /* Ad Banner Slot */
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumbs a {
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .breadcrumbs a:hover { color: var(--accent-primary); }
+    .breadcrumbs span.separator { opacity: 0.5; }
+
+    /* Advertisement Component Slot */
     .ad-slot {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.02);
       border: 1px dashed var(--border-color);
-      border-radius: var(--radius);
-      padding: 1rem;
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.8rem;
-      margin: 1.5rem 0;
+      font-size: 0.75rem;
+      margin: 2rem 0;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 3rem 1rem;
-      max-width: 800px;
+      padding: 3rem 1rem 2rem;
+      max-width: 850px;
       margin: 0 auto;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.25rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
       margin-bottom: 1rem;
     }
 
     .hero p {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--text-muted);
       margin-bottom: 2rem;
     }
 
-    .search-box {
-      position: relative;
-      max-width: 600px;
-      margin: 0 auto 2rem;
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
     }
 
-    .search-box input {
+    /* Search Bar */
+    .search-container {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .search-input {
       width: 100%;
-      padding: 1rem 1.5rem;
+      padding: 1.1rem 1.5rem 1.1rem 3.2rem;
       border-radius: 9999px;
       border: 1px solid var(--border-color);
-      background: var(--bg-card);
+      background: var(--bg-surface);
       color: var(--text-main);
       font-size: 1rem;
       outline: none;
       box-shadow: var(--shadow-lg);
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .search-box input:focus {
+    .search-input:focus {
       border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
 
-    /* Cards Grid */
+    .search-icon {
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    /* Grids & Cards */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.5rem;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius);
+      border-radius: var(--radius-md);
       padding: 1.5rem;
       cursor: pointer;
-      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
     .card:hover {
       transform: translateY(-4px);
       background: var(--bg-card-hover);
+      border-color: rgba(99, 102, 241, 0.4);
       box-shadow: var(--shadow-lg);
     }
 
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+    }
+
     .card-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
+      line-height: 1.3;
       margin-bottom: 0.5rem;
     }
 
     .card-desc {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
+      margin-bottom: 1rem;
+      flex: 1;
     }
 
     .badge {
       display: inline-block;
-      padding: 0.25rem 0.6rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 9999px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       background: rgba(99, 102, 241, 0.15);
       color: var(--accent-primary);
-      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    /* Progress Bar */
-    .progress-bar-bg {
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      text-decoration: none;
+    }
+
+    .btn:hover { background: var(--accent-hover); }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--text-muted);
+    }
+
+    .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+
+    /* Progress UI */
+    .progress-bar-container {
       width: 100%;
       height: 8px;
-      background: var(--border-color);
+      background: rgba(255,255,255,0.1);
       border-radius: 9999px;
       overflow: hidden;
-      margin-top: 1rem;
+      margin-top: 0.75rem;
     }
 
     .progress-bar-fill {
       height: 100%;
       background: var(--accent-gradient);
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s ease;
     }
 
-    /* Topic Layout */
-    .topic-header {
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 1.5rem;
-    }
-
-    .action-btn {
-      background: var(--accent-primary);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .action-btn.secondary {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
+    /* Interactive Checklist */
+    .checklist-group {
+      margin: 1.5rem 0;
     }
 
     .checklist-item {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      background: var(--bg-card);
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.6rem;
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .checklist-item:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-top: 0.15rem;
+      accent-color: var(--accent-primary);
       cursor: pointer;
     }
 
-    .checklist-item input {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent-primary);
+    .checklist-item.completed span {
+      text-decoration: line-through;
+      color: var(--text-muted);
     }
 
-    /* AI Assistant Modal */
+    /* Topic Content Layout */
+    .topic-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 992px) {
+      .topic-layout {
+        grid-template-columns: 3fr 1fr;
+      }
+    }
+
+    .content-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .content-box h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .content-box h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--accent-primary);
+    }
+
+    .content-box p { margin-bottom: 1rem; color: var(--text-main); }
+    .content-box ul, .content-box ol { margin: 0 0 1rem 1.5rem; }
+    .content-box li { margin-bottom: 0.4rem; }
+
+    .key-terms-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .key-terms-table th, .key-terms-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .key-terms-table th {
+      background: rgba(255,255,255,0.03);
+      font-weight: 700;
+    }
+
+    /* Practice Prompt Generator Modal / Box */
+    .ai-prompt-box {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .ai-prompt-textarea {
+      width: 100%;
+      height: 220px;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-family: var(--font-code);
+      font-size: 0.85rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      resize: vertical;
+    }
+
+    /* Floating AI Assistant Panel */
     .ai-fab {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      width: 56px;
-      height: 56px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: var(--accent-gradient);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       box-shadow: var(--shadow-lg);
       cursor: pointer;
       border: none;
       z-index: 200;
+      transition: transform 0.2s;
     }
+
+    .ai-fab:hover { transform: scale(1.08); }
 
     .ai-chat-panel {
       position: fixed;
-      bottom: 5.5rem;
+      bottom: 6rem;
       right: 2rem;
-      width: 360px;
-      max-width: calc(100vw - 4rem);
-      height: 480px;
-      background: var(--bg-main);
+      width: 380px;
+      max-width: calc(100vw - 3rem);
+      height: 520px;
+      background: var(--bg-surface);
       border: 1px solid var(--border-color);
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
       display: none;
       flex-direction: column;
       z-index: 200;
+      overflow: hidden;
     }
 
     .ai-chat-header {
-      padding: 1rem;
+      padding: 1rem 1.25rem;
+      background: rgba(0,0,0,0.2);
       border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
@@ -340,366 +550,1009 @@
       flex: 1;
       padding: 1rem;
       overflow-y: auto;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    .ai-chat-input {
+    .ai-message {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      max-width: 88%;
+      line-height: 1.4;
+    }
+
+    .ai-message.user {
+      background: var(--accent-primary);
+      color: white;
+      align-self: flex-end;
+    }
+
+    .ai-message.bot {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      align-self: flex-start;
+    }
+
+    .ai-chip-container {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding: 0.5rem 1rem;
+      border-top: 1px solid var(--border-color);
+      background: rgba(0,0,0,0.1);
+    }
+
+    .ai-chip {
+      white-space: nowrap;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 9999px;
+      cursor: pointer;
+    }
+    .ai-chip:hover { border-color: var(--accent-primary); }
+
+    .ai-chat-input-area {
       padding: 0.75rem;
       border-top: 1px solid var(--border-color);
       display: flex;
       gap: 0.5rem;
     }
 
-    .ai-chat-input input {
+    .ai-chat-input-area input {
       flex: 1;
-      padding: 0.5rem;
-      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      border-radius: var(--radius-sm);
       border: 1px solid var(--border-color);
-      background: var(--bg-card);
+      background: var(--bg-main);
       color: var(--text-main);
+      outline: none;
     }
 
+    /* Print Styles */
     @media print {
-      header, .ai-fab, .ai-chat-panel, .ad-slot, .action-btn { display: none !important; }
-      body { background: white; color: black; }
-      .card { border: none; }
+      header, .ai-fab, .ai-chat-panel, .ad-slot, .btn, .breadcrumbs, .ai-prompt-box, footer {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .content-box {
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 2rem !important;
+      }
+      .key-terms-table th, .key-terms-table td {
+        border: 1px solid #000 !important;
+      }
     }
 
+    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .nav-links { display: none; }
+      .hero h1 { font-size: 2.25rem; }
+      .nav-links { display: none; } /* Simplified for compact screen */
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation Bar -->
   <header>
     <div class="nav-container">
-      <a class="logo" onclick="app.navigate('home')">StudyHub</a>
+      <a class="brand" onclick="app.navigate('home')">
+        <span class="brand-logo">StudyHub</span>
+        <span class="brand-tagline">Your school revision, organised.</span>
+      </a>
       <ul class="nav-links">
         <li><a onclick="app.navigate('home')">Home</a></li>
+        <li><a onclick="app.navigate('subjects')">Subjects</a></li>
         <li><a onclick="app.navigate('gcse-recap')">GCSE Recap</a></li>
+        <li><a onclick="app.navigate('past-papers')">Past Papers</a></li>
         <li><a onclick="app.navigate('progress')">My Progress</a></li>
+        <li><a onclick="app.navigate('bookmarks')">Saved</a></li>
       </ul>
-      <button class="theme-toggle" onclick="app.toggleTheme()">🌓 Theme</button>
+      <button class="theme-toggle" onclick="app.toggleTheme()" aria-label="Toggle dark/light theme">
+        <span>🌓</span> <span style="display:none;" class="theme-label">Theme</span>
+      </button>
     </div>
   </header>
 
+  <!-- Dynamic Content Viewport -->
   <main id="app-viewport">
-    <!-- Dynamic Views Mount Point -->
+    <!-- View content is injected here by router -->
   </main>
 
-  <div class="ad-slot">Advertisement Placeholder</div>
+  <!-- Reusable Responsive Monetisation Ad Slot -->
+  <div class="ad-slot" id="global-ad-slot">
+    <span>Advertisement Placeholder</span>
+  </div>
 
-  <!-- AI Assistant Widget -->
-  <button class="ai-fab" onclick="app.toggleAI()" title="StudyHub AI Assistant">🤖</button>
-  <div class="ai-chat-panel" id="ai-panel">
+  <!-- Floating AI Revision Assistant -->
+  <button class="ai-fab" onclick="app.toggleAIWidget()" aria-label="Open AI Study Assistant">🤖</button>
+
+  <div class="ai-chat-panel" id="ai-widget-panel">
     <div class="ai-chat-header">
       <div>
-        <strong>StudyHub AI</strong>
-        <div style="font-size: 0.75rem; color: var(--text-muted);" id="ai-context-label">Context: General</div>
+        <strong style="font-size:0.95rem;">StudyHub AI Tutor</strong>
+        <div style="font-size:0.75rem; color:var(--text-muted);" id="ai-context-indicator">Context: General</div>
       </div>
-      <button onclick="app.toggleAI()" style="background:none; border:none; color:var(--text-main); cursor:pointer;">✕</button>
+      <button onclick="app.toggleAIWidget()" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1.1rem;">✕</button>
     </div>
-    <div class="ai-chat-body" id="ai-chat-messages">
-      <p style="color: var(--text-muted);">Hello! I am your AI study assistant. Select a topic or ask me any question to start revising.</p>
+
+    <div class="ai-chat-body" id="ai-chat-history">
+      <div class="ai-message bot">
+        Hello! I'm your StudyHub revision assistant. Select a topic or ask me to explain a concept, quiz you, or create flashcards.
+      </div>
     </div>
-    <div class="ai-chat-input">
-      <input type="text" id="ai-user-input" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') app.sendAIMessage()">
-      <button class="action-btn" style="margin:0;" onclick="app.sendAIMessage()">Send</button>
+
+    <div class="ai-chip-container">
+      <button class="ai-chip" onclick="app.sendQuickAIPrompt('Explain this topic simply')">Explain this</button>
+      <button class="ai-chip" onclick="app.sendQuickAIPrompt('Give me 5 practice questions on this')">5 Questions</button>
+      <button class="ai-chip" onclick="app.sendQuickAIPrompt('Create 3 flashcards for this topic')">Flashcards</button>
+      <button class="ai-chip" onclick="app.sendQuickAIPrompt('Give me an exam-style question with mark scheme')">Exam Q</button>
+    </div>
+
+    <div class="ai-chat-input-area">
+      <input type="text" id="ai-user-input" placeholder="Ask a revision question..." onkeydown="if(event.key==='Enter') app.handleAISubmit()">
+      <button class="btn btn-sm" onclick="app.handleAISubmit()">Ask</button>
     </div>
   </div>
 
+  <footer style="text-align:center; padding: 2rem 1rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: auto;">
+    <p>&copy; 2026 StudyHub. Independent UK Secondary & Grammar School Revision Platform.</p>
+    <p style="margin-top: 0.4rem; font-size: 0.75rem;">Not affiliated with or endorsed by AQA, Edexcel, OCR, or Pearson.</p>
+  </footer>
+
   <script>
-    // Embedded Curriculum Data Architecture
-    const CURRICULUM = {
+    /**
+     * INITIAL CURRICULUM DATASET
+     * Excerpted and structured directly from UK secondary school syllabus guidelines.
+     */
+    const CURRICULUM_DATA = {
       7: {
         title: "Year 7",
-        description: "Key Stage 3 Foundation",
+        description: "Key Stage 3 Foundations",
         subjects: {
-          "Biology": [
-            { id: "y7-bio-cells", name: "Cells & Organisation", subtopics: ["Animal & Plant Cells", "Light Microscope", "Specialised Cells"] },
-            { id: "y7-bio-plants", name: "Flowering Plant Reproduction", subtopics: ["Flower Structure", "Pollination", "Seed Dispersal"] },
-            { id: "y7-bio-var", name: "Variation & Classification", subtopics: ["Genetic Variation", "Binomial System", "Vertebrates & Arthropods"] }
-          ],
-          "Chemistry": [
-            { id: "y7-chem-particles", name: "Particle Theory", subtopics: ["States of Matter", "Changes of State", "Diffusion"] },
-            { id: "y7-chem-compounds", name: "Elements, Mixtures & Compounds", subtopics: ["Chemical Symbols", "Separation Techniques", "Solubility"] }
-          ],
-          "Maths": [
-            { id: "y7-maths-num", name: "Factors & Multiples", subtopics: ["HCF & LCM", "BIDMAS", "Negative Numbers"] },
-            { id: "y7-maths-alg", name: "Algebraic Expressions", subtopics: ["Simplifying", "Substitution", "Single Brackets"] }
-          ]
+          "Biology": {
+            icon: "🧬",
+            topics: [
+              {
+                id: "y7-bio-cells",
+                name: "Cells & Organisation",
+                subtopics: ["Basic unit of life", "Animal and plant cells", "Light microscope", "Cell specialisation", "Cell organisation"],
+                overview: "All living organisms are made of cells. Understand the structural differences between animal and plant cells, and how cells form tissues and organs.",
+                checklist: [
+                  "Understand cells as the fundamental unit of living organisms",
+                  "Identify plant and animal cell structures under a light microscope",
+                  "Functions of nucleus, cytoplasm, cell membrane, mitochondria, cell wall, vacuole, chloroplasts",
+                  "Explain cell specialisation (e.g. sperm, nerve, root hair cells)",
+                  "Understand hierarchy: Cell → Tissue → Organ → Organ System"
+                ],
+                keyTerms: [
+                  { term: "Organelle", def: "A specialized structure within a cell that performs a specific function." },
+                  { term: "Tissue", def: "A group of similar cells working together to perform a specific function." }
+                ],
+                notes: `
+                  <h3>Cell Structure</h3>
+                  <p><strong>Animal cells</strong> contain: Nucleus, Cytoplasm, Cell Membrane, Mitochondria, Ribosomes.<br>
+                  <strong>Plant cells</strong> contain all of the above plus: Permanent Vacuole, Cell Wall (cellulose), and Chloroplasts.</p>
+                  <h3>Microscopy</h3>
+                  <p>Magnification = Image Size / Real Size. Always ensure units are converted before calculating.</p>
+                `
+              },
+              {
+                id: "y7-bio-plants",
+                name: "Flowering Plant Reproduction",
+                subtopics: ["Flower structure", "Pollination", "Fertilisation", "Seed dispersal"],
+                checklist: ["Know parts of a flower", "Compare wind and insect pollination", "Understand seed structure and dispersal"],
+                notes: "Flowers contain male (stamen) and female (carpel) reproductive organs..."
+              },
+              {
+                id: "y7-bio-var",
+                name: "Variation & Classification",
+                subtopics: ["Genetic variation", "Environmental variation", "Binomial system", "Vertebrates and Arthropods"],
+                checklist: ["Distinguish continuous vs discontinuous variation", "Use classification keys"],
+                notes: "Variation between species can be inherited (genetics) or caused by environmental factors..."
+              },
+              {
+                id: "y7-bio-health",
+                name: "Fitness & Health",
+                subtopics: ["Lungs and breathing", "Gas exchange", "Alveoli adaptations", "Smoking effects"],
+                checklist: ["Label the respiratory system", "Explain gas exchange in alveoli"],
+                notes: "Alveoli provide a huge surface area, thin walls, and good blood supply for diffusion of oxygen and CO2..."
+              }
+            ]
+          },
+          "Chemistry": {
+            icon: "🧪",
+            topics: [
+              {
+                id: "y7-chem-particles",
+                name: "Particle Theory & States of Matter",
+                subtopics: ["States of matter", "Changes of state", "Diffusion", "Expansion"],
+                checklist: ["Describe solids, liquids, and gases using particle model", "Explain melting, freezing, evaporation, condensation, sublimation"],
+                notes: "Particles in solids vibrate in fixed positions. In liquids, they slide past each other. In gases, they move rapidly in random directions."
+              },
+              {
+                id: "y7-chem-mixtures",
+                name: "Elements, Mixtures & Compounds",
+                subtopics: ["Chemical symbols", "Solubility", "Filtration", "Distillation", "Chromatography"],
+                checklist: ["Define element, compound, and mixture", "Select appropriate separation technique"],
+                notes: "Elements consist of one type of atom. Compounds contain two or more elements chemically combined in fixed proportions."
+              }
+            ]
+          },
+          "Maths": {
+            icon: "📐",
+            topics: [
+              {
+                id: "y7-maths-num",
+                name: "Factors, Multiples & BIDMAS",
+                subtopics: ["HCF and LCM", "Negative numbers arithmetic", "BIDMAS order of operations"],
+                checklist: ["Find prime factors", "Calculate HCF and LCM", "Apply BIDMAS to multi-step calculations"],
+                notes: "BIDMAS: Brackets, Indices, Division/Multiplication, Addition/Subtraction."
+              },
+              {
+                id: "y7-maths-alg",
+                name: "Algebraic Expressions",
+                subtopics: ["Simplifying expressions", "Substitution", "Single brackets", "Solving basic equations"],
+                checklist: ["Simplify like terms", "Expand single brackets", "Solve linear equations"],
+                notes: "Example: Expand 3(x + 4) = 3x + 12."
+              }
+            ]
+          },
+          "Physics": {
+            icon: "⚡",
+            topics: [
+              {
+                id: "y7-phys-elec",
+                name: "Static & Current Electricity",
+                subtopics: ["Conductors and insulators", "Series circuits", "Parallel circuits"],
+                checklist: ["Draw circuit symbols", "Compare current and potential difference in series vs parallel"],
+                notes: "Current is the rate of flow of electrical charge. In series, current is identical everywhere."
+              },
+              {
+                id: "y7-phys-forces",
+                name: "Forces & Motion",
+                subtopics: ["Types of forces", "Mass vs weight", "Distance-time graphs", "Balanced forces"],
+                checklist: ["Calculate weight = mass x gravity", "Interpret distance-time graph gradients"],
+                notes: "Speed = Distance / Time. Gradient of a distance-time graph gives speed."
+              }
+            ]
+          }
         }
       },
       8: {
         title: "Year 8",
         description: "Key Stage 3 Intermediate",
         subjects: {
-          "Biology": [
-            { id: "y8-bio-health", name: "Fitness & Health", subtopics: ["Nutrients & Diet", "Drugs & Alcohol", "Energy Requirements"] },
-            { id: "y8-bio-circ", name: "Heart & Circulation", subtopics: ["Blood Vessels", "Heart Structure", "Double Circulation"] }
-          ],
-          "French": [
-            { id: "y8-fr-ville", name: "En ville & Shopping", subtopics: ["Shops & Quantities", "Prices", "Partitive Articles"] }
-          ]
+          "Biology": {
+            icon: "🧬",
+            topics: [
+              {
+                id: "y8-bio-digestion",
+                name: "Digestive System & Enzymes",
+                subtopics: ["Human gut regions", "Nutrient absorption", "Villi adaptations", "Enzymes action"],
+                checklist: ["Identify digestive organs", "Explain role of amylase, protease, lipase", "Describe villi adaptations"],
+                notes: "Enzymes are biological catalysts that break down large insoluble food molecules into small soluble ones."
+              }
+            ]
+          },
+          "French": {
+            icon: "💬",
+            topics: [
+              {
+                id: "y8-fr-ville",
+                name: "En Ville et Shopping",
+                subtopics: ["Shops & places in town", "Quantities & prices", "Partitives", "Near future tense"],
+                checklist: ["Use 'il y a' and 'on peut'", "Form near future with aller + infinitive"],
+                notes: "Pour aller au cinéma... Je vais acheter du pain."
+              }
+            ]
+          }
         }
       },
       9: {
         title: "Year 9",
         description: "GCSE Foundation Year",
         subjects: {
-          "Chemistry": [
-            { 
-              id: "y9-chem-atomic", 
-              name: "Atomic Structure & Periodic Table", 
-              subtopics: ["Subatomic Particles", "Electron Configuration", "Isotopes"],
-              checklist: [
-                "Understand atomic structure (protons, neutrons, electrons)",
-                "Know relative masses and electrical charges",
-                "Calculate subatomic particles using Atomic and Mass Numbers",
-                "Define isotopes and relative atomic mass calculations"
-              ],
-              notes: "Atoms consist of a central nucleus containing protons and neutrons, surrounded by electrons in shells. Protons have a relative charge of +1, neutrons 0, and electrons -1."
-            }
-          ]
+          "Chemistry": {
+            icon: "🧪",
+            topics: [
+              {
+                id: "y9-chem-atomic",
+                name: "Atomic Structure & Periodic Table",
+                subtopics: ["Subatomic particles", "Atomic number & Mass number", "Isotopes", "Electron configuration"],
+                overview: "Understand the structure of atoms, subatomic charges and masses, isotopes, and how the periodic table is organised.",
+                checklist: [
+                  "Know relative mass and charge of Proton (+1, 1), Neutron (0, 1), Electron (-1, 1/1840)",
+                  "Calculate numbers of protons, neutrons, and electrons from Atomic and Mass numbers",
+                  "Define isotopes as atoms of same element with different numbers of neutrons",
+                  "Write electronic structures up to element 20 (e.g. 2,8,8,2)"
+                ],
+                keyTerms: [
+                  { term: "Isotope", def: "Atoms of the same element with the same number of protons but different numbers of neutrons." },
+                  { term: "Atomic Number", def: "The number of protons in the nucleus of an atom." }
+                ],
+                notes: `
+                  <h3>Subatomic Particles</h3>
+                  <table class="key-terms-table">
+                    <tr><th>Particle</th><th>Relative Mass</th><th>Relative Charge</th></tr>
+                    <tr><td>Proton</td><td>1</td><td>+1</td></tr>
+                    <tr><td>Neutron</td><td>1</td><td>0</td></tr>
+                    <tr><td>Electron</td><td>1/1840 (Very Small)</td><td>-1</td></tr>
+                  </table>
+                  <h3>Isotope Calculations</h3>
+                  <p>Relative Atomic Mass (Ar) = Σ (Isotope mass × Abundance) / 100</p>
+                `
+              },
+              {
+                id: "y9-chem-acids",
+                name: "Acids & Alkalis",
+                subtopics: ["pH scale", "Indicators", "Neutralisation equations", "Making soluble salts"],
+                checklist: ["Define acids as H+ donors and alkalis as OH- donors", "Write general neutralisation equations"],
+                notes: "Acid + Base → Salt + Water. Acid + Metal Carbonate → Salt + Water + Carbon Dioxide."
+              }
+            ]
+          },
+          "Maths": {
+            icon: "📐",
+            topics: [
+              {
+                id: "y9-maths-quadratics",
+                name: "Quadratics & Algebraic Manipulation",
+                subtopics: ["Expanding double brackets", "Factorising quadratics", "Solving x^2 + bx + c = 0"],
+                checklist: ["Expand (x+a)(x+b)", "Factorise quadratic expressions", "Solve quadratics by factorisation"],
+                notes: "To factorise x^2 + 5x + 6, find two numbers that multiply to 6 and add to 5: (x+2)(x+3)."
+              }
+            ]
+          },
+          "Physics": {
+            icon: "⚡",
+            topics: [
+              {
+                id: "y9-phys-waves",
+                name: "Waves & Wave Equation",
+                subtopics: ["Transverse and Longitudinal", "Wave speed equation v = f λ", "Sound & Ultrasound"],
+                checklist: ["Distinguish transverse vs longitudinal waves", "Use wave speed equation with correct units"],
+                notes: "Wave speed (m/s) = Frequency (Hz) × Wavelength (m)."
+              }
+            ]
+          }
         }
       },
       10: {
         title: "Year 10",
         description: "GCSE Core Curriculum",
         subjects: {
-          "Physics": [
-            { id: "y10-phys-waves", name: "Waves & Wave Equation", subtopics: ["Transverse & Longitudinal", "Wave Speed Equation", "Reflection & Refraction"] }
-          ]
+          "Biology": {
+            icon: "🧬",
+            topics: [
+              {
+                id: "y10-bio-genetics",
+                name: "B3 Genetics & Inheritance",
+                subtopics: ["DNA structure", "Monohybrid crosses", "Punnett squares", "Sex determination"],
+                checklist: ["Define dominant, recessive, homozygous, heterozygous", "Construct 2x2 Punnett squares"],
+                notes: "DNA is a double-helix polymer carrying genetic code in base pairs (A-T, C-G)."
+              }
+            ]
+          },
+          "Computer Science": {
+            icon: "💻",
+            topics: [
+              {
+                id: "y10-cs-algo",
+                name: "Algorithms & Search/Sort",
+                subtopics: ["Binary search", "Linear search", "Bubble sort", "Insertion sort", "Pseudocode"],
+                checklist: ["Trace binary search algorithm", "Compare efficiency of Bubble vs Insertion sort"],
+                notes: "Binary search requires an ordered list. Time complexity is logarithmic O(log n)."
+              }
+            ]
+          },
+          "English Literature": {
+            icon: "📚",
+            examInfo: "AQA English Literature Paper 2 — Macbeth & Power and Conflict Poetry",
+            topics: [
+              {
+                id: "y10-eng-macbeth",
+                name: "Shakespeare's Macbeth",
+                subtopics: ["Ambition", "Kingship vs Tyranny", "Supernatural", "Guilt", "Key Extracts"],
+                checklist: ["Memorise key quotations for Macbeth and Lady Macbeth", "Understand Jacobean context and Divine Right of Kings"],
+                notes: "'Vaulting ambition, which o'erleaps itself...' Context: James I, Gunpowder Plot 1606, Witchcraft."
+              }
+            ]
+          }
         }
       }
     };
 
-    // State Engine & Router
+    /**
+     * STATE ENGINE & ROUTER
+     */
     class StudyHubApp {
       constructor() {
         this.currentView = 'home';
+        this.routeParams = {};
         this.progress = JSON.parse(localStorage.getItem('studyhub_progress') || '{}');
+        this.bookmarks = JSON.parse(localStorage.getItem('studyhub_bookmarks') || '[]');
+        this.recentTopics = JSON.parse(localStorage.getItem('studyhub_recent') || '[]');
         this.activeContext = { year: null, subject: null, topic: null };
-        this.init();
+
+        window.addEventListener('hashchange', () => this.handleHashChange());
       }
 
       init() {
-        this.render();
+        this.handleHashChange();
       }
 
       toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme');
+        const doc = document.documentElement;
+        const current = doc.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
+        doc.setAttribute('data-theme', next);
       }
 
       navigate(view, params = {}) {
         this.currentView = view;
-        this.params = params;
-        this.render();
+        this.routeParams = params;
+
+        let hash = view;
+        if (view === 'year') hash = `year/${params.year}`;
+        if (view === 'subject') hash = `year/${params.year}/${params.subject.toLowerCase()}`;
+        if (view === 'topic') hash = `year/${params.year}/${params.subject.toLowerCase()}/${params.topicId}`;
+        
+        window.location.hash = hash;
+      }
+
+      handleHashChange() {
+        const rawHash = window.location.hash.replace('#', '');
+        if (!rawHash) {
+          this.renderView('home');
+          return;
+        }
+
+        const parts = rawHash.split('/');
+        if (parts[0] === 'year' && parts[1]) {
+          const year = parseInt(parts[1]);
+          if (parts[2] && parts[3]) {
+            this.renderView('topic', { year, subjectKey: parts[2], topicId: parts[3] });
+          } else if (parts[2]) {
+            this.renderView('subject', { year, subjectKey: parts[2] });
+          } else {
+            this.renderView('year', { year });
+          }
+        } else {
+          this.renderView(parts[0]);
+        }
         window.scrollTo(0, 0);
       }
 
-      toggleChecklist(id) {
-        this.progress[id] = !this.progress[id];
+      toggleChecklist(key) {
+        this.progress[key] = !this.progress[key];
         localStorage.setItem('studyhub_progress', JSON.stringify(this.progress));
-        this.render();
+        this.updateView();
       }
 
-      toggleAI() {
-        const panel = document.getElementById('ai-panel');
+      toggleBookmark(topicId) {
+        const idx = this.bookmarks.indexOf(topicId);
+        if (idx > -1) this.bookmarks.splice(idx, 1);
+        else this.bookmarks.push(topicId);
+        localStorage.setItem('studyhub_bookmarks', JSON.stringify(this.bookmarks));
+        this.updateView();
+      }
+
+      trackRecentTopic(topic) {
+        this.recentTopics = this.recentTopics.filter(t => t.id !== topic.id);
+        this.recentTopics.unshift(topic);
+        if (this.recentTopics.length > 5) this.recentTopics.pop();
+        localStorage.setItem('studyhub_recent', JSON.stringify(this.recentTopics));
+      }
+
+      toggleAIWidget() {
+        const panel = document.getElementById('ai-widget-panel');
         panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
       }
 
-      sendAIMessage() {
+      sendQuickAIPrompt(promptText) {
+        document.getElementById('ai-user-input').value = promptText;
+        this.handleAISubmit();
+      }
+
+      handleAISubmit() {
         const input = document.getElementById('ai-user-input');
         const text = input.value.trim();
         if (!text) return;
 
-        const body = document.getElementById('ai-chat-messages');
-        body.innerHTML += `<p style="margin-top:0.5rem;"><strong>You:</strong> ${text}</p>`;
+        const history = document.getElementById('ai-chat-history');
+        history.innerHTML += `<div class="ai-message user">${text}</div>`;
         input.value = '';
 
-        // Simulated Context-Aware AI Response
+        // Simulated Context-Aware Response Fallback
         setTimeout(() => {
-          const topicName = this.activeContext.topic ? this.activeContext.topic.name : "General Revision";
-          body.innerHTML += `<p style="margin-top:0.5rem; color:var(--accent-primary);"><strong>StudyHub AI:</strong> Regarding <em>${topicName}</em>: Here is a breakdown to help you understand this concept better...</p>`;
-          body.scrollTop = body.scrollHeight;
+          const ctxName = this.activeContext.topic ? this.activeContext.topic.name : "General Revision";
+          let botReply = `Based on <strong>${ctxName}</strong>: Here is a breakdown of that concept to help you revise efficiently.`;
+          
+          if (text.toLowerCase().includes('question') || text.toLowerCase().includes('exam')) {
+            botReply = `<strong>Exam Practice Question (${ctxName}):</strong><br>Explain two key factors or steps involved in this topic. [4 Marks]<br><br><em>Hint: Structure your answer using clear points and detailed explanations.</em>`;
+          }
+
+          history.innerHTML += `<div class="ai-message bot">${botReply}</div>`;
+          history.scrollTop = history.scrollHeight;
         }, 600);
       }
 
-      render() {
+      updateView() {
+        this.handleHashChange();
+      }
+
+      renderView(view, params = {}) {
         const viewport = document.getElementById('app-viewport');
-        if (this.currentView === 'home') {
-          viewport.innerHTML = this.renderHome();
-        } else if (this.currentView === 'year') {
-          viewport.innerHTML = this.renderYearView(this.params.year);
-        } else if (this.currentView === 'topic') {
-          viewport.innerHTML = this.renderTopicView(this.params.year, this.params.subject, this.params.topic);
-        } else if (this.currentView === 'gcse-recap') {
-          viewport.innerHTML = this.renderGCSERecap();
-        } else if (this.currentView === 'progress') {
-          viewport.innerHTML = this.renderProgress();
-        }
+        this.currentView = view;
+
+        if (view === 'home') viewport.innerHTML = this.renderHome();
+        else if (view === 'year') viewport.innerHTML = this.renderYearView(params.year);
+        else if (view === 'subject') viewport.innerHTML = this.renderSubjectView(params.year, params.subjectKey);
+        else if (view === 'topic') viewport.innerHTML = this.renderTopicView(params.year, params.subjectKey, params.topicId);
+        else if (view === 'gcse-recap') viewport.innerHTML = this.renderGCSERecap();
+        else if (view === 'subjects') viewport.innerHTML = this.renderAllSubjects();
+        else if (view === 'progress') viewport.innerHTML = this.renderProgress();
+        else if (view === 'bookmarks') viewport.innerHTML = this.renderBookmarks();
+        else if (view === 'past-papers') viewport.innerHTML = this.renderPastPapers();
+        else viewport.innerHTML = `<div class="hero"><h1>404</h1><p>Topic not found.</p><button class="btn" onclick="app.navigate('home')">Back to Home</button></div>`;
       }
 
       renderHome() {
         this.activeContext = { year: null, subject: null, topic: null };
-        document.getElementById('ai-context-label').innerText = "Context: Home";
+        document.getElementById('ai-context-indicator').innerText = "Context: General";
 
         return `
           <section class="hero">
+            <span class="badge" style="margin-bottom:1rem;">UK Secondary & Grammar Revision</span>
             <h1>Your revision. Organised.</h1>
             <p>Find your subjects, topics, revision notes and practice resources all in one place.</p>
-            <div class="search-box">
-              <input type="text" placeholder="Search for a subject, topic or subtopic (e.g. Atomic Structure)..." oninput="app.handleSearch(this.value)">
+            <div class="hero-buttons">
+              <button class="btn" onclick="app.navigate('year', {year: 9})">Start Revising</button>
+              <button class="btn btn-secondary" onclick="app.navigate('subjects')">Explore Subjects</button>
+            </div>
+
+            <div class="search-container">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" placeholder="Search for a subject, topic or subtopic (e.g. Atomic Structure)..." oninput="app.handleGlobalSearch(this.value)">
+              <div id="search-results-dropdown" style="text-align:left;"></div>
             </div>
           </section>
 
-          <h2>Select Your Year Group</h2>
+          <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:1rem;">Select Year Group</h2>
           <div class="grid">
             <div class="card" onclick="app.navigate('year', {year: 7})">
-              <span class="badge">Key Stage 3</span>
-              <div class="card-title">Year 7</div>
-              <div class="card-desc">Foundational concepts in Sciences, Maths, and Humanities.</div>
+              <div>
+                <span class="badge">Key Stage 3</span>
+                <div class="card-title" style="margin-top:0.5rem;">Year 7</div>
+                <div class="card-desc">Foundational concepts in Sciences, Maths, Humanities, and Languages.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm">Explore Year 7 →</button>
             </div>
+
             <div class="card" onclick="app.navigate('year', {year: 8})">
-              <span class="badge">Key Stage 3</span>
-              <div class="card-title">Year 8</div>
-              <div class="card-desc">Intermediate depth and skills consolidation.</div>
+              <div>
+                <span class="badge">Key Stage 3</span>
+                <div class="card-title" style="margin-top:0.5rem;">Year 8</div>
+                <div class="card-desc">Intermediate skills consolidation and subject depth.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm">Explore Year 8 →</button>
             </div>
+
             <div class="card" onclick="app.navigate('year', {year: 9})">
-              <span class="badge">GCSE Foundation</span>
-              <div class="card-title">Year 9</div>
-              <div class="card-desc">Start of GCSE preparation and core concepts.</div>
+              <div>
+                <span class="badge">GCSE Foundation</span>
+                <div class="card-title" style="margin-top:0.5rem;">Year 9</div>
+                <div class="card-desc">GCSE preparation and core curriculum topic mastery.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm">Explore Year 9 →</button>
             </div>
+
             <div class="card" onclick="app.navigate('year', {year: 10})">
-              <span class="badge">GCSE Core</span>
-              <div class="card-title">Year 10</div>
-              <div class="card-desc">Full GCSE curriculum and exam specs.</div>
+              <div>
+                <span class="badge">GCSE Core</span>
+                <div class="card-title" style="margin-top:0.5rem;">Year 10</div>
+                <div class="card-desc">Full GCSE specification topics and exam-level material.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm">Explore Year 10 →</button>
             </div>
+
             <div class="card" style="border-color: var(--accent-primary);" onclick="app.navigate('gcse-recap')">
-              <span class="badge" style="background:var(--accent-gradient); color:white;">Year 11</span>
-              <div class="card-title">GCSE Recap</div>
-              <div class="card-desc">Consolidate and review Year 9 & 10 GCSE content.</div>
+              <div>
+                <span class="badge" style="background:var(--accent-gradient); color:white;">Year 11</span>
+                <div class="card-title" style="margin-top:0.5rem;">GCSE Recap</div>
+                <div class="card-desc">Consolidate and review GCSE material from Years 9 & 10.</div>
+              </div>
+              <button class="btn btn-sm">Open GCSE Recap →</button>
             </div>
           </div>
+
+          ${this.recentTopics.length > 0 ? `
+            <div style="margin-top:3rem;">
+              <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:1rem;">Continue Revising</h2>
+              <div class="grid">
+                ${this.recentTopics.map(t => `
+                  <div class="card" onclick="app.navigate('topic', {year: ${t.year}, subjectKey: '${t.subject.toLowerCase()}', topicId: '${t.id}'})">
+                    <div class="card-title">${t.name}</div>
+                    <div class="card-desc">Year ${t.year} ${t.subject}</div>
+                    <button class="btn btn-secondary btn-sm">Resume →</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
         `;
       }
 
       renderYearView(year) {
-        const yearData = CURRICULUM[year];
-        if (!yearData) return `<p>Year data coming soon.</p>`;
+        const yearData = CURRICULUM_DATA[year];
+        if (!yearData) return `<div class="hero"><h1>Year ${year}</h1><p>No content available yet.</p></div>`;
 
         let subjectsHtml = '';
-        for (const [subjectName, topics] of Object.entries(yearData.subjects)) {
+        for (const [subName, subObj] of Object.entries(yearData.subjects)) {
+          const topicCount = subObj.topics.length;
           subjectsHtml += `
-            <div class="card">
-              <div class="card-title">${subjectName}</div>
-              <div class="card-desc">${topics.length} Key Topics</div>
-              <div style="margin-top:1rem;">
-                ${topics.map(t => `<div style="padding:0.25rem 0; font-size:0.9rem; color:var(--text-muted);" onclick="app.navigate('topic', {year:${year}, subject:'${subjectName}', topic:'${t.id}'})">• ${t.name}</div>`).join('')}
+            <div class="card" onclick="app.navigate('subject', {year: ${year}, subjectKey: '${subName.toLowerCase()}'})">
+              <div>
+                <div class="card-header">
+                  <span class="card-icon">${subObj.icon || '📖'}</span>
+                  <span class="badge">${topicCount} Topics</span>
+                </div>
+                <div class="card-title">${subName}</div>
+                <div class="card-desc">Year ${year} ${subName} curriculum modules.</div>
               </div>
+              <button class="btn btn-secondary btn-sm">View Topics →</button>
             </div>
           `;
         }
 
         return `
-          <div class="topic-header">
-            <button class="action-btn secondary" onclick="app.navigate('home')">← Back</button>
-            <h1 style="margin-top:1rem;">${yearData.title} Revision</h1>
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>Year ${year}</span>
+          </div>
+
+          <div style="margin-bottom:2rem;">
+            <h1>${yearData.title} Subjects</h1>
             <p style="color:var(--text-muted);">${yearData.description}</p>
           </div>
+
           <div class="grid">${subjectsHtml}</div>
         `;
       }
 
-      renderTopicView(year, subjectName, topicId) {
-        const topic = CURRICULUM[year]?.subjects[subjectName]?.find(t => t.id === topicId);
-        if (!topic) return `<p>Topic content available soon.</p>`;
+      renderSubjectView(year, subjectKey) {
+        const yearData = CURRICULUM_DATA[year];
+        if (!yearData) return '<p>Year not found.</p>';
 
-        this.activeContext = { year, subject: subjectName, topic };
-        document.getElementById('ai-context-label').innerText = `Context: Year ${year} ${subjectName} > ${topic.name}`;
-
-        const checklist = topic.checklist || ["Understand core definitions", "Memorise key terms", "Complete practice questions"];
+        const subjectName = Object.keys(yearData.subjects).find(s => s.toLowerCase() === subjectKey.toLowerCase());
+        const subjectObj = yearData.subjects[subjectName];
+        if (!subjectObj) return '<p>Subject not found.</p>';
 
         return `
-          <div class="topic-header">
-            <button class="action-btn secondary" onclick="app.navigate('year', {year:${year}})">← Back to ${subjectName}</button>
-            <h1 style="margin-top:1rem;">${topic.name}</h1>
-            <span class="badge">Year ${year} ${subjectName}</span>
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <a onclick="app.navigate('year', {year: ${year}})">Year ${year}</a>
+            <span class="separator">/</span>
+            <span>${subjectName}</span>
           </div>
 
-          <div style="margin-bottom: 2rem;">
-            <h2>Revision Checklist</h2>
-            <div style="margin-top: 1rem;">
-              ${checklist.map((item, idx) => {
-                const key = `${topicId}-${idx}`;
-                const checked = this.progress[key] ? 'checked' : '';
-                return `
-                  <div class="checklist-item" onclick="app.toggleChecklist('${key}')">
-                    <input type="checkbox" ${checked}>
-                    <span>${item}</span>
-                  </div>
-                `;
-              }).join('')}
+          <div style="margin-bottom:2rem;">
+            <div style="display:flex; align-items:center; gap:1rem;">
+              <span style="font-size:2.5rem;">${subjectObj.icon || '📖'}</span>
+              <div>
+                <h1>Year ${year} ${subjectName}</h1>
+                <p style="color:var(--text-muted);">Select a topic to start reading notes, ticking checklists, or attempting practice prompts.</p>
+              </div>
+            </div>
+            ${subjectObj.examInfo ? `<div style="margin-top:1rem; padding:0.85rem; background:rgba(99,102,241,0.1); border-left:3px solid var(--accent-primary); font-size:0.9rem;"><strong>Exam Info:</strong> ${subjectObj.examInfo}</div>` : ''}
+          </div>
+
+          <h2>Topics</h2>
+          <div class="grid">
+            ${subjectObj.topics.map(t => `
+              <div class="card" onclick="app.navigate('topic', {year: ${year}, subjectKey: '${subjectKey}', topicId: '${t.id}'})">
+                <div>
+                  <div class="card-title">${t.name}</div>
+                  <div class="card-desc">${t.subtopics ? t.subtopics.join(', ') : 'Revision notes & checklist.'}</div>
+                </div>
+                <button class="btn btn-secondary btn-sm">Open Topic →</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      renderTopicView(year, subjectKey, topicId) {
+        const yearData = CURRICULUM_DATA[year];
+        const subjectName = Object.keys(yearData.subjects).find(s => s.toLowerCase() === subjectKey.toLowerCase());
+        const subjectObj = yearData.subjects[subjectName];
+        const topic = subjectObj.topics.find(t => t.id === topicId);
+
+        if (!topic) return '<p>Topic not found.</p>';
+
+        this.activeContext = { year, subject: subjectName, topic };
+        document.getElementById('ai-context-indicator').innerText = `Context: Year ${year} ${subjectName} > ${topic.name}`;
+        this.trackRecentTopic({ id: topic.id, name: topic.name, year, subject: subjectName });
+
+        const isBookmarked = this.bookmarks.includes(topic.id);
+        const checklist = topic.checklist || [];
+
+        return `
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <a onclick="app.navigate('year', {year: ${year}})">Year ${year}</a>
+            <span class="separator">/</span>
+            <a onclick="app.navigate('subject', {year: ${year}, subjectKey: '${subjectKey}'})">${subjectName}</a>
+            <span class="separator">/</span>
+            <span>${topic.name}</span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;">
+            <div>
+              <span class="badge">Year ${year} ${subjectName}</span>
+              <h1 style="margin-top:0.4rem;">${topic.name}</h1>
+              <p style="color:var(--text-muted);">${topic.overview || 'Structured revision material and checklist.'}</p>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" onclick="app.toggleBookmark('${topic.id}')">
+                ${isBookmarked ? '★ Saved' : '☆ Save Topic'}
+              </button>
+              <button class="btn btn-sm" onclick="window.print()">Print Notes</button>
             </div>
           </div>
 
-          <div style="margin-bottom: 2rem;">
-            <h2>Revision Notes</h2>
-            <div class="card" style="margin-top: 1rem; cursor:default;">
-              <p>${topic.notes || "Detailed specification notes available for this topic."}</p>
+          <div class="topic-layout">
+            <div>
+              <!-- Revision Checklist -->
+              <div class="content-box">
+                <h2>Interactive Revision Checklist</h2>
+                <div class="checklist-group">
+                  ${checklist.map((item, idx) => {
+                    const ckKey = `${topic.id}-ck-${idx}`;
+                    const done = !!this.progress[ckKey];
+                    return `
+                      <div class="checklist-item ${done ? 'completed' : ''}" onclick="app.toggleChecklist('${ckKey}')">
+                        <input type="checkbox" ${done ? 'checked' : ''}>
+                        <span>${item}</span>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- Notes -->
+              <div class="content-box">
+                <h2>Revision Notes</h2>
+                <div>${topic.notes || '<p>Detailed specification notes loading...</p>'}</div>
+                <div style="margin-top:1.5rem; display:flex; gap:0.5rem;">
+                  <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText('${topic.name} Notes...').then(() => alert('Notes copied to clipboard!'))">Copy Notes</button>
+                </div>
+              </div>
+
+              <!-- Copy-and-Paste AI Practice Prompt Generator -->
+              <div class="ai-prompt-box">
+                <h3>Generate Copy-and-Paste AI Practice Prompt</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Copy this prompt and paste it into ChatGPT, Claude, or any AI tool to generate an interactive tutor quiz tailored specifically to this topic.</p>
+                <textarea class="ai-prompt-textarea" readonly id="ai-practice-prompt-text">
+I am a Year ${year} student revising ${subjectName} in the UK curriculum.
+
+Subject: ${subjectName}
+Topic: ${topic.name}
+Subtopics: ${topic.subtopics ? topic.subtopics.join(', ') : 'General'}
+
+Please act as a revision tutor.
+
+Create 10 practice questions based ONLY on the topic above.
+
+Rules:
+1. Ask one question at a time.
+2. Do not immediately reveal the answer.
+3. Wait for my response before marking.
+4. Mark my answer out of 2, explain mistakes, and give hints if needed.
+5. Keep question difficulty appropriate for Year ${year} level.
+6. At the end, provide a total score breakdown and next revision steps.
+
+Start with Question 1.
+                </textarea>
+                <button class="btn" onclick="navigator.clipboard.writeText(document.getElementById('ai-practice-prompt-text').value).then(() => alert('AI Practice Prompt copied!'))">Copy Prompt</button>
+              </div>
             </div>
-            <button class="action-btn" onclick="window.print()">Print Notes</button>
-            <button class="action-btn secondary" onclick="navigator.clipboard.writeText('${topic.notes || ''}'); alert('Notes copied!');">Copy Notes</button>
+
+            <!-- Sidebar -->
+            <div>
+              <div class="content-box">
+                <h3>Subtopics</h3>
+                <ul style="font-size:0.85rem; padding-left:1rem; color:var(--text-muted);">
+                  ${topic.subtopics ? topic.subtopics.map(st => `<li>${st}</li>`).join('') : '<li>General Overview</li>'}
+                </ul>
+              </div>
+
+              <div class="content-box">
+                <h3>Quick Actions</h3>
+                <button class="btn btn-secondary btn-sm" style="width:100%; margin-bottom:0.5rem;" onclick="app.toggleAIWidget()">Ask AI Assistant</button>
+                <button class="btn btn-secondary btn-sm" style="width:100%;" onclick="app.navigate('past-papers')">Find Past Papers</button>
+              </div>
+            </div>
           </div>
         `;
       }
 
       renderGCSERecap() {
         return `
-          <div class="topic-header">
-            <button class="action-btn secondary" onclick="app.navigate('home')">← Back Home</button>
-            <h1 style="margin-top:1rem;">Year 11 / GCSE Recap Mode</h1>
-            <p style="color:var(--text-muted);">Consolidate and review GCSE material from Years 9 and 10.</p>
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>GCSE Recap</span>
           </div>
+
+          <div style="margin-bottom:2rem;">
+            <h1>Year 11 / GCSE Recap Mode</h1>
+            <p style="color:var(--text-muted);">Year 11 is focused on consolidating GCSE knowledge. Use StudyHub to revisit GCSE subjects and topics studied in Years 9 and 10.</p>
+          </div>
+
+          <h2>Select a GCSE Year Group to Recap</h2>
           <div class="grid">
             <div class="card" onclick="app.navigate('year', {year: 9})">
-              <div class="card-title">Year 9 GCSE Foundations</div>
-              <div class="card-desc">Review core topics introduced in Year 9.</div>
+              <div class="card-title">Year 9 GCSE Topics</div>
+              <div class="card-desc">Review foundational GCSE material in Sciences, Maths, and Humanities.</div>
+              <button class="btn btn-secondary btn-sm">Recap Year 9 →</button>
             </div>
+
             <div class="card" onclick="app.navigate('year', {year: 10})">
-              <div class="card-title">Year 10 GCSE Content</div>
-              <div class="card-desc">Review depth specification material from Year 10.</div>
+              <div class="card-title">Year 10 GCSE Topics</div>
+              <div class="card-desc">Review depth GCSE specification modules and exam content.</div>
+              <button class="btn btn-secondary btn-sm">Recap Year 10 →</button>
             </div>
+          </div>
+        `;
+      }
+
+      renderAllSubjects() {
+        return `
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>All Subjects</span>
+          </div>
+
+          <h1>Explore All Curriculum Subjects</h1>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Select a year group to access tailored subject materials.</p>
+
+          <div class="grid">
+            <div class="card" onclick="app.navigate('year', {year:7})"><div class="card-title">Year 7 Subjects</div></div>
+            <div class="card" onclick="app.navigate('year', {year:8})"><div class="card-title">Year 8 Subjects</div></div>
+            <div class="card" onclick="app.navigate('year', {year:9})"><div class="card-title">Year 9 Subjects</div></div>
+            <div class="card" onclick="app.navigate('year', {year:10})"><div class="card-title">Year 10 Subjects</div></div>
           </div>
         `;
       }
 
       renderProgress() {
-        const completedCount = Object.values(this.progress).filter(Boolean).length;
+        const totalChecked = Object.values(this.progress).filter(Boolean).length;
         return `
-          <div class="topic-header">
-            <h1>My Revision Progress</h1>
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>My Progress</span>
           </div>
-          <div class="card">
-            <div class="card-title">Checklist Progress</div>
-            <p style="font-size: 2rem; font-weight:800; color:var(--accent-primary); margin: 0.5rem 0;">${completedCount} Items Completed</p>
-            <p class="card-desc">Progress is saved automatically to local storage.</p>
+
+          <h1>My Revision Progress</h1>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Track your completed topic checklists across all year groups.</p>
+
+          <div class="content-box">
+            <h2>Overall Checklist Items Completed</h2>
+            <div style="font-size: 2.5rem; font-weight:800; color:var(--accent-primary);">${totalChecked}</div>
+            <p style="color:var(--text-muted);">Progress is saved automatically in your browser's local storage.</p>
           </div>
         `;
       }
 
-      handleSearch(query) {
-        if (!query.trim()) return;
-        // Search filter handling can mount rendered search cards directly to the main viewport
+      renderBookmarks() {
+        return `
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>Saved Topics</span>
+          </div>
+
+          <h1>Saved Topics</h1>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Your bookmarked topics for quick access.</p>
+
+          ${this.bookmarks.length === 0 ? '<p>No saved topics yet. Click "☆ Save Topic" on any topic page.</p>' : `
+            <div class="grid">
+              ${this.bookmarks.map(id => `<div class="card"><div class="card-title">Topic ${id}</div></div>`).join('')}
+            </div>
+          `}
+        `;
+      }
+
+      renderPastPapers() {
+        return `
+          <div class="breadcrumbs">
+            <a onclick="app.navigate('home')">Home</a>
+            <span class="separator">/</span>
+            <span>Past Papers & Resources</span>
+          </div>
+
+          <h1>Past Papers & External Resources</h1>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Access official exam board resources and verified study links.</p>
+
+          <div class="grid">
+            <div class="card">
+              <div class="card-title">AQA Assessment Resources</div>
+              <div class="card-desc">Official past papers and mark schemes for AQA GCSEs.</div>
+              <a href="https://www.aqa.org.uk/find-past-papers-and-mark-schemes" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Visit AQA ↗</a>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Edexcel Pearson Resources</div>
+              <div class="card-desc">Official past papers for Edexcel qualifications.</div>
+              <a href="https://qualifications.pearson.com/en/support/support-topics/exams/past-papers.html" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Visit Edexcel ↗</a>
+            </div>
+
+            <div class="card">
+              <div class="card-title">OCR Past Papers</div>
+              <div class="card-desc">Find papers and mark schemes for OCR GCSE subjects.</div>
+              <a href="https://www.ocr.org.uk/qualifications/past-paper-finder/" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Visit OCR ↗</a>
+            </div>
+          </div>
+        `;
+      }
+
+      handleGlobalSearch(query) {
+        const dropdown = document.getElementById('search-results-dropdown');
+        if (!query.trim()) {
+          dropdown.innerHTML = '';
+          return;
+        }
+
+        const matches = [];
+        const q = query.toLowerCase();
+
+        for (const [y, yObj] of Object.entries(CURRICULUM_DATA)) {
+          for (const [sName, sObj] of Object.entries(yObj.subjects)) {
+            for (const t of sObj.topics) {
+              if (t.name.toLowerCase().includes(q) || (t.subtopics && t.subtopics.some(st => st.toLowerCase().includes(q)))) {
+                matches.push({ year: y, subject: sName, topic: t });
+              }
+            }
+          }
+        }
+
+        if (matches.length === 0) {
+          dropdown.innerHTML = `<div style="padding:1rem; background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:0.5rem; color:var(--text-muted);">No matching topics found.</div>`;
+          return;
+        }
+
+        dropdown.innerHTML = `
+          <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-md); margin-top:0.5rem; max-height:250px; overflow-y:auto; box-shadow:var(--shadow-lg);">
+            ${matches.map(m => `
+              <div style="padding:0.75rem 1rem; border-bottom:1px solid var(--border-color); cursor:pointer;" onclick="app.navigate('topic', {year:${m.year}, subjectKey:'${m.subject.toLowerCase()}', topicId:'${m.topic.id}'})">
+                <strong>${m.topic.name}</strong>
+                <div style="font-size:0.75rem; color:var(--text-muted);">Year ${m.year} ${m.subject}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
       }
     }
 
+    // Launch Application
     const app = new StudyHubApp();
+    window.onload = () => app.init();
   </script>
 </body>
 </html>
