@@ -152,8 +152,9 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 1.5rem;
+      align-items: start;
     }
 
     .card {
@@ -162,12 +163,21 @@
       border-radius: var(--radius);
       padding: 1.25rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.25s ease-in-out;
+      cursor: pointer;
+      position: relative;
     }
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: var(--primary);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
     .card-subject {
@@ -183,6 +193,19 @@
       font-size: 1.15rem;
       font-weight: 600;
       margin-bottom: 0.75rem;
+    }
+
+    .expand-badge {
+      font-size: 0.75rem;
+      background: var(--accent);
+      color: var(--primary-dark);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
     }
 
     .card-list {
@@ -203,6 +226,63 @@
       left: 0;
       color: var(--primary);
       font-weight: bold;
+    }
+
+    /* Detailed Notes Expansion Panel */
+    .notes-panel {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+      border-top: 0px solid var(--border);
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .card.expanded .notes-panel {
+      max-height: 1000px;
+      opacity: 1;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+
+    .card.expanded {
+      border-color: var(--primary);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12);
+    }
+
+    .notes-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .notes-content {
+      font-size: 0.9rem;
+      color: #334155;
+      background: var(--bg);
+      padding: 0.85rem;
+      border-radius: 6px;
+      line-height: 1.6;
+    }
+
+    .notes-content ul {
+      margin-left: 1.2rem;
+      margin-top: 0.4rem;
+    }
+
+    .notes-content p {
+      margin-bottom: 0.5rem;
+    }
+
+    .notes-content strong {
+      color: var(--text);
     }
 
     .empty-state {
@@ -250,175 +330,104 @@
     const CURRICULUM_DATA = {
       7: {
         "Biology": [
-          { title: "Cells", items: ["Basic unit of life (Animal vs. Plant cells)", "Cell structure, similarities, differences & organelle functions", "Light Microscope: Parts and operation", "Life processes and cell specialisation", "Cell organisation: Tissue → Organ → Organ System"] },
-          { title: "Flowering Plant Reproduction", items: ["Flower structure and organ functions", "Pollination: Insect vs. Wind adaptation comparison", "Fertilisation process", "Seed structure and dispersal mechanisms", "Fruit adaptations for dispersal agents"] },
-          { title: "Variation & Classification", items: ["Genetic vs. Environmental variation", "Reasons for biological classification & Binomial system", "Kingdoms and key classification features", "Phylum Arthropoda & Class Insecta features", "Phylum Vertebrate and main plant group classification"] },
-          { title: "Fitness & Health (Lungs & Breathing)", items: ["Lung structure and breathing mechanics", "Gas exchange in Alveoli: structure, function and adaptations", "Health impact of smoking on respiratory systems"] }
+          { 
+            title: "Cells", 
+            items: ["Animal vs. Plant cells", "Organelle functions", "Light Microscope use", "Cell organisation"],
+            notes: "<p><strong>Key Definitions:</strong></p><ul><li><strong>Nucleus:</strong> Controls cell activity and contains DNA.</li><li><strong>Cytoplasm:</strong> Site of chemical reactions.</li><li><strong>Cell Membrane:</strong> Controls what enters and leaves the cell.</li><li><strong>Mitochondria:</strong> Site of aerobic respiration releasing energy.</li><li><strong>Plant Only:</strong> Chloroplasts (photosynthesis), Cell Wall (cellulose structure), Permanent Vacuole (cell sap).</li></ul><p><strong>Organisation Hierarchy:</strong> Cell → Tissue → Organ → Organ System → Organism.</p>"
+          },
+          { 
+            title: "Flowering Plant Reproduction", 
+            items: ["Flower structure", "Pollination adaptations", "Fertilisation", "Seed dispersal"],
+            notes: "<p><strong>Parts & Functions:</strong></p><ul><li><strong>Stamen (Male):</strong> Anther (produces pollen) & Filament.</li><li><strong>Carpel (Female):</strong> Stigma (sticky top), Style, & Ovary (contains ovules).</li><li><strong>Pollination Types:</strong> Insect-pollinated (bright petals, nectar, sticky pollen) vs. Wind-pollinated (feathery stigma outside flower, light pollen).</li></ul>"
+          },
+          {
+            title: "Fitness & Health (Lungs)",
+            items: ["Respiratory system", "Gas exchange in Alveoli", "Smoking impact"],
+            notes: "<p><strong>Gas Exchange:</strong> Occurs in the alveoli by diffusion. Oxygen moves into capillaries; carbon dioxide moves into alveoli.</p><p><strong>Alveoli Adaptations:</strong> Thin walls (one cell thick), large surface area, moist lining, dense capillary network.</p>"
+          }
         ],
         "Chemistry": [
-          { title: "Core Fundamentals & Safety", items: ["Lab safety rules and hazard symbols", "Particle Theory: States of matter & state changes", "Elements, Mixtures, and Compounds", "Solubility and separation techniques (Filtration, Evaporation, Chromatography)"] }
-        ],
-        "English": [
-          { title: "Romantic Poetry", items: ["'The Tyger' by William Blake", "'Ozymandias' by Percy Bysshe Shelley", "'London' by William Blake", "'Composed Upon Westminster Bridge' by William Wordsworth", "Historical context, language analysis, form, structure & literary argument"] }
-        ],
-        "French": [
-          { title: "Units 1–6 Foundation", items: ["Unit 1: Greetings, Personal details, Numbers 1–20, 'il y a', Noun genders & plurals", "Unit 2: J'habite ici, Numbers 1–30, Days of the week, Regular -er verbs", "Unit 3: Chez moi, Family, House descriptions, 'être' and 'avoir' (singular)", "Unit 4 & 5: Les Animaux, Birthdays, Adjective agreement, Negatives", "Unit 6: Weather, Seasons, Sports, 'faire' and 'quand'"] }
-        ],
-        "Geography": [
-          { title: "Foundations of Geography", items: ["What is Geography & UK place geography", "Mapwork: Ordnance Survey maps, grid references, scale", "Settlement types and growth factors", "Coasts: Landforms and erosion processes"] }
-        ],
-        "History": [
-          { title: "Medieval & World Enquiries", items: ["Why is 1066 one of the most famous dates in English history?", "Power struggle: The Crown vs. The Church", "Does King John deserve his terrible reputation?", "Life of medieval peasants: Reality vs. myth", "European and Native American encounters"] }
+          { 
+            title: "Core Fundamentals & Safety", 
+            items: ["Lab safety & hazard symbols", "Particle Theory", "Elements vs Compounds", "Separation techniques"],
+            notes: "<p><strong>States of Matter:</strong></p><ul><li><strong>Solids:</strong> Tight lattice, fixed shape/volume, vibrate in place.</li><li><strong>Liquids:</strong> Close particles, slide past each other, fixed volume.</li><li><strong>Gases:</strong> Random motion, far apart, compressible.</li></ul><p><strong>Separation:</strong> Filtration (insoluble solid + liquid), Evaporation (solute + solvent), Chromatography (separating dissolved dyes).</p>"
+          }
         ],
         "Maths": [
-          { title: "Numbers & Arithmetic", items: ["Factors, Multiples, HCF and LCM word problems", "Positive/Negative numbers & BIDMAS order of operations", "Written non-calculator methods and calculator strategies", "Powers, Square Roots, Decimals & Fractions arithmetic"] },
-          { title: "Algebra & Shape", items: ["Substitution, Simplifying, Formulae & Expanding single brackets", "Solving linear equations & forming equations", "Perimeter, Area of Polygons (Triangles, Parallelograms, Trapezia)", "Surface Area and Volume of Cubes and Cuboids"] },
-          { title: "Data, Graphs & Angles", items: ["Probability calculations and 2D Sample Spaces", "Angles in Triangles, Quadrilaterals, Points & Parallel lines", "Sequences (nth term), 4-Quadrant Graphs ($y=ax$, $x\\pm y=a$)", "Ratio simplification and sharing problems"] }
-        ],
-        "Physics": [
-          { title: "Forces, Electricity & Space", items: ["Static electricity, conductors, insulators, series & parallel circuits", "Forces, Mass vs. Weight, Speed ($d=v\\times t$), Distance-time graphs", "Balanced vs. unbalanced forces", "The Solar System, Moon phases, Eclipses, Seasons, Day & Night"] }
+          { 
+            title: "Numbers & Arithmetic", 
+            items: ["Factors, Multiples, HCF & LCM", "BIDMAS rules", "Powers & Square roots", "Fractions arithmetic"],
+            notes: "<p><strong>BIDMAS Order:</strong> Brackets, Indices, Division/Multiplication (left-to-right), Addition/Subtraction (left-to-right).</p><p><strong>Definitions:</strong></p><ul><li><strong>HCF:</strong> Highest Common Factor (largest number that divides into both).</li><li><strong>LCM:</strong> Lowest Common Multiple (smallest multiple shared by both).</li></ul>"
+          }
         ]
       },
       8: {
         "Biology": [
-          { title: "Fitness & Health", items: ["Relating body systems to fitness and individual energy requirements", "Balanced diet components (Carbs, Proteins, Fats, Vitamins, Minerals, Water)", "Effects of alcohol and main drug classes on bodily functions"] },
-          { title: "Heart & Circulation", items: ["Need for circulatory systems in animals", "Structure and function of Arteries, Veins, and Capillaries", "Mammalian heart structure, chamber identification, and blood flow path"] },
-          { title: "Bones, Joints & Digestion", items: ["Synovial joint structure, forearm bones, antagonistic muscle pairs", "Human gut structure, digestion stages, peristalsis", "Enzymes, optimal conditions, villus structure & small intestine absorption"] },
-          { title: "Reproduction", items: ["Male and female human reproductive organ structures and functions", "Fertilisation process"] }
-        ],
-        "Chemistry": [
-          { title: "Acids, Reactivity & Earth", items: ["pH scale and indicator solutions", "Acids, alkalis, and neutralisation reactions", "Patterns of metal reactivity", "Fuels, combustion, and global warming concepts", "Carrying out practical investigations & recap of Year 7 word equations"] }
-        ],
-        "Classical Civilisation": [
-          { title: "Gods, Heroes & Greek History", items: ["Tales of the Greek Heroes (Chapters 7-10, 12-16: Perseus, Heracles, Theseus, Jason)", "12 Olympian Gods: Iconography and domain", "Greek History: Minoans, Mycenaeans, Archaic Greece, Athenian Democracy, Theatre & 'Wasps'"] }
-        ],
-        "English": [
-          { title: "Literary Analysis: The Pearl", items: ["Extract analysis focusing on Steinbeck's language techniques", "PQA structure (Point-Quote-Analysis)", "Historical context links and critical academic register"] }
-        ],
-        "French": [
-          { title: "En ville, Des projets & En famille", items: ["En ville: Food, shopping, prices, -re/-ir verbs, partitives, negatives", "Des projets: Countries, sports, 'aller + infinitive', 'pouvoir + infinitive'", "Jeunesse: School, routines, 'prendre', comparatives, 'vouloir', 'lire'", "En famille: Reflexive verbs, Perfect tense, demonstratives ('ce/cette')"] }
-        ],
-        "Geography": [
-          { title: "Physical & Human Geography", items: ["Geology and UK energy use", "Hydrology and River landforms", "Europe and Population dynamic issues", "Oceans and marine ecosystems"] }
-        ],
-        "German": [
-          { title: "Units 0–3B Foundation", items: ["Greetings, Countries, Town, Numbers, Alphabet", "Unit 1A/B: Family, Pets, School subjects, Timetables, Word order ('Verb second')", "Unit 2A: Hobbies, Free time, Conjunctions ('weil', 'obwohl'), Time phrases", "Unit 2B/3B: Accommodation, Rooms, Prepositions + Dative, 'Es gibt + Accusative'"] }
-        ],
-        "History": [
-          { title: "Monarchy, Religion & Empire", items: ["Shakespeare's vs. historical interpretation of Richard III", "Tudor period religious turmoil", "King Charles I and the Civil War", "Transatlantic Slave Trade: Akan Kingdoms, Barbados, and Bristol"] }
-        ],
-        "Latin": [
-          { title: "Suburani Book 1 (Ch 1–10)", items: ["Vocabulary checklists 1–10", "Verbs: Present, Imperfect, Perfect tenses; Infinitives; 'volo', 'nolo', 'possum'", "Nouns: Nominative, Accusative, Dative, Ablative cases", "Prepositions, Superlative adjectives, 1st/2nd/3rd declension agreement"] }
-        ],
-        "Maths": [
-          { title: "Algebra, Number & Probability", items: ["Prime factorisation, HCF/LCM, Divisibility rules", "Linear equations with variables on both sides, Inequalities", "Mutually exclusive probability, Percentage multipliers for increase/decrease", "Sequences, nth term, Standard Form and Powers of 10"] },
-          { title: "Geometry & Transformations", items: ["Congruent & Similar Triangles, Pythagoras Theorem", "Circle Circumference & Area, Compound circle shapes, Prisms (Surface area/Volume)", "Straight Line Graphs ($y=mx+c$), Scatter graphs, Correlation", "Translations, Reflections, Rotations, Enlargements, Scale Constructions"] }
+          {
+            title: "Heart & Circulation",
+            items: ["Circulatory system need", "Blood vessel comparison", "Heart structure & pathway"],
+            notes: "<p><strong>Blood Vessels:</strong></p><ul><li><strong>Arteries:</strong> Thick muscular/elastic walls, narrow lumen, high pressure (blood away from heart).</li><li><strong>Veins:</strong> Thinner walls, wide lumen, valves to prevent backflow (blood to heart).</li><li><strong>Capillaries:</strong> Wall 1-cell thick for rapid diffusion.</li></ul><p><strong>Heart Flow:</strong> Vena Cava → Right Atrium → Right Ventricle → Pulmonary Artery → Lungs → Pulmonary Vein → Left Atrium → Left Ventricle (thickest wall) → Aorta.</p>"
+          }
         ],
         "Physics": [
-          { title: "Light, Heat & Pressure", items: ["Light: Reflection & Refraction ray diagrams, Colour dispersion", "Heat Transfer: Conduction, Convection, Radiation, Particle model", "Circuits: Voltage in series/parallel, Voltmeter placement", "Pressure: Solid pressure, Liquid depth pressure, Atmospheric pressure"] }
-        ],
-        "Spanish": [
-          { title: "Units 1–5 Foundation", items: ["Unit 1: Introductions, 'tener', Classroom stationery, Numbers 1–31", "Unit 2: Family, Pets, Physical & Personality description, 'ser'", "Unit 3: Free time, Sports ('jugar' vs. 'hacer'), Weather", "Unit 4: Home descriptions, Rooms, Prepositions of place, 'vivir'", "Unit 5: Places in town, 'ir' in present tense"] }
+          {
+            title: "Light & Optics",
+            items: ["Reflection ray diagrams", "Refraction principles", "Colour dispersion"],
+            notes: "<p><strong>Law of Reflection:</strong> Angle of Incidence ($i$) = Angle of Reflection ($r$).</p><p><strong>Refraction:</strong> Bending of light as it changes speed when entering a denser medium (bends towards normal) or less dense medium (bends away from normal).</p><p><strong>Dispersion:</strong> White light splits into 7 spectrum colours via a glass prism due to differing wavelengths.</p>"
+          }
         ]
       },
       9: {
         "Biology": [
-          { title: "GCSE Foundations", items: ["B1 Key Concepts in Biology (Microscopy, Plant/Animal/Bacteria cells, Enzymes, Transport in cells)", "B2 Cells and Control (Mitosis, Stem cells, Brain/Nervous system, Eye structure)"] }
+          {
+            title: "B1 Key Concepts in Biology",
+            items: ["Microscopy calculations", "Enzyme kinetics", "Active transport, Osmosis & Diffusion"],
+            notes: "<p><strong>Microscopy Formula:</strong> Magnification = Image Size ÷ Actual Size ($M = \frac{I}{A}$).</p><p><strong>Enzymes:</strong> Biological catalysts with active sites specific to substrates (Lock & Key model). Denature at high temperatures or extreme pH.</p><p><strong>Transport:</strong></p><ul><li><strong>Diffusion:</strong> Net movement from high to low concentration (passive).</li><li><strong>Osmosis:</strong> Diffusion of water across a partially permeable membrane from dilute to concentrated solution.</li><li><strong>Active Transport:</strong> Movement against concentration gradient using ATP energy.</li></ul>"
+          }
         ],
         "Chemistry": [
-          { title: "GCSE Topics (Edexcel 1-9)", items: ["Atomic structure & Periodic table organisation", "Balancing chemical equations & Writing chemical formulae", "Earth's atmosphere and Climate change drivers", "Obtaining and using metals & Reactivity series", "Acids, Bases, and Neutralisation reactions"] }
-        ],
-        "Classical Civilisation": [
-          { title: "The Iliad, Roman Army & Pompeii", items: ["The Iliad: Judgement of Paris, Achilles' actions, Oral tradition transmission", "The Roman Army: Punic Wars, Ranks, Caesar's Gallic Wars, Frontier forts (limes)", "Life in Pompeii: Houses, Society, Amphitheatre, Religion, Politics & Trade"] }
-        ],
-        "English": [
-          { title: "Shakespeare: The Merchant of Venice", items: ["In-depth text analysis of key scenes and characters", "PQA essay structure with quotation memorisation", "Historical context: Elizabethan era views, religion, and social hierarchy"] }
-        ],
-        "French": [
-          { title: "Paris, Work & Theme Parks", items: ["Paris: Sights, travel, Metro, Perfect tense with 'être' and 'avoir'", "French-speaking countries, leisure activities, Imperfect tense", "Work: School life, careers, 'il faut', 'aller + infinitive'", "Theme Parks: Hotel stays, summer activities, Future tense"] }
-        ],
-        "Geography": [
-          { title: "Environments & Subcontinent", items: ["Cold environments & Hot environments ecosystem characteristics", "Climate change evidence, causes, and impacts", "The Indian Subcontinent: Physical geography, tourism, development approaches"] }
-        ],
-        "German": [
-          { title: "Daily Routine, Holidays & Media", items: ["Daily Routine: Separable & Reflexive verbs in present tense", "Festivals & Celebrations: Modal verbs, Future tense, Conjunctions", "Travel: Accommodation, Dative prepositions, Perfect tense with 'haben/sein'", "Media: TV, Books, Film, Music, 3 timeframes together"] }
-        ],
-        "History": [
-          { title: "Modern World Enquiries", items: ["Who shot JFK? Conspiracy vs. official investigation evidence", "Britain's Industrial Age of Transformation (1750–1900)", "World War I controversies and key turning points", "World War II debates and global military strategies"] }
-        ],
-        "Latin": [
-          { title: "Suburani Book 1 & 2 (Ch 1–19)", items: ["All vocabulary lists 1–19", "Verbs: Active tenses (Present, Imperfect, Perfect, Pluperfect, Future); Irregular verbs", "Nouns & Adjectives: All 6 cases, 3 declensions, Degrees of comparison", "Relative Pronouns/Clauses, Imperatives, Indirect Statements, Demonstratives ('hic', 'ille', 'is')"] }
+          {
+            title: "Atomic Structure & Periodic Table",
+            items: ["Subatomic particles", "Atomic number vs Mass number", "Periodic Table groups"],
+            notes: "<p><strong>Subatomic Particles:</strong></p><ul><li><strong>Proton:</strong> Mass = 1, Charge = +1</li><li><strong>Neutron:</strong> Mass = 1, Charge = 0</li><li><strong>Electron:</strong> Mass = 1/1840, Charge = -1</li></ul><p><strong>Mass Number:</strong> Protons + Neutrons.<br><strong>Atomic Number:</strong> Protons = Electrons.</p>"
+          }
         ],
         "Maths": [
-          { title: "Algebra & Number Operations", items: ["Expanding double/triple brackets, Quadratic factorisation, Changing the subject", "Surds simplification, addition, and expansion", "Percentage compound interest & Bounds/Error intervals", "Algebraic fractions simplification and operations"] },
-          { title: "Geometry & Statistics", items: ["Polygon angles & Geometric proof / Congruency", "Pythagoras & Trigonometric ratios (SOH CAH TOA, Exact Trig Values)", "Simultaneous equations (Graphical, Elimination, Substitution)", "Cumulative Frequency diagrams, Scatter graphs, Two-way tables"] }
-        ],
-        "Physics": [
-          { title: "Electricity, Waves & Optics", items: ["Electricity: Current, potential difference, resistance in series/parallel", "Waves: Properties, sound, ear anatomy, ultrasound & seismic infrasound", "Energy: Transfers, power, efficiency, electricity generation", "Optics: Reflection, refraction, Total Internal Reflection (TIR), converging/diverging lenses", "Moments: Levers and Gear ratios"] }
-        ],
-        "Spanish": [
-          { title: "Food, Holidays & Fashion", items: ["Food: Restaurant ordering, healthy diet, 'gustar' singular/plural, 'tú' vs. 'usted'", "Holidays: Preterite tense regular/irregular verbs ('ir', 'hacer', 'ser')", "Latin America: Culture, music, impersonal 'se' construction", "Media & Fashion: Internet, clothing descriptions, Near future tense, Demonstratives"] }
+          {
+            title: "Trigonometry & Pythagoras",
+            items: ["Pythagoras Theorem", "SOH CAH TOA ratios", "Exact Trig values"],
+            notes: "<p><strong>Pythagoras:</strong> $a^2 + b^2 = c^2$ (where $c$ is the hypotenuse).</p><p><strong>Trig Ratios:</strong></p><ul><li>$\sin(\theta) = \frac{\text{Opposite}}{\text{Hypotenuse}}$</li><li>$\cos(\theta) = \frac{\text{Adjacent}}{\text{Hypotenuse}}$</li><li>$\tan(\theta) = \frac{\text{Opposite}}{\text{Adjacent}}$</li></ul><p><strong>Exact Values:</strong> $\sin(30^\circ) = 0.5$, $\cos(60^\circ) = 0.5$, $\tan(45^\circ) = 1$.</p>"
+          }
         ]
       },
       10: {
-        "Art & Design": [
-          { title: "Fine Art: Natural & Constructed Form", items: ["AO1: Independent artist research and contextual links", "AO2: Media experimentation and refining techniques", "AO3: Recording ideas through drawing, photography, and digital work", "AO4: Final personal outcome demonstrating realized intentions"] },
-          { title: "Graphics: SOW EASY Brief", items: ["AO1: Product and graphic designer research", "AO2: Typography, branding, and digital media studies", "AO3: Development sketches, layout planning, and mockups", "AO4: Final graphic solution responding directly to brief"] }
-        ],
         "Biology": [
-          { title: "Edexcel GCSE Units B1–B5", items: ["B1 Key Concepts: Cell structure, Microscopy, Enzymes, Transport", "B2 Cells & Control: Cell cycle, Mitosis, Nervous system, Eye", "B3 Genetics: Sexual vs. Asexual reproduction, Meiosis, DNA, Inheritance", "B4 Natural Selection: Darwin's theory, Selective breeding, Genetic engineering", "B5 Health & Disease: Pathogens, Immune system, Antibiotics, Monoclonal antibodies"] }
+          {
+            title: "B3 Genetics",
+            items: ["Sexual vs Asexual reproduction", "Meiosis & Mitosis", "DNA structure & Punnett squares"],
+            notes: "<p><strong>Mitosis vs Meiosis:</strong></p><ul><li><strong>Mitosis:</strong> Produces 2 genetically identical diploid daughter cells (growth & repair).</li><li><strong>Meiosis:</strong> Produces 4 genetically different haploid gametes (sexual reproduction).</li></ul><p><strong>DNA:</strong> Double-helix structure made of nucleotides (Phosphate, Sugar, Base: A-T, C-G).</p>"
+          }
         ],
         "Chemistry": [
-          { title: "Edexcel GCSE Modules", items: ["Atomic Structure, Periodic Table, Chemical Bonding & Structures", "Quantitative Chemistry: Moles, Limiting reagents, Reacting masses", "Acids, Bases, Salts, Reactivity Series & Extracting Metals", "Rates of Reaction, Reversible Reactions & Equilibrium", "Fuels, Crude Oil, Fractional Distillation, Cracking & Atmospheric Pollution"] }
-        ],
-        "Classical Civilisation": [
-          { title: "Myth and Religion", items: ["The Gods: Iconography, anthropomorphism, and domains", "Universal Hero: Heracles / Hercules myths and labors", "Religion & City: Sanctuaries, Temple architecture, Priests, Sacrifices", "Foundation Stories: Erectheion, Athena/Poseidon, Theseus, Aeneas, Romulus & Remus", "Festivals: Panathenaia, City Dionysia, Lupercalia, Saturnalia", "Prescribed sources analysis: Death, Burial, and Power symbols"] }
+          {
+            title: "Quantitative Chemistry & Moles",
+            items: ["Relative Formula Mass ($M_r$)", "Mole equation", "Limiting reagents"],
+            notes: "<p><strong>Mole Formula:</strong> $\text{Moles} = \frac{\text{Mass (g)}}{M_r}$.</p><p><strong>Avogadro Constant:</strong> $6.02 \times 10^{23}$ particles per mole.</p><p><strong>Limiting Reagent:</strong> The reactant that gets completely consumed first, limiting the amount of product formed.</p>"
+          }
         ],
         "Computer Science": [
-          { title: "Algorithms & Programming", items: ["2D arrays, Pseudocode, Sorting (Bubble & Insertion), Searching (Binary & Linear)", "Data Representation: Binary arithmetic, Hexadecimal conversions, Logic gates"] },
-          { title: "Networks & Systems", items: ["Client-Server vs. Peer-to-Peer, Topologies (Star, Mesh), Protocols & TCP/IP Layers", "Wired/Wireless protocols, System Architecture (CPU, Von Neumann, RAM/ROM, FDE Cycle)", "Storage devices (Optical, Magnetic, Solid State) & Embedded Systems"] }
-        ],
-        "Design & Technology": [
-          { title: "Core & Specialist Principles", items: ["Electronic components (LDRs), Forces (Tension, Torsion, Bending)", "Materials: Hardwoods, Thermosetting plastics, Metals/Alloys, Smart materials", "Manufacturing: Mechanisms (Gears, Pulleys), CAD/CAM, Flexible manufacturing", "Ethics & Energy: Fairtrade, Renewable energy, Ergonomics, Life Cycle Assessment"] }
-        ],
-        "English Language": [
-          { title: "Paper 2: Writers' Viewpoints & Perspectives", items: ["Section A Reading: True/False statements, Summary comparison, Language analysis, Comparative viewpoint analysis", "Section B Writing: Persuasive article, letter, or speech using rhetorical devices (DAREFOREST)"] }
-        ],
-        "English Literature": [
-          { title: "Set Texts & Poetry Anthology", items: ["Macbeth: Full text revision, quotes on Ambition, Guilt, Kingship, Supernatural, Context", "Power & Conflict Poetry: Comparative essay structure, quotes across key themes (Nature, Power, War, Identity)"] }
-        ],
-        "French": [
-          { title: "GCSE Core Modules", items: ["Unit 1: Free time, digital media, online activities", "Unit 2: Family, friends, relationships, role models", "Unit 3: School life, subjects, rules, future education choices", "Unit 4: Food, healthy choices, illness, medical advice", "Exam Skills: 80-word task, 130-word task, Translation to/from French, Dictation"] }
-        ],
-        "Geography": [
-          { title: "UK Physical & Human Landscapes", items: ["Geology of the UK: Rock types, landscape formation", "Coasts: Geomorphic processes, landforms, management strategies", "Rivers: Drainage basins, erosional/depositional landforms, flooding", "Urban Geography: UK urbanization trends, Case study of Birmingham"] }
-        ],
-        "German": [
-          { title: "GCSE Core Modules", items: ["Zurück zur Schule: School day, uniform, subjects, rules, events", "Endlich mal Freizeit: Hobbies, adverbs of frequency, film, tech", "Meine Welt, deine Welt: Identity, family, celebrations, festivals", "Meine Ecke: Home, town, transport, shopping, future plans", "Exam Skills: Writing tasks (80/130 words), Translation, General Conversation"] }
-        ],
-        "History": [
-          { title: "Weimar/Nazi Germany & Historic Environment", items: ["Weimar Republic (1918-29): Creation, crises (1923), Golden Years", "Hitler's Rise (1919-33): NSDAP growth, Great Depression, Reichstag downfall", "Nazi Control (1933-39): Police state, propaganda, opposition", "Life in Nazi Germany: Women, youth, economy, persecution of Jews", "Historic Environment: Notting Hill c1948–c1970 (Carribean migration, racism, riots)"] }
-        ],
-        "Latin": [
-          { title: "CLC Books 1–5 / OCR Checklist", items: ["OCR GCSE Vocabulary checklist mastery", "Grammar: All Indicative/Subjunctive active & passive tenses, Noun declensions 1-3", "Participles (Present, Perfect Passive, Future Active), Gerundives, Infinitives", "Subjunctive Uses: Purpose, Result, Indirect Command/Question, Temporal clauses"] }
-        ],
-        "Maths": [
-          { title: "Edexcel GCSE Higher / Foundation", items: ["Paper 1 (Non-Calculator) & Paper 2 (Calculator)", "Key Topics: Algebra manipulation, Quadratics, Functions, Vectors, Circle Theorems", "Trigonometry, Sine/Cosine rule, Probability trees, Cumulative frequency, Histograms"] }
-        ],
-        "Music": [
-          { title: "Edexcel Set Works & Theory", items: ["Queen: Killer Queen", "Purcell: Music for a While", "John Williams: Star Wars Main Title/Rebel Blockade", "Beethoven: Pathétique Sonata (1st Mvt)", "Stephen Schwartz: Defying Gravity (Wicked)", "J.S. Bach: Brandenburg Concerto No. 5 (1st Mvt)", "Music Theory: Key signatures, chords, cadences, rhythm dictation"] }
-        ],
-        "Physical Education": [
-          { title: "Paper 1 & Paper 2 Content", items: ["Applied Anatomy & Physiology: Musculoskeletal & Cardio-respiratory systems", "Movement Analysis: Levers, Planes and Axes of movement", "Physical Training: Components of fitness, Principles of training, Injury prevention", "Sports Psychology: Classification of skills, Goal setting, Guidance & Feedback", "Socio-cultural Influences: Commercialisation, Ethics, Spectator behaviour"] }
+          {
+            title: "Algorithms & Logic",
+            items: ["Searching algorithms", "Sorting algorithms", "Binary arithmetic"],
+            notes: "<p><strong>Searching:</strong></p><ul><li><strong>Linear Search:</strong> Checks each item sequentially (works on unsorted lists).</li><li><strong>Binary Search:</strong> Divide and conquer strategy (requires sorted list).</li></ul><p><strong>Sorting:</strong> Bubble sort compares adjacent pairs; Insertion sort builds sorted sub-lists.</p>"
+          }
         ],
         "Physics": [
-          { title: "GCSE Physics Topics", items: ["Recap: Circuits, Wave properties, Energy transfers & Power", "Electricity: Static electricity, Electric fields, Components", "Waves: EM spectrum uses and hazards, Optics & Light", "Magnetism: Magnetic fields, Electromagnets, Motor Effect, Transformers", "Forces: Newton's Laws of Motion, Momentum, Stopping distances"] }
-        ],
-        "Religious Studies": [
-          { title: "Christianity & Islam (Beliefs & Practices)", items: ["Christian Beliefs: Trinity, Creation, Incarnation, Atonement, Life after death", "Christian Practices: Worship, Sacraments (Baptism, Eucharist), Pilgrimage (Lourdes/Iona)", "Islamic Beliefs: Tawhid, Nature of Allah, Angels, Predestination, Risalah, Imamate", "Islamic Practices: Five Pillars / Ten Obligatory Acts, Jihad, Festivals (Id-ul-Adha, Ashura)"] }
-        ],
-        "Spanish": [
-          { title: "GCSE Core Modules", items: ["Unit 1 Divértete: Free time activities, sports, digital technology", "Unit 2 Viajes: Holidays, travel, transport, accommodation", "Unit 3 Mi gente, mi mundo: Family, identity, relationships", "Unit 4 Mi estilo de vida: Health, diet, exercise, habits", "Exam Skills: Writing (80/130 words), Translation, Listening dictation, Speaking"] }
+          {
+            title: "Electricity & Circuits",
+            items: ["Current, Voltage, Resistance", "Series vs Parallel", "Power equations"],
+            notes: "<p><strong>Core Equations:</strong></p><ul><li>Voltage: $V = I \times R$</li><li>Charge: $Q = I \times t$</li><li>Power: $P = V \times I = I^2 \times R$</li><li>Energy: $E = P \times t = V \times Q$</li></ul><p><strong>Circuit Rules:</strong> In series, current is equal everywhere; in parallel, total current is the sum of branch currents.</p>"
+          }
         ]
       }
     };
@@ -427,6 +436,7 @@
     let currentYear = 7;
     let currentSubject = "All";
     let searchQuery = "";
+    let expandedCardIndex = null;
 
     // DOM Elements
     const yearBtns = document.querySelectorAll('.year-btn');
@@ -434,9 +444,9 @@
     const topicsGrid = document.getElementById('topics-grid');
     const searchInput = document.getElementById('search-input');
 
-    // Parse Hash URL on Load / Navigation
+    // Parse Hash URL on Load
     function parseHash() {
-      const hash = window.location.hash.substring(1); // remove '#'
+      const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       
       const yearParam = parseInt(params.get('year'));
@@ -445,11 +455,7 @@
       }
 
       const subjectParam = params.get('subject');
-      if (subjectParam) {
-        currentSubject = decodeURIComponent(subjectParam);
-      } else {
-        currentSubject = "All";
-      }
+      currentSubject = subjectParam ? decodeURIComponent(subjectParam) : "All";
 
       const searchParam = params.get('q');
       if (searchParam !== null) {
@@ -464,27 +470,32 @@
     function updateHash() {
       const params = new URLSearchParams();
       params.set('year', currentYear);
-      if (currentSubject !== "All") {
-        params.set('subject', currentSubject);
-      }
-      if (searchQuery.trim() !== "") {
-        params.set('q', searchQuery);
-      }
+      if (currentSubject !== "All") params.set('subject', currentSubject);
+      if (searchQuery.trim() !== "") params.set('q', searchQuery);
       window.location.hash = params.toString();
     }
 
-    // Render App State
+    // Toggle Card Expansion
+    function toggleCard(cardId) {
+      const cardElem = document.getElementById(cardId);
+      if (cardElem) {
+        cardElem.classList.toggle('expanded');
+        const badge = cardElem.querySelector('.expand-badge span');
+        if (badge) {
+          badge.textContent = cardElem.classList.contains('expanded') ? 'Click to collapse' : 'Click for full notes';
+        }
+      }
+    }
+
+    // Render Function
     function render() {
-      // 1. Render Year Active Tab
       yearBtns.forEach(btn => {
         btn.classList.toggle('active', parseInt(btn.dataset.year) === currentYear);
       });
 
-      // 2. Render Subject Filters
       const yearData = CURRICULUM_DATA[currentYear] || {};
       const subjects = ["All", ...Object.keys(yearData)];
 
-      // Validate selected subject
       if (!subjects.includes(currentSubject)) {
         currentSubject = "All";
       }
@@ -495,7 +506,6 @@
         </button>
       `).join('');
 
-      // 3. Render Grid Cards
       let cardsHTML = '';
       let matchCount = 0;
 
@@ -503,22 +513,41 @@
 
       filterSubjects.forEach(sub => {
         const topics = yearData[sub] || [];
-        topics.forEach(topic => {
-          // Search matching
+        topics.forEach((topic, idx) => {
           const q = searchQuery.toLowerCase().trim();
           const matchesTitle = topic.title.toLowerCase().includes(q);
           const matchesSubject = sub.toLowerCase().includes(q);
           const matchesItems = topic.items.some(item => item.toLowerCase().includes(q));
+          const matchesNotes = topic.notes ? topic.notes.toLowerCase().includes(q) : false;
 
-          if (q === "" || matchesTitle || matchesSubject || matchesItems) {
+          if (q === "" || matchesTitle || matchesSubject || matchesItems || matchesNotes) {
             matchCount++;
+            const cardId = `card-${sub.replace(/\s+/g, '')}-${idx}`;
+            const defaultNotes = topic.notes || "<p>Revision notes for this module are currently being updated into the specification booklet.</p>";
+
             cardsHTML += `
-              <div class="card">
-                <div class="card-subject">${sub}</div>
-                <div class="card-title">${topic.title}</div>
+              <div class="card" id="${cardId}" onclick="toggleCard('${cardId}')">
+                <div class="card-header">
+                  <div>
+                    <div class="card-subject">${sub}</div>
+                    <div class="card-title">${topic.title}</div>
+                  </div>
+                  <div class="expand-badge">
+                    <span>Click for full notes</span>
+                  </div>
+                </div>
                 <ul class="card-list">
                   ${topic.items.map(item => `<li>${item}</li>`).join('')}
                 </ul>
+                <div class="notes-panel">
+                  <div class="notes-title">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    Full Revision Notes & Key Concepts
+                  </div>
+                  <div class="notes-content">
+                    ${defaultNotes}
+                  </div>
+                </div>
               </div>
             `;
           }
@@ -528,8 +557,8 @@
       if (matchCount === 0) {
         topicsGrid.innerHTML = `
           <div class="empty-state">
-            <h3>No topics found</h3>
-            <p>Try adjusting your search query or subject filters.</p>
+            <h3>No matching revision topics found</h3>
+            <p>Try searching for a different key term or selecting another year group.</p>
           </div>
         `;
       } else {
@@ -537,7 +566,6 @@
       }
     }
 
-    // Event Handlers
     function selectYear(yr) {
       currentYear = yr;
       currentSubject = "All";
@@ -561,8 +589,6 @@
     });
 
     window.addEventListener('hashchange', parseHash);
-
-    // Initial Load
     parseHash();
   </script>
 </body>
