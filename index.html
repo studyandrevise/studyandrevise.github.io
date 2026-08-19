@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyHub Revision Portal (Years 7–10)</title>
+  <title>StudyHub Comprehensive Revision Portal (Years 7–10)</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -228,19 +228,18 @@
       font-weight: bold;
     }
 
-    /* Detailed Notes Expansion Panel */
     .notes-panel {
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+      transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.3s ease;
       border-top: 0px solid var(--border);
       margin-top: 0;
       padding-top: 0;
     }
 
     .card.expanded .notes-panel {
-      max-height: 1000px;
+      max-height: 5000px;
       opacity: 1;
       border-top: 1px solid var(--border);
       margin-top: 1rem;
@@ -249,7 +248,7 @@
 
     .card.expanded {
       border-color: var(--primary);
-      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.12);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.15);
     }
 
     .notes-title {
@@ -257,32 +256,54 @@
       text-transform: uppercase;
       font-weight: 700;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.4rem;
     }
 
     .notes-content {
       font-size: 0.9rem;
       color: #334155;
       background: var(--bg);
-      padding: 0.85rem;
-      border-radius: 6px;
+      padding: 1rem;
+      border-radius: 8px;
       line-height: 1.6;
     }
 
-    .notes-content ul {
+    .notes-content h4 {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin: 1rem 0 0.4rem 0;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 0.2rem;
+    }
+
+    .notes-content h4:first-child {
+      margin-top: 0;
+    }
+
+    .notes-content ul, .notes-content ol {
       margin-left: 1.2rem;
-      margin-top: 0.4rem;
+      margin-bottom: 0.8rem;
     }
 
     .notes-content p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
 
     .notes-content strong {
       color: var(--text);
+    }
+
+    .exam-tip {
+      background-color: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 0.6rem 0.8rem;
+      margin: 0.8rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.85rem;
+      color: #78350f;
     }
 
     .empty-state {
@@ -331,33 +352,229 @@
       7: {
         "Biology": [
           { 
-            title: "Cells", 
-            items: ["Animal vs. Plant cells", "Organelle functions", "Light Microscope use", "Cell organisation"],
-            notes: "<p><strong>Key Definitions:</strong></p><ul><li><strong>Nucleus:</strong> Controls cell activity and contains DNA.</li><li><strong>Cytoplasm:</strong> Site of chemical reactions.</li><li><strong>Cell Membrane:</strong> Controls what enters and leaves the cell.</li><li><strong>Mitochondria:</strong> Site of aerobic respiration releasing energy.</li><li><strong>Plant Only:</strong> Chloroplasts (photosynthesis), Cell Wall (cellulose structure), Permanent Vacuole (cell sap).</li></ul><p><strong>Organisation Hierarchy:</strong> Cell → Tissue → Organ → Organ System → Organism.</p>"
+            title: "Cells & Organisation", 
+            items: ["Animal vs Plant cells", "Organelle functions", "Light Microscope operation", "Cell hierarchy"],
+            notes: `
+              <h4>1. What is a Cell?</h4>
+              <p>Cells are the fundamental building blocks of all living organisms. Organisms can be <strong>unicellular</strong> (single-celled like bacteria or amoeba) or <strong>multicellular</strong> (made of many specialized cells like plants and animals).</p>
+              
+              <h4>2. Detailed Structure of Animal & Plant Cells</h4>
+              <ul>
+                <li><strong>Nucleus:</strong> Contains chromosomes made of DNA; controls all cellular activities and protein synthesis.</li>
+                <li><strong>Cytoplasm:</strong> A jelly-like substance composed mainly of water and dissolved proteins; site of chemical reactions.</li>
+                <li><strong>Cell Membrane:</strong> Semi-permeable lipid bilayer that regulates the passage of substances in and out of the cell.</li>
+                <li><strong>Mitochondria:</strong> Structures where aerobic respiration takes place, burning glucose to release ATP energy for the cell.</li>
+                <li><strong>Ribosomes:</strong> Tiny spherical structures where protein synthesis occurs.</li>
+                <li><strong>Chloroplasts (Plants Only):</strong> Contain green pigment called chlorophyll; absorb sunlight energy for photosynthesis to produce glucose ($6CO_2 + 6H_2O \rightarrow C_6H_{12}O_6 + 6O_2$).</li>
+                <li><strong>Cell Wall (Plants Only):</strong> Rigid outer layer made of cellulose fibers that provides mechanical strength and prevents the cell from bursting when taking in water.</li>
+                <li><strong>Permanent Vacuole (Plants Only):</strong> Filled with cell sap (weak solution of sugars and salts); keeps the cell firm and turgid.</li>
+              </ul>
+
+              <h4>3. How to Use a Light Microscope Step-by-Step</h4>
+              <ol>
+                <li>Place the slide containing the specimen onto the <strong>stage</strong> and secure it with stage clips.</li>
+                <li>Rotate the revolving nosepiece to select the <strong>lowest power objective lens</strong> (e.g., $4\times$).</li>
+                <li>Look from the side and adjust the <strong>coarse adjustment knob</strong> to lower the lens until it is just above the slide.</li>
+                <li>Look through the <strong>eyepiece lens</strong> ($10\times$) and turn the coarse focus knob until the image comes into view.</li>
+                <li>Turn the <strong>fine adjustment knob</strong> for maximum sharpness.</li>
+                <li>Calculate total magnification: $\text{Total Magnification} = \text{Eyepiece Lens} \times \text{Objective Lens}$.</li>
+              </ol>
+
+              <h4>4. Levels of Biological Organisation</h4>
+              <p>Specialised cells aggregate to form higher-level structures:</p>
+              <ul>
+                <li><strong>Cell:</strong> Basic unit (e.g., Ciliated Epithelial Cell).</li>
+                <li><strong>Tissue:</strong> Group of similar cells working together to perform a specific function (e.g., Epithelial Tissue).</li>
+                <li><strong>Organ:</strong> Group of different tissues working together (e.g., Lungs).</li>
+                <li><strong>Organ System:</strong> Group of organs working together (e.g., Respiratory System).</li>
+                <li><strong>Organism:</strong> An individual living entity (e.g., Human).</li>
+              </ul>
+              <div class="exam-tip"><strong>Exam Tip:</strong> Always remember that plant cells have THREE things animal cells don't: Cell Wall, Chloroplasts, and Permanent Vacuole!</div>
+            `
           },
           { 
             title: "Flowering Plant Reproduction", 
-            items: ["Flower structure", "Pollination adaptations", "Fertilisation", "Seed dispersal"],
-            notes: "<p><strong>Parts & Functions:</strong></p><ul><li><strong>Stamen (Male):</strong> Anther (produces pollen) & Filament.</li><li><strong>Carpel (Female):</strong> Stigma (sticky top), Style, & Ovary (contains ovules).</li><li><strong>Pollination Types:</strong> Insect-pollinated (bright petals, nectar, sticky pollen) vs. Wind-pollinated (feathery stigma outside flower, light pollen).</li></ul>"
+            items: ["Flower anatomy", "Pollination mechanisms", "Fertilisation process", "Seed dispersal methods"],
+            notes: `
+              <h4>1. Detailed Anatomy of a Flower</h4>
+              <p>Flowers contain the sexual reproductive organs of angiosperms (flowering plants):</p>
+              <ul>
+                <li><strong>Stamen (Male Reproductive Structure):</strong>
+                  <ul>
+                    <li><strong>Anther:</strong> Produces pollen grains which contain male gametes (sperm cells).</li>
+                    <li><strong>Filament:</strong> Slender stalk supporting the anther.</li>
+                  </ul>
+                </li>
+                <li><strong>Carpel / Pistil (Female Reproductive Structure):</strong>
+                  <ul>
+                    <li><strong>Stigma:</strong> Sticky platform at the top that catches pollen grains.</li>
+                    <li><strong>Style:</strong> Long neck connecting stigma to ovary down which pollen tubes grow.</li>
+                    <li><strong>Ovary:</strong> Swollen base containing one or more <strong>ovules</strong> (female gametes/egg cells).</li>
+                  </ul>
+                </li>
+                <li><strong>Petals:</strong> Modified leaves that attract pollinators using vibrant colours and scent.</li>
+                <li><strong>Sepals:</strong> Green outer casing protecting the bud before it opens.</li>
+                <li><strong>Nectaries:</strong> Glands at the base of petals producing sugary nectar reward for pollinators.</li>
+              </ul>
+
+              <h4>2. Insect vs Wind Pollination</h4>
+              <p><strong>Pollination</strong> is the transfer of pollen from an anther to a stigma.</p>
+              <ul>
+                <li><strong>Insect-Pollinated Flowers:</strong> Brightly coloured petals, fragrant scent, produce sweet nectar, sticky or spiky pollen grains (attach to insect bodies), stamens and stigma inside the flower.</li>
+                <li><strong>Wind-Pollinated Flowers:</strong> Dull green/brown petals, no scent or nectar, small light smooth pollen produced in huge quantities, long stamens hanging outside the flower, feathery stigmas exposed to catch airborne pollen.</li>
+              </ul>
+
+              <h4>3. Fertilisation Step-by-Step</h4>
+              <ol>
+                <li>A pollen grain lands on a compatible sticky stigma (Pollination).</li>
+                <li>The pollen grain digests a <strong>pollen tube</strong> down through the tissue of the style towards the ovary.</li>
+                <li>The male gamete nucleus travels down the pollen tube and enters the ovule through a micro-opening.</li>
+                <li>The male nucleus fuses with the female egg cell nucleus (<strong>Fertilisation</strong>) to form a <strong>zygote</strong>.</li>
+                <li>The zygote develops into a seed embryo; the ovule becomes a tough seed coat (testa); the surrounding ovary ripens into a fruit.</li>
+              </ol>
+
+              <h4>4. Seed Dispersal Strategies</h4>
+              <p>Prevents overcrowding and reduces competition between offspring and parent plant for light, water, and minerals:</p>
+              <ul>
+                <li><strong>Wind:</strong> Parachutes (e.g., Dandelions) or wings (e.g., Sycamore seeds).</li>
+                <li><strong>Animal (Internal):</strong> Fleshy edible fruits eaten; seeds pass through digestive tract uninjured (e.g., Strawberries, Blackberries).</li>
+                <li><strong>Animal (External):</strong> Hooks and barbs cling to animal fur (e.g., Burdock).</li>
+                <li><strong>Explosive / Mechanical:</strong> Pods dry up, build tension, and split open violently (e.g., Pea pods).</li>
+                <li><strong>Water:</strong> Buoyant seed coats filled with air pockets (e.g., Coconuts).</li>
+              </ul>
+            `
           },
           {
-            title: "Fitness & Health (Lungs)",
-            items: ["Respiratory system", "Gas exchange in Alveoli", "Smoking impact"],
-            notes: "<p><strong>Gas Exchange:</strong> Occurs in the alveoli by diffusion. Oxygen moves into capillaries; carbon dioxide moves into alveoli.</p><p><strong>Alveoli Adaptations:</strong> Thin walls (one cell thick), large surface area, moist lining, dense capillary network.</p>"
+            title: "Fitness & Health (Breathing)",
+            items: ["Respiratory anatomy", "Gas exchange in Alveoli", "Breathing mechanics", "Smoking effects"],
+            notes: `
+              <h4>1. Human Respiratory System Anatomy</h4>
+              <p>Air path: Nose/Mouth $\rightarrow$ Trachea (windpipe) $\rightarrow$ Bronchi (left & right) $\rightarrow$ Bronchioles $\rightarrow$ Alveoli (air sacs).</p>
+              <p>The trachea and bronchi are lined with <strong>ciliated epithelial cells</strong> and <strong>goblet cells</strong>. Goblet cells trap dirt and pathogens in sticky mucus; cilia beat in waves to sweep mucus up to the throat to be swallowed.</p>
+
+              <h4>2. Mechanics of Ventilation (Breathing)</h4>
+              <ul>
+                <li><strong>Inspiration (Inhaling):</strong>
+                  <ol>
+                    <li>Intercostal muscles contract, pulling ribs <strong>up and out</strong>.</li>
+                    <li>Diaphragm contracts and <strong>flattens (moves down)</strong>.</li>
+                    <li>Volume of the thorax (chest cavity) <strong>increases</strong>.</li>
+                    <li>Pressure inside thorax <strong>decreases below atmospheric pressure</strong>.</li>
+                    <li>Air is drawn into the lungs down a pressure gradient.</li>
+                  </ol>
+                </li>
+                <li><strong>Expiration (Exhaling):</strong>
+                  <ol>
+                    <li>Intercostal muscles relax, ribs move <strong>down and in</strong>.</li>
+                    <li>Diaphragm relaxes and curves back into a <strong>dome shape</strong>.</li>
+                    <li>Volume of the thorax <strong>decreases</strong>.</li>
+                    <li>Pressure inside thorax <strong>increases above atmospheric pressure</strong>.</li>
+                    <li>Air is forced out of the lungs.</li>
+                  </ol>
+                </li>
+              </ul>
+
+              <h4>3. Adaptations of Alveoli for Gas Exchange</h4>
+              <p>Gas exchange happens by <strong>diffusion</strong> (oxygen moves from air into blood; carbon dioxide moves from blood into air).</p>
+              <ul>
+                <li><strong>Huge Surface Area:</strong> Millions of microscopic alveoli provide total surface area equal to a tennis court.</li>
+                <li><strong>Short Diffusion Distance:</strong> Alveolar wall and capillary wall are each only <em>one cell thick</em>.</li>
+                <li><strong>Moist Surface:</strong> Allows gases to dissolve before diffusing across membranes.</li>
+                <li><strong>Rich Blood Supply & Ventilation:</strong> Continuous capillary blood flow maintains steep concentration gradients for $O_2$ and $CO_2$.</li>
+              </ul>
+
+              <h4>4. Pathological Damage from Smoking</h4>
+              <ul>
+                <li><strong>Tar:</strong> Covers cilia, paralyzing them so mucus accumulates. Causes chronic bronchitis and contains mutagens causing lung cancer.</li>
+                <li><strong>Nicotine:</strong> Addictive stimulant; increases heart rate and narrows blood vessels, elevating blood pressure.</li>
+                <li><strong>Carbon Monoxide ($CO$):</strong> Binds irreversibly to red blood cell <strong>haemoglobin</strong> forming carboxyhaemoglobin, reducing oxygen delivery to body tissues.</li>
+                <li><strong>Emphysema:</strong> Smoke breaks down alveolar walls, destroying surface area and causing severe breathlessness.</li>
+              </ul>
+            `
           }
         ],
         "Chemistry": [
           { 
             title: "Core Fundamentals & Safety", 
-            items: ["Lab safety & hazard symbols", "Particle Theory", "Elements vs Compounds", "Separation techniques"],
-            notes: "<p><strong>States of Matter:</strong></p><ul><li><strong>Solids:</strong> Tight lattice, fixed shape/volume, vibrate in place.</li><li><strong>Liquids:</strong> Close particles, slide past each other, fixed volume.</li><li><strong>Gases:</strong> Random motion, far apart, compressible.</li></ul><p><strong>Separation:</strong> Filtration (insoluble solid + liquid), Evaporation (solute + solvent), Chromatography (separating dissolved dyes).</p>"
+            items: ["Hazard symbols & safety", "States of Matter & Particle Theory", "Elements, Compounds & Mixtures", "Separation Techniques"],
+            notes: `
+              <h4>1. Laboratory Safety & Hazard Symbols</h4>
+              <ul>
+                <li><strong>Toxic (Skull & Crossbones):</strong> Can cause death if swallowed, inhaled, or absorbed through skin.</li>
+                <li><strong>Corrosive (Chemicals dripping on hand/surface):</strong> Destroys living tissue and corrodes metals. Always wear goggles.</li>
+                <li><strong>Flammable (Flame):</strong> Catches fire easily. Keep away from naked flames/Bunsen burners.</li>
+                <li><strong>Oxidising (Flame over a circle):</strong> Provides oxygen to make fires burn more fiercely.</li>
+              </ul>
+
+              <h4>2. Particle Theory & States of Matter</h4>
+              <ul>
+                <li><strong>Solids:</strong> Particles packed tightly in fixed regular lattice. Strong intermolecular forces. Fixed volume and shape. Particles vibrate about fixed positions. Low kinetic energy.</li>
+                <li><strong>Liquids:</strong> Particles closely packed but randomly arranged. Weaker forces than solids; particles can slide past each other. Fixed volume, takes shape of container.</li>
+                <li><strong>Gases:</strong> Particles far apart, complete random arrangement. Negligible forces between particles. High kinetic energy, fast random motion. No fixed volume/shape, compressible.</li>
+              </ul>
+
+              <h4>3. Phase Changes</h4>
+              <p>Heating adds kinetic energy, breaking or weakening forces between particles:</p>
+              <p>Solid $\xrightarrow{\text{Melting}}$ Liquid $\xrightarrow{\text{Evaporation/Boiling}}$ Gas<br>
+              Gas $\xrightarrow{\text{Condensing}}$ Liquid $\xrightarrow{\text{Freezing}}$ Solid<br>
+              Solid $\xrightarrow{\text{Sublimation}}$ Gas (e.g. $CO_2$ dry ice, Iodine)</p>
+
+              <h4>4. Classifying Pure Matter and Mixtures</h4>
+              <ul>
+                <li><strong>Element:</strong> Pure substance containing only one type of atom (e.g., Gold $Au$, Oxygen $O_2$). Listed on Periodic Table.</li>
+                <li><strong>Compound:</strong> Substance containing two or more different elements <em>chemically combined</em> in fixed ratios (e.g., $H_2O$, $NaCl$). Hard to separate; requires chemical reactions.</li>
+                <li><strong>Mixtures:</strong> Two or more elements or compounds physically mixed without chemical bonds. Retain individual properties; easily separated by physical methods.</li>
+              </ul>
+
+              <h4>5. Core Separation Techniques</h4>
+              <ul>
+                <li><strong>Filtration:</strong> Separates insoluble solid from liquid (e.g., Sand + Water). Uses filter paper and funnel. Solid left on paper = <em>Residue</em>; liquid collected = <em>Filtrate</em>.</li>
+                <li><strong>Crystallisation / Evaporation:</strong> Separates soluble solute from solvent (e.g., Salt from salt water). Solvent boiled off, leaving crystals behind.</li>
+                <li><strong>Simple Distillation:</strong> Separates liquid solvent from solution (e.g., Pure water from sea water). Uses boiling followed by condensation in a Liebig condenser.</li>
+                <li><strong>Paper Chromatography:</strong> Separates dissolved dyes based on solubilities. Mobile phase (solvent) carries dyes up stationary phase (paper).</li>
+              </ul>
+            `
           }
         ],
         "Maths": [
           { 
             title: "Numbers & Arithmetic", 
-            items: ["Factors, Multiples, HCF & LCM", "BIDMAS rules", "Powers & Square roots", "Fractions arithmetic"],
-            notes: "<p><strong>BIDMAS Order:</strong> Brackets, Indices, Division/Multiplication (left-to-right), Addition/Subtraction (left-to-right).</p><p><strong>Definitions:</strong></p><ul><li><strong>HCF:</strong> Highest Common Factor (largest number that divides into both).</li><li><strong>LCM:</strong> Lowest Common Multiple (smallest multiple shared by both).</li></ul>"
+            items: ["HCF & LCM methods", "BIDMAS order of operations", "Directed numbers", "Fractions operations"],
+            notes: `
+              <h4>1. Order of Operations (BIDMAS)</h4>
+              <p>Calculations must strictly follow this order:</p>
+              <ul>
+                <li><strong>B</strong>rackets: Evaluate expressions inside $( )$ or $[ ]$ first.</li>
+                <li><strong>I</strong>ndices: Calculate powers and roots (e.g., $3^2 = 9, \sqrt{16} = 4$).</li>
+                <li><strong>D</strong>ivision & <strong>M</strong>ultiplication: Equal priority; perform from left to right.</li>
+                <li><strong>A</strong>ddition & <strong>S</strong>ubtraction: Equal priority; perform from left to right.</li>
+              </ul>
+              <p><em>Example:</em> $5 + 2 \times (8 - 3)^2 = 5 + 2 \times (5)^2 = 5 + 2 \times 25 = 5 + 50 = 55$.</p>
+
+              <h4>2. Prime Factors, HCF & LCM</h4>
+              <ul>
+                <li><strong>Prime Number:</strong> An integer greater than 1 with exactly two factors: 1 and itself (2, 3, 5, 7, 11, 13, 17, 19...).</li>
+                <li><strong>Prime Factor Tree:</strong> Expressing any composite number as a product of primes. E.g., $60 = 2 \times 2 \times 3 \times 5 = 2^2 \times 3 \times 5$.</li>
+                <li><strong>Highest Common Factor (HCF):</strong> The largest number that divides into two numbers. Multiply common prime factors in the intersection of a Venn Diagram.</li>
+                <li><strong>Lowest Common Multiple (LCM):</strong> The smallest multiple shared by two numbers. Multiply ALL prime factors across the entire Venn Diagram.</li>
+              </ul>
+
+              <h4>3. Operations with Directed Numbers (Negatives)</h4>
+              <ul>
+                <li><strong>Addition/Subtraction:</strong> Two same signs together make positive ($+ + \rightarrow +$, $- - \rightarrow +$). Two different signs make negative ($+ - \rightarrow -$, $- + \rightarrow -$). E.g., $5 - (-3) = 5 + 3 = 8$.</li>
+                <li><strong>Multiplication/Division:</strong> Positive $\times$ Positive = Positive. Negative $\times$ Negative = Positive. Positive $\times$ Negative = Negative. E.g., $(-4) \times (-6) = +24$, $(-20) \div 5 = -4$.</li>
+              </ul>
+
+              <h4>4. Comprehensive Fraction Operations</h4>
+              <ul>
+                <li><strong>Addition & Subtraction:</strong> Convert to equivalent fractions with a Common Denominator using LCM. Add/subtract numerators only.
+                  <br>E.g., $\frac{2}{3} + \frac{1}{4} = \frac{8}{12} + \frac{3}{12} = \frac{11}{12}$.</li>
+                <li><strong>Multiplication:</strong> Multiply numerators together, multiply denominators together. Simplify result.
+                  <br>E.g., $\frac{3}{5} \times \frac{10}{9} = \frac{30}{45} = \frac{2}{3}$.</li>
+                <li><strong>Division:</strong> Use <strong>KFC</strong> rule (Keep first fraction, Flip second fraction, Change $\div$ to $\times$).
+                  <br>E.g., $\frac{3}{4} \div \frac{5}{6} = \frac{3}{4} \times \frac{6}{5} = \frac{18}{20} = \frac{9}{10}$.</li>
+              </ul>
+            `
           }
         ]
       },
@@ -365,15 +582,128 @@
         "Biology": [
           {
             title: "Heart & Circulation",
-            items: ["Circulatory system need", "Blood vessel comparison", "Heart structure & pathway"],
-            notes: "<p><strong>Blood Vessels:</strong></p><ul><li><strong>Arteries:</strong> Thick muscular/elastic walls, narrow lumen, high pressure (blood away from heart).</li><li><strong>Veins:</strong> Thinner walls, wide lumen, valves to prevent backflow (blood to heart).</li><li><strong>Capillaries:</strong> Wall 1-cell thick for rapid diffusion.</li></ul><p><strong>Heart Flow:</strong> Vena Cava → Right Atrium → Right Ventricle → Pulmonary Artery → Lungs → Pulmonary Vein → Left Atrium → Left Ventricle (thickest wall) → Aorta.</p>"
+            items: ["Circulatory system need", "Blood vessel comparison", "Mammalian heart anatomy", "Double circulation"],
+            notes: `
+              <h4>1. Why Multicellular Organisms Need Circulation</h4>
+              <p>Small organisms (like amoeba) have large surface-area-to-volume ratios and rely on simple diffusion. Humans have a small SA:V ratio and diffusion is too slow to transport oxygen and nutrients deep into tissues. A specialized <strong>circulatory system</strong> with a muscular pump (heart) and vessels is necessary.</p>
+
+              <h4>2. The Double Circulatory System</h4>
+              <p>Blood travels through the heart <strong>twice</strong> in one complete circuit:</p>
+              <ul>
+                <li><strong>Pulmonary Circuit:</strong> Deoxygenated blood pumped from Right Ventricle $\rightarrow$ Lungs (gains $O_2$, loses $CO_2$) $\rightarrow$ Left Atrium.</li>
+                <li><strong>Systemic Circuit:</strong> Oxygenated blood pumped from Left Ventricle $\rightarrow$ Body tissues/organs $\rightarrow$ Right Atrium.</li>
+              </ul>
+
+              <h4>3. Comparison of Blood Vessels</h4>
+              <ul>
+                <li><strong>Arteries:</strong>
+                  <ul>
+                    <li>Function: Carry high-pressure blood <em>away</em> from the heart.</li>
+                    <li>Structure: Thick muscular and elastic walls to withstand high surge pressure; narrow lumen. Elastic fibers recoil to maintain blood pressure.</li>
+                  </ul>
+                </li>
+                <li><strong>Veins:</strong>
+                  <ul>
+                    <li>Function: Carry low-pressure blood <em>towards</em> the heart.</li>
+                    <li>Structure: Thinner muscular wall; wide lumen to reduce friction. Contain <strong>valves</strong> to prevent backflow of blood under low pressure.</li>
+                  </ul>
+                </li>
+                <li><strong>Capillaries:</strong>
+                  <ul>
+                    <li>Function: Site of exchange between blood and tissue cells.</li>
+                    <li>Structure: Microscopic lumen (1 red blood cell wide); wall is <em>one cell thick</em> (endothelium) to maximize diffusion rate.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>4. Step-by-Step Pathway of Blood Through the Heart</h4>
+              <ol>
+                <li>Deoxygenated blood from body enters <strong>Right Atrium</strong> via the <strong>Vena Cava</strong>.</li>
+                <li>Atrium contracts, pushing blood through tricuspid valve into <strong>Right Ventricle</strong>.</li>
+                <li>Ventricle contracts, forcing blood through semi-lunar valve into <strong>Pulmonary Artery</strong> to lungs.</li>
+                <li>Oxygenated blood returns from lungs via <strong>Pulmonary Vein</strong> into <strong>Left Atrium</strong>.</li>
+                <li>Left Atrium contracts, pushing blood through bicuspid valve into <strong>Left Ventricle</strong>.</li>
+                <li>Left Ventricle contracts forcefully, pumping blood through semi-lunar valve into <strong>Aorta</strong> to body.</li>
+              </ol>
+              <div class="exam-tip"><strong>Exam Tip:</strong> The wall of the Left Ventricle is much thicker and more muscular than the Right Ventricle because it must pump blood at much higher pressure to the entire body, whereas the Right Ventricle only pumps to the lungs nearby.</div>
+            `
+          }
+        ],
+        "Chemistry": [
+          {
+            title: "Acids, Reactivity & Earth",
+            items: ["pH scale & indicators", "Neutralisation reactions", "Metal reactivity series", "Combustion & Global Warming"],
+            notes: `
+              <h4>1. The pH Scale & Indicators</h4>
+              <p>The pH scale measures how acidic or alkaline a solution is (ranges 0 to 14):</p>
+              <ul>
+                <li><strong>pH 0 – 2:</strong> Strong Acid (Red) — e.g. Hydrochloric acid ($HCl$). High $H^+$ ion concentration.</li>
+                <li><strong>pH 3 – 6:</strong> Weak Acid (Yellow/Orange) — e.g. Vinegar, Citric acid.</li>
+                <li><strong>pH 7:</strong> Neutral (Green) — e.g. Pure water, $NaCl$ solution. $[H^+] = [OH^-]$.</li>
+                <li><strong>pH 8 – 11:</strong> Weak Alkali (Blue) — e.g. Baking soda, Ammonia.</li>
+                <li><strong>pH 12 – 14:</strong> Strong Alkali (Purple) — e.g. Sodium hydroxide ($NaOH$). High $OH^-$ ion concentration.</li>
+              </ul>
+
+              <h4>2. Essential Neutralisation Equations</h4>
+              <p>General ionic equation: $H^+_{(aq)} + OH^-_{(aq)} \rightarrow H_2O_{(l)}$</p>
+              <ul>
+                <li>Acid + Base/Alkali $\rightarrow$ Salt + Water
+                  <br>E.g., $HCl + NaOH \rightarrow NaCl + H_2O$</li>
+                <li>Acid + Metal $\rightarrow$ Salt + Hydrogen Gas
+                  <br>E.g., $2HCl + Mg \rightarrow MgCl_2 + H_2 \uparrow$ (Test with squeaky pop test)</li>
+                <li>Acid + Metal Carbonate $\rightarrow$ Salt + Water + Carbon Dioxide Gas
+                  <br>E.g., $2HCl + CaCO_3 \rightarrow CaCl_2 + H_2O + CO_2 \uparrow$ (Test with limewater turning cloudy)</li>
+              </ul>
+
+              <h4>3. The Reactivity Series & Displacement</h4>
+              <p>Order of reactivity: Potassium ($K$) > Sodium ($Na$) > Calcium ($Ca$) > Magnesium ($Mg$) > Aluminium ($Al$) > Carbon ($C$) > Zinc ($Zn$) > Iron ($Fe$) > Hydrogen ($H$) > Copper ($Cu$) > Silver ($Ag$) > Gold ($Au$).</p>
+              <p><strong>Displacement Reaction:</strong> A more reactive metal will displace a less reactive metal from its salt solution.</p>
+              <p>E.g., $Mg_{(s)} + CuSO_{4(aq)} \rightarrow MgSO_{4(aq)} + Cu_{(s)}$ (Magnesium displaces copper because $Mg$ is higher in the reactivity series).</p>
+
+              <h4>4. Combustion & Climate Chemistry</h4>
+              <ul>
+                <li><strong>Complete Combustion:</strong> Excess oxygen present. $\text{Hydrocarbon} + O_2 \rightarrow CO_2 + H_2O$. Releases maximum energy.</li>
+                <li><strong>Incomplete Combustion:</strong> Limited oxygen. Produces toxic Carbon Monoxide ($CO$) and Carbon soot ($C$).</li>
+                <li><strong>Greenhouse Effect:</strong> Shortwave solar radiation passes through atmosphere. Earth re-emits longwave infrared radiation. Greenhouse gases ($CO_2$, $CH_4$, $H_2O$ vapor) absorb and re-radiate thermal energy back to Earth, causing global warming.</li>
+              </ul>
+            `
           }
         ],
         "Physics": [
           {
-            title: "Light & Optics",
-            items: ["Reflection ray diagrams", "Refraction principles", "Colour dispersion"],
-            notes: "<p><strong>Law of Reflection:</strong> Angle of Incidence ($i$) = Angle of Reflection ($r$).</p><p><strong>Refraction:</strong> Bending of light as it changes speed when entering a denser medium (bends towards normal) or less dense medium (bends away from normal).</p><p><strong>Dispersion:</strong> White light splits into 7 spectrum colours via a glass prism due to differing wavelengths.</p>"
+            title: "Light & Heat Transfer",
+            items: ["Reflection & Refraction", "Colour dispersion", "Conduction, Convection & Radiation", "Pressure"],
+            notes: `
+              <h4>1. Reflection & Refraction Mechanics</h4>
+              <ul>
+                <li><strong>Law of Reflection:</strong> Angle of Incidence ($i$) = Angle of Reflection ($r$). Both angles are measured between the light ray and the <strong>Normal line</strong> (a dotted perpendicular line drawn at $90^\circ$ to the surface).</li>
+                <li><strong>Refraction:</strong> The change in direction of light when passing from one medium to another due to a change in speed.
+                  <ul>
+                    <li>Entering denser medium (Air $\rightarrow$ Glass): Light slows down and bends <strong>towards</strong> the normal.</li>
+                    <li>Entering less dense medium (Glass $\rightarrow$ Air): Light speeds up and bends <strong>away</strong> from the normal.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>2. Color Dispersion & Rainbow Spectrum</h4>
+              <p>White light is a mixture of all visible wavelengths. When passed through a triangular glass prism, short wavelengths (Violet) slow down and refract more than long wavelengths (Red). This separates white light into the spectrum: <strong>Red, Orange, Yellow, Green, Blue, Indigo, Violet (ROYGBIV)</strong>.</p>
+
+              <h4>3. The Three Heat Transfer Mechanisms</h4>
+              <ul>
+                <li><strong>Conduction:</strong> Thermal transfer through solids. Heating causes particles to vibrate faster and collide with neighboring particles, passing kinetic energy along. Metals are excellent conductors due to <strong>free delocalized electrons</strong> transferring energy rapidly.</li>
+                <li><strong>Convection:</strong> Thermal transfer through fluids (liquids and gases). Fluid near heat source expands, becomes <strong>less dense</strong>, and rises. Cooler, denser fluid sinks to replace it, creating a continuous <strong>convection current</strong>.</li>
+                <li><strong>Radiation:</strong> Thermal transfer via <strong>Infrared Electromagnetic Waves</strong>. Does NOT require particles (can travel through a vacuum).
+                  <ul>
+                    <li>Matte Black surfaces: Best absorbers and emitters of thermal radiation.</li>
+                    <li>Shiny/White surfaces: Poor absorbers (reflect radiation) and poor emitters.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>4. Pressure in Solids & Liquids</h4>
+              <p>$\text{Pressure } (P) = \frac{\text{Force } (F)}{\text{Area } (A)}$. Units: Force in Newtons ($N$), Area in $m^2$, Pressure in Pascals ($Pa$ or $N/m^2$).</p>
+              <p><em>Example:</em> High pressure is created with small contact area (e.g. sharp knife edge, high heels); low pressure with large area (e.g. snowshoes, tractor tires).</p>
+            `
           }
         ]
       },
@@ -381,70 +711,519 @@
         "Biology": [
           {
             title: "B1 Key Concepts in Biology",
-            items: ["Microscopy calculations", "Enzyme kinetics", "Active transport, Osmosis & Diffusion"],
-            notes: "<p><strong>Microscopy Formula:</strong> Magnification = Image Size ÷ Actual Size ($M = \frac{I}{A}$).</p><p><strong>Enzymes:</strong> Biological catalysts with active sites specific to substrates (Lock & Key model). Denature at high temperatures or extreme pH.</p><p><strong>Transport:</strong></p><ul><li><strong>Diffusion:</strong> Net movement from high to low concentration (passive).</li><li><strong>Osmosis:</strong> Diffusion of water across a partially permeable membrane from dilute to concentrated solution.</li><li><strong>Active Transport:</strong> Movement against concentration gradient using ATP energy.</li></ul>"
+            items: ["Microscopy formula", "Enzyme lock & key model", "Factors affecting enzymes", "Cell transport mechanics"],
+            notes: `
+              <h4>1. Quantitative Microscopy</h4>
+              <p>Formula Triangle: $\text{Image Size } (I) = \text{Actual Size } (A) \times \text{Magnification } (M)$.</p>
+              <ul>
+                <li>To find Actual Size: $A = \frac{I}{M}$</li>
+                <li>To find Magnification: $M = \frac{I}{A}$</li>
+              </ul>
+              <div class="exam-tip"><strong>Unit Conversions:</strong>
+              <br>$1\text{ mm} = 1,000\text{ }\mu\text{m}$ (micrometres)
+              <br>$1\text{ }\mu\text{m} = 1,000\text{ nm}$ (nanometres)
+              <br>Always convert $I$ and $A$ to the same units before calculating!</div>
+
+              <h4>2. Enzymes & Lock and Key Model</h4>
+              <p>Enzymes are biological catalysts made of tertiary structure proteins. They lower the <strong>activation energy</strong> of metabolic reactions without being consumed.</p>
+              <ul>
+                <li>The <strong>active site</strong> has a specific, 3D complementary shape to its specific <strong>substrate</strong> molecule.</li>
+                <li>Substrate binds to active site forming an <strong>Enzyme-Substrate Complex (ESC)</strong>.</li>
+                <li>Reaction occurs; substrate converted to products and released; active site unchanged.</li>
+              </ul>
+
+              <h4>3. Factors Affecting Enzyme Rates</h4>
+              <ul>
+                <li><strong>Temperature:</strong>
+                  <ul>
+                    <li>As temperature increases, kinetic energy increases, leading to more frequent successful collisions between enzyme and substrate.</li>
+                    <li>At <strong>Optimum Temperature</strong> (e.g. $37^\circ\text{C}$ in humans), reaction rate is at maximum.</li>
+                    <li>Above optimum, excessive thermal vibration breaks hydrogen/ionic bonds holding the 3D protein structure. The active site changes shape—the enzyme is <strong>denatured</strong> (irreversible). Substrate can no longer fit.</li>
+                  </ul>
+                </li>
+                <li><strong>pH Level:</strong> Extreme pH levels away from optimum alter charges on amino acids and break bonds, denaturing the active site.</li>
+                <li><strong>Substrate Concentration:</strong> Rate increases as substrate concentration increases until all active sites are saturated (plateau).</li>
+              </ul>
+
+              <h4>4. Cell Transport Comparison Table</h4>
+              <ul>
+                <li><strong>Diffusion:</strong> Net movement of particles from high to low concentration down gradient. Passive process (no ATP). E.g., $O_2$ in lungs.</li>
+                <li><strong>Osmosis:</strong> Net movement of water molecules from dilute solution (high water potential) to concentrated solution (low water potential) across a partially permeable membrane. Passive process.</li>
+                <li><strong>Active Transport:</strong> Movement of dissolved ions/molecules from low to high concentration against gradient. Requires energy (ATP) and carrier proteins. E.g., Root hair cells taking up nitrate ions, glucose reabsorption in kidneys.</li>
+              </ul>
+            `
+          },
+          {
+            title: "B2 Cells and Control",
+            items: ["Cell cycle & Mitosis", "Stem cells & Ethics", "Central Nervous System & Reflex Arc", "Eye anatomy"],
+            notes: `
+              <h4>1. Cell Cycle & Mitosis Stages</h4>
+              <p>Required for growth, tissue repair, and asexual reproduction. Generates two genetically identical diploid daughter cells.</p>
+              <ul>
+                <li><strong>Interphase:</strong> Non-dividing phase. Cell grows, produces organelle duplicates, and <strong>replicates DNA</strong> (chromosomes double from 46 to 92 chromatids).</li>
+                <li><strong>Mitosis Prophase:</strong> Chromosomes condense and become visible; nuclear membrane breaks down.</li>
+                <li><strong>Metaphase:</strong> Chromosomes line up along cell equator; spindle fibers attach to centromeres.</li>
+                <li><strong>Anaphase:</strong> Sister chromatids pulled apart to opposite poles of cell by contracting spindle fibers.</li>
+                <li><strong>Telophase:</strong> Nuclear membranes reform around two new sets of chromosomes.</li>
+                <li><strong>Cytokinesis:</strong> Cytoplasm and cell membrane pinch to divide cell into two identical daughter cells.</li>
+              </ul>
+
+              <h4>2. Stem Cells & Differentiation</h4>
+              <ul>
+                <li><strong>Embryonic Stem Cells:</strong> Pluripotent (can differentiate into almost any specialized body cell). Great medical potential but ethical controversies (requires destruction of early human embryos).</li>
+                <li><strong>Adult Stem Cells (e.g. Bone Marrow):</strong> Multipotent (limited differentiation ability, e.g. can only form blood cells).</li>
+                <li><strong>Plant Meristems:</strong> Found in root and shoot tips; retain ability to differentiate into any plant cell type throughout life. Used for cloning rare plants.</li>
+              </ul>
+
+              <h4>3. Nervous System & The Reflex Arc</h4>
+              <p>Reflex actions are rapid, automatic, involuntary responses that protect the body from damage.</p>
+              <p><strong>Reflex Arc Pathway:</strong></p>
+              <p>$\text{Stimulus} \rightarrow \text{Receptor} \xrightarrow{\text{Sensory Neurone}} \text{Synapse} \xrightarrow{\text{Relay Neurone (Spinal Cord)}} \text{Synapse} \xrightarrow{\text{Motor Neurone}} \text{Effector (Muscle/Gland)} \rightarrow \text{Response}$</p>
+              <p><strong>Synaptic Transmission:</strong> Gap between two neurones = Synapse. Electrical impulse reaches axon terminal $\rightarrow$ triggers release of <strong>neurotransmitter chemical</strong> $\rightarrow$ diffuses across gap $\rightarrow$ binds to receptors on next neurone $\rightarrow$ triggers new electrical impulse.</p>
+            `
           }
         ],
         "Chemistry": [
           {
             title: "Atomic Structure & Periodic Table",
-            items: ["Subatomic particles", "Atomic number vs Mass number", "Periodic Table groups"],
-            notes: "<p><strong>Subatomic Particles:</strong></p><ul><li><strong>Proton:</strong> Mass = 1, Charge = +1</li><li><strong>Neutron:</strong> Mass = 1, Charge = 0</li><li><strong>Electron:</strong> Mass = 1/1840, Charge = -1</li></ul><p><strong>Mass Number:</strong> Protons + Neutrons.<br><strong>Atomic Number:</strong> Protons = Electrons.</p>"
+            items: ["Subatomic particles & charges", "Isotopes definition", "Periodic table trends", "Balancing chemical equations"],
+            notes: `
+              <h4>1. Subatomic Structure of the Atom</h4>
+              <p>An atom consists of a dense central <strong>nucleus</strong> surrounded by orbiting <strong>electrons</strong> in energy shells.</p>
+              <ul>
+                <li><strong>Proton:</strong> Relative Mass = 1 | Relative Charge = $+1$ | Location: Nucleus</li>
+                <li><strong>Neutron:</strong> Relative Mass = 1 | Relative Charge = $0$ (Neutral) | Location: Nucleus</li>
+                <li><strong>Electron:</strong> Relative Mass = $\frac{1}{1840}$ (Negligible) | Relative Charge = $-1$ | Location: Electron Shells</li>
+              </ul>
+              <p>Atoms have no overall charge because number of Protons = number of Electrons.</p>
+
+              <h4>2. Mass Number, Atomic Number & Isotopes</h4>
+              <ul>
+                <li><strong>Atomic Number ($Z$):</strong> Total number of protons in nucleus. Defines element identity.</li>
+                <li><strong>Mass Number ($A$):</strong> Total number of Protons + Neutrons in nucleus.</li>
+                <li><strong>Calculating Neutrons:</strong> $\text{Number of Neutrons} = \text{Mass Number} - \text{Atomic Number}$.</li>
+                <li><strong>Isotopes:</strong> Atoms of the same element with the same number of protons (same atomic number) but different numbers of neutrons (different mass numbers). E.g. Chlorine-35 ($^{35}_{17}Cl$) and Chlorine-37 ($^{37}_{17}Cl$).</li>
+              </ul>
+
+              <h4>3. Electron Configuration & Periodic Table Groups</h4>
+              <p>Shell capacities: 1st shell max 2, 2nd shell max 8, 3rd shell max 8.</p>
+              <p>E.g., Potassium ($K$, atomic number 19) electronic configuration = 2,8,8,1.</p>
+              <ul>
+                <li><strong>Group Number:</strong> Tells you number of outer shell electrons (determines chemical properties).</li>
+                <li><strong>Period Number:</strong> Tells you number of occupied electron shells.</li>
+                <li><strong>Group 1 (Alkali Metals):</strong> Reactivity increases down group as outer electron is further from nucleus and lost more easily.</li>
+                <li><strong>Group 7 (Halogens):</strong> Reactivity decreases down group as outer shell is further from nucleus and gains electron less easily.</li>
+              </ul>
+            `
           }
         ],
         "Maths": [
           {
+            title: "Algebraic Manipulation & Quadratics",
+            items: ["Expanding brackets", "Factorising quadratics", "Solving quadratic equations", "Changing formula subject"],
+            notes: `
+              <h4>1. Expanding & Simplifying Single and Double Brackets</h4>
+              <ul>
+                <li>Single: $3(2x - 5) = 6x - 15$.</li>
+                <li>Double (FOIL): $(2x + 3)(x - 4) = 2x^2 - 8x + 3x - 12 = 2x^2 - 5x - 12$.</li>
+                <li>Triple: Expand two brackets first, then multiply result by third.</li>
+              </ul>
+
+              <h4>2. Factorising Expressions</h4>
+              <ul>
+                <li>Single Bracket Common Factors: $12x^2y + 8xy = 4xy(3x + 2)$.</li>
+                <li>Quadratics ($x^2 + bx + c$): Find two numbers that multiply to $c$ and add to $b$.
+                  <br>E.g., Factorise $x^2 - 7x + 12$: Numbers multiplying to $+12$ and adding to $-7$ are $-3$ and $-4$.
+                  <br>Result: $(x - 3)(x - 4)$.</li>
+                <li>Difference of Two Squares ($a^2 - b^2$): $x^2 - 49 = (x - 7)(x + 7)$. $9x^2 - 25y^2 = (3x - 5y)(3x + 5y)$.</li>
+              </ul>
+
+              <h4>3. Solving Quadratic Equations</h4>
+              <ul>
+                <li><strong>By Factorising:</strong> Set to zero $\rightarrow$ Factorise $\rightarrow$ Set each factor to zero.
+                  <br>E.g., $x^2 + 2x - 15 = 0 \rightarrow (x + 5)(x - 3) = 0 \rightarrow x = -5 \text{ or } x = 3$.</li>
+                <li><strong>By Quadratic Formula:</strong> For $ax^2 + bx + c = 0$:
+                  <br>$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</li>
+              </ul>
+
+              <h4>4. Rearranging Formulas (Changing Subject)</h4>
+              <p>Isolate target variable using inverse operations step-by-step.</p>
+              <p><em>Example:</em> Make $x$ subject of $y = \frac{3x + 2}{x - 1}$.</p>
+              <ol>
+                <li>Multiply by $(x - 1)$: $y(x - 1) = 3x + 2 \rightarrow yx - y = 3x + 2$.</li>
+                <li>Collect $x$ terms on one side: $yx - 3x = y + 2$.</li>
+                <li>Factorise $x$ out: $x(y - 3) = y + 2$.</li>
+                <li>Divide: $x = \frac{y + 2}{y - 3}$.</li>
+              </ol>
+            `
+          },
+          {
             title: "Trigonometry & Pythagoras",
-            items: ["Pythagoras Theorem", "SOH CAH TOA ratios", "Exact Trig values"],
-            notes: "<p><strong>Pythagoras:</strong> $a^2 + b^2 = c^2$ (where $c$ is the hypotenuse).</p><p><strong>Trig Ratios:</strong></p><ul><li>$\sin(\theta) = \frac{\text{Opposite}}{\text{Hypotenuse}}$</li><li>$\cos(\theta) = \frac{\text{Adjacent}}{\text{Hypotenuse}}$</li><li>$\tan(\theta) = \frac{\text{Opposite}}{\text{Adjacent}}$</li></ul><p><strong>Exact Values:</strong> $\sin(30^\circ) = 0.5$, $\cos(60^\circ) = 0.5$, $\tan(45^\circ) = 1$.</p>"
+            items: ["Pythagoras Theorem", "Trig Ratios (SOH CAH TOA)", "Exact Trig values", "3D Pythagoras"],
+            notes: `
+              <h4>1. Pythagoras' Theorem</h4>
+              <p>For any right-angled triangle: $$a^2 + b^2 = c^2$$</p>
+              <p>where $c$ is the <strong>hypotenuse</strong> (longest side opposite the right angle).</p>
+              <ul>
+                <li>Finding Hypotenuse: $c = \sqrt{a^2 + b^2}$</li>
+                <li>Finding a shorter side: $a = \sqrt{c^2 - b^2}$</li>
+              </ul>
+
+              <h4>2. Right-Angled Trigonometry (SOH CAH TOA)</h4>
+              <p>Label triangle relative to target angle $\theta$: Hypotenuse ($H$), Opposite ($O$), Adjacent ($A$).</p>
+              <ul>
+                <li>$$\sin(\theta) = \frac{\text{Opposite}}{\text{Hypotenuse}}$$</li>
+                <li>$$\cos(\theta) = \frac{\text{Adjacent}}{\text{Hypotenuse}}$$</li>
+                <li>$$\tan(\theta) = \frac{\text{Opposite}}{\text{Adjacent}}$$</li>
+              </ul>
+              <p>Finding an angle: Use inverse functions $\theta = \sin^{-1}\left(\frac{O}{H}\right), \cos^{-1}\left(\frac{A}{H}\right), \tan^{-1}\left(\frac{O}{A}\right)$.</p>
+
+              <h4>3. Non-Calculator Exact Values Table</h4>
+              <p>Must be memorised for non-calculator exam papers:</p>
+              <ul>
+                <li>$\sin(0^\circ) = 0 \quad | \quad \sin(30^\circ) = \frac{1}{2} \quad | \quad \sin(45^\circ) = \frac{\sqrt{2}}{2} \quad | \quad \sin(60^\circ) = \frac{\sqrt{3}}{2} \quad | \quad \sin(90^\circ) = 1$</li>
+                <li>$\cos(0^\circ) = 1 \quad | \quad \cos(30^\circ) = \frac{\sqrt{3}}{2} \quad | \quad \cos(45^\circ) = \frac{\sqrt{2}}{2} \quad | \quad \cos(60^\circ) = \frac{1}{2} \quad | \quad \cos(90^\circ) = 0$</li>
+                <li>$\tan(0^\circ) = 0 \quad | \quad \tan(30^\circ) = \frac{1}{\sqrt{3}} \quad | \quad \tan(45^\circ) = 1 \quad | \quad \tan(60^\circ) = \sqrt{3} \quad | \quad \tan(90^\circ) = \text{Undefined}$</li>
+              </ul>
+            `
           }
         ]
       },
       10: {
         "Biology": [
           {
-            title: "B3 Genetics",
-            items: ["Sexual vs Asexual reproduction", "Meiosis & Mitosis", "DNA structure & Punnett squares"],
-            notes: "<p><strong>Mitosis vs Meiosis:</strong></p><ul><li><strong>Mitosis:</strong> Produces 2 genetically identical diploid daughter cells (growth & repair).</li><li><strong>Meiosis:</strong> Produces 4 genetically different haploid gametes (sexual reproduction).</li></ul><p><strong>DNA:</strong> Double-helix structure made of nucleotides (Phosphate, Sugar, Base: A-T, C-G).</p>"
+            title: "B3 Genetics & Inheritance",
+            items: ["DNA structure & nucleotides", "Protein synthesis basics", "Monohybrid crosses & Punnett squares", "Genotype vs Phenotype"],
+            notes: `
+              <h4>1. Detailed Structure of DNA</h4>
+              <p>DNA (Deoxyribonucleic Acid) is a double-stranded polymer forming a <strong>double helix</strong>. It is made of repeating units called <strong>nucleotides</strong>.</p>
+              <p>Each nucleotide consists of: a Phosphate group, a Deoxyribose sugar, and one of four Nitrogenous Bases.</p>
+              <p><strong>Complementary Base Pairing Rule:</strong></p>
+              <ul>
+                <li><strong>Adenine (A)</strong> pairs with <strong>Thymine (T)</strong> (held by 2 hydrogen bonds)</li>
+                <li><strong>Cytosine (C)</strong> pairs with <strong>Guanine (G)</strong> (held by 3 hydrogen bonds)</li>
+              </ul>
+
+              <h4>2. Protein Synthesis (Transcription & Translation)</h4>
+              <ul>
+                <li><strong>Transcription (in Nucleus):</strong> RNA polymerase enzyme binds to DNA and unzips strands. Reads template DNA strand to synthesize a single-stranded <strong>messenger RNA (mRNA)</strong> molecule (Uracil replaces Thymine). mRNA leaves nucleus through nuclear pore into cytoplasm.</li>
+                <li><strong>Translation (at Ribosome):</strong> mRNA binds to a ribosome. Ribosome reads mRNA code in groups of 3 bases called <strong>codons</strong>. <strong>Transfer RNA (tRNA)</strong> molecules with complementary <strong>anticodons</strong> bring specific amino acids. Ribosome joins amino acids via peptide bonds to build a protein chain.</li>
+              </ul>
+
+              <h4>3. Genetic Definitions & Monohybrid Inheritance</h4>
+              <ul>
+                <li><strong>Gene:</strong> Segment of DNA coding for specific protein.</li>
+                <li><strong>Allele:</strong> Alternative version of a gene (e.g., $B$ = Brown eyes, $b$ = Blue eyes).</li>
+                <li><strong>Dominant Allele:</strong> Expressed in phenotype even if only 1 copy is present ($BB$ or $Bb$).</li>
+                <li><strong>Recessive Allele:</strong> Only expressed if 2 copies are present ($bb$).</li>
+                <li><strong>Homozygous:</strong> Having two identical alleles ($BB$ or $bb$).</li>
+                <li><strong>Heterozygous:</strong> Having two different alleles ($Bb$).</li>
+              </ul>
+              <div class="exam-tip"><strong>Punnett Square Method:</strong> Always state Parental Phenotypes $\rightarrow$ Parental Genotypes $\rightarrow$ Gametes $\rightarrow$ Draw 2x2 Grid $\rightarrow$ State Phenotypic Ratio or Percentage outcome!</div>
+            `
+          },
+          {
+            title: "B5 Health & Disease",
+            items: ["Pathogen types & spread", "Human defense barriers", "Immune system response", "Monoclonal antibodies"],
+            notes: `
+              <h4>1. Types of Pathogens</h4>
+              <p>Pathogens are disease-causing micro-organisms:</p>
+              <ul>
+                <li><strong>Bacteria:</strong> Microscopic prokaryotes. Reproduce rapidly by binary fission; produce <strong>toxins</strong> damaging tissue (e.g., <em>Salmonella</em>, Cholera). Treated with <strong>antibiotics</strong>.</li>
+                <li><strong>Viruses:</strong> Non-living intracellular parasites. Invade host cells, replicate inside, then cause cell lysis (bursting) to release new viruses (e.g., HIV, Measles, TMV). <em>Antibiotics do NOT work on viruses!</em></li>
+                <li><strong>Fungi:</strong> Eukaryotic organisms (e.g., Rose Black Spot, Athlete's foot).</li>
+                <li><strong>Protists:</strong> Single-celled eukaryotes often transferred via vectors (e.g., <em>Plasmodium</em> causing Malaria, transmitted by female <em>Anopheles</em> mosquito).</li>
+              </ul>
+
+              <h4>2. Primary Non-Specific Human Defences</h4>
+              <ul>
+                <li><strong>Skin:</strong> Physical barrier; produces antimicrobial secretions; scabs over cuts via blood clotting.</li>
+                <li><strong>Stomach Acid:</strong> Contains Hydrochloric Acid ($HCl$ at pH 1–2) which kills ingested pathogens.</li>
+                <li><strong>Eyes:</strong> Produce tears containing <strong>lysozyme</strong> enzymes that digest bacterial cell walls.</li>
+                <li><strong>Respiratory System:</strong> Mucus traps inhaled pathogens; cilia sweep mucus out.</li>
+              </ul>
+
+              <h4>3. Secondary Specific Immune Response (White Blood Cells)</h4>
+              <ul>
+                <li><strong>Phagocytes:</strong> Perform <strong>Phagocytosis</strong>. Engulf foreign pathogens, enclose them in a vacuole, and release digestive enzymes to destroy them. Non-specific.</li>
+                <li><strong>Lymphocytes:</strong>
+                  <ul>
+                    <li>Produce <strong>Antibodies</strong>: Y-shaped proteins specific to complementary <strong>antigens</strong> on pathogen surface. Antibodies bind to antigens causing pathogens to clump (agglutinate) for easy phagocytosis.</li>
+                    <li>Produce <strong>Antitoxins</strong>: Bind to and neutralise harmful toxins released by bacteria.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>4. Monoclonal Antibodies Production Steps</h4>
+              <ol>
+                <li>Inject a mouse with specific target antigen to stimulate immune response.</li>
+                <li>Mouse lymphocytes produce specific antibodies against antigen.</li>
+                <li>Extract lymphocytes and fuse them with myeloma (cancer) cells to create a <strong>Hybridoma cell</strong>.</li>
+                <li>Hybridoma cells divide rapidly via mitosis while continuously secreting identical target monoclonal antibodies.</li>
+                <li>Collect and purify antibodies. Used in pregnancy tests, targeted cancer therapies, and diagnostic testing.</li>
+              </ol>
+            `
           }
         ],
         "Chemistry": [
           {
             title: "Quantitative Chemistry & Moles",
-            items: ["Relative Formula Mass ($M_r$)", "Mole equation", "Limiting reagents"],
-            notes: "<p><strong>Mole Formula:</strong> $\text{Moles} = \frac{\text{Mass (g)}}{M_r}$.</p><p><strong>Avogadro Constant:</strong> $6.02 \times 10^{23}$ particles per mole.</p><p><strong>Limiting Reagent:</strong> The reactant that gets completely consumed first, limiting the amount of product formed.</p>"
+            items: ["Relative Formula Mass ($M_r$)", "The Mole concept & Avogadro", "Concentration calculations", "Limiting reactants"],
+            notes: `
+              <h4>1. Relative Formula Mass ($M_r$)</h4>
+              <p>Add up relative atomic masses ($A_r$) of all atoms shown in molecular formula.</p>
+              <p><em>Example:</em> Calculate $M_r$ of Calcium Hydroxide $Ca(OH)_2$ [$A_r: Ca=40, O=16, H=1$].
+              <br>$M_r = 40 + 2 \times (16 + 1) = 40 + 34 = 74$.</p>
+
+              <h4>2. The Mole Concept & Avogadro's Constant</h4>
+              <p>A mole is the amount of substance containing $6.02 \times 10^{23}$ particles (Avogadro Constant $N_A$).</p>
+              <p><strong>Primary Mole Formula:</strong> $$\text{Moles } (n) = \frac{\text{Mass in grams } (m)}{\text{Relative Formula Mass } (M_r)}$$</p>
+              <p><em>Example:</em> How many moles are in $22\text{g}$ of Carbon Dioxide ($CO_2$, $M_r = 44$)?
+              <br>$\text{Moles} = \frac{22}{44} = 0.5\text{ moles}$.</p>
+
+              <h4>3. Concentration Formulas</h4>
+              <ul>
+                <li>Concentration in $g/dm^3$: $$\text{Conc } (g/dm^3) = \frac{\text{Mass } (g)}{\text{Volume } (dm^3)}$$</li>
+                <li>Concentration in $mol/dm^3$: $$\text{Conc } (mol/dm^3) = \frac{\text{Moles } (n)}{\text{Volume } (dm^3)}$$</li>
+              </ul>
+              <div class="exam-tip"><strong>Unit Note:</strong> Always convert $cm^3$ to $dm^3$ by dividing volume by $1000$ (e.g. $250\text{ cm}^3 = 0.25\text{ dm}^3$).</div>
+
+              <h4>4. Limiting Reactants Calculation Strategy</h4>
+              <p>The <strong>limiting reactant</strong> is the reactant that is completely used up first, stopping the reaction and limiting product mass.</p>
+              <ol>
+                <li>Write balanced symbol equation.</li>
+                <li>Calculate moles of each reactant present: $n = \frac{m}{M_r}$.</li>
+                <li>Compare mole ratios from balanced equation to determine which reactant is in deficit (limiting).</li>
+                <li>Use moles of limiting reactant to calculate theoretical mass of product formed.</li>
+              </ol>
+            `
+          },
+          {
+            title: "Rates of Reaction & Equilibrium",
+            items: ["Collision theory factors", "Measuring rate of reaction", "Catalysts action", "Reversible reactions & Le Chatelier"],
+            notes: `
+              <h4>1. Collision Theory & Rate Factors</h4>
+              <p>For a reaction to occur, particles must collide with energy greater than or equal to the <strong>Activation Energy ($E_a$)</strong>.</p>
+              <p><strong>Measuring Rate:</strong> $\text{Rate of Reaction} = \frac{\text{Amount of Reactant Used OR Product Formed}}{\text{Time Taken}}$. Units: $g/s$, $cm^3/s$, or $mol/s$.</p>
+              
+              <h4>Factors Increasing Reaction Rate:</h4>
+              <ul>
+                <li><strong>Increasing Temperature:</strong> Particles gain kinetic energy, move faster, colliding <strong>more frequently</strong>. Crucially, a much larger proportion of colliding particles have energy $\ge E_a$, increasing <em>successful collision rate</em>.</li>
+                <li><strong>Increasing Concentration / Pressure:</strong> More reactant particles crowded into given volume $\rightarrow$ increased collision frequency.</li>
+                <li><strong>Increasing Surface Area to Volume Ratio:</strong> Exposes more surface particles $\rightarrow$ increased collision frequency.</li>
+                <li><strong>Adding a Catalyst:</strong> Speeds up reaction without being consumed by providing an alternative reaction pathway with a <strong>lower Activation Energy ($E_a$)</strong>.</li>
+              </ul>
+
+              <h4>2. Reversible Reactions & Dynamic Equilibrium</h4>
+              <p>Symbol: $A + B \rightleftharpoons C + D$. In a closed system, a reversible reaction reaches <strong>Dynamic Equilibrium</strong> when:</p>
+              <ol>
+                <li>Rate of forward reaction equals rate of reverse reaction.</li>
+                <li>Concentrations of reactants and products remain constant.</li>
+              </ol>
+
+              <h4>3. Le Chatelier's Principle</h4>
+              <p>If a system at equilibrium is subject to a change in conditions, the system alters to oppose that change:</p>
+              <ul>
+                <li><strong>Temperature Change:</strong> Increasing temperature shifts equilibrium in direction of <strong>endothermic reaction</strong> to absorb heat. Decreasing temperature favours <strong>exothermic reaction</strong>.</li>
+                <li><strong>Pressure Change (Gases):</strong> Increasing pressure shifts equilibrium to side with <strong>fewer moles of gas</strong>.</li>
+                <li><strong>Concentration Change:</strong> Increasing reactant concentration shifts equilibrium to the right to form more products.</li>
+              </ul>
+            `
           }
         ],
         "Computer Science": [
           {
-            title: "Algorithms & Logic",
-            items: ["Searching algorithms", "Sorting algorithms", "Binary arithmetic"],
-            notes: "<p><strong>Searching:</strong></p><ul><li><strong>Linear Search:</strong> Checks each item sequentially (works on unsorted lists).</li><li><strong>Binary Search:</strong> Divide and conquer strategy (requires sorted list).</li></ul><p><strong>Sorting:</strong> Bubble sort compares adjacent pairs; Insertion sort builds sorted sub-lists.</p>"
+            title: "Algorithms & Programming Concepts",
+            items: ["Searching algorithms", "Sorting algorithms", "Pseudocode & Flowcharts", "2D Arrays"],
+            notes: `
+              <h4>1. Search Algorithms Analysis</h4>
+              <ul>
+                <li><strong>Linear Search:</strong> Evaluates items one by one sequentially from start to end.
+                  <ul>
+                    <li>Pros: Simple; works on unsorted lists.</li>
+                    <li>Cons: Inefficient on large datasets ($O(n)$ time complexity).</li>
+                  </ul>
+                </li>
+                <li><strong>Binary Search:</strong> Divide and conquer algorithm on <em>sorted lists</em>. Compares target to midpoint element; eliminates half the list containing no possible match; repeats on remaining sub-list.
+                  <ul>
+                    <li>Pros: Very fast on large datasets ($O(\log n)$ time complexity).</li>
+                    <li>Cons: List MUST be sorted first.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>2. Sorting Algorithms Analysis</h4>
+              <ul>
+                <li><strong>Bubble Sort:</strong> Traverses list, comparing adjacent pairs and swapping them if out of order. Repeats passes until a full pass completes with 0 swaps.
+                  <ul>
+                    <li>Pros: Easy to implement, space efficient.</li>
+                    <li>Cons: Inefficient for large lists ($O(n^2)$ time complexity).</li>
+                  </ul>
+                </li>
+                <li><strong>Merge Sort:</strong> Divide and conquer strategy. Recursively splits unsorted list into individual sub-lists of length 1, then repeatedly merges sub-lists in order. Highly efficient ($O(n \log n)$).</li>
+              </ul>
+
+              <h4>3. Structural Programming Constructs</h4>
+              <ul>
+                <li><strong>Sequence:</strong> Executing code instructions sequentially line by line.</li>
+                <li><strong>Selection:</strong> Branching execution path based on conditions (`IF... THEN... ELSE` or `SWITCH/CASE`).</li>
+                <li><strong>Iteration:</strong> Loop structures repeating code blocks (`FOR` count-controlled loops; `WHILE` condition-controlled loops).</li>
+              </ul>
+            `
+          },
+          {
+            title: "System Architecture & Networks",
+            items: ["CPU FDE Cycle", "RAM vs ROM memory", "Topologies & Protocols", "Layering concept"],
+            notes: `
+              <h4>1. CPU Architecture & Fetch-Decode-Execute (FDE) Cycle</h4>
+              <p>The CPU (Central Processing Unit) processes data and instructions. Architecture components:</p>
+              <ul>
+                <li><strong>CU (Control Unit):</strong> Controls data flow through CPU; decodes instructions.</li>
+                <li><strong>ALU (Arithmetic Logic Unit):</strong> Performs arithmetic calculations ($+, -, \times, \div$) and logical comparisons ($\text{AND}, \text{OR}, \text{NOT}$).</li>
+                <li><strong>Registers:</strong> Ultra-fast, tiny internal memory locations (e.g., PC, MAR, MDR, ACC).</li>
+                <li><strong>Cache Memory:</strong> Small, high-speed RAM on CPU chip storing frequently used instructions to reduce access time to main memory.</li>
+              </ul>
+              <p><strong>FDE Cycle Steps:</strong></p>
+              <ol>
+                <li><strong>Fetch:</strong> CPU fetches instruction memory address from Program Counter (PC) into MAR, retrieves instruction from RAM into MDR, increments PC.</li>
+                <li><strong>Decode:</strong> CU decodes instruction stored in CIR to determine operation required.</li>
+                <li><strong>Execute:</strong> Control Unit executes instruction using ALU or loads/stores data in registers. Cycle repeats.</li>
+              </ol>
+
+              <h4>2. Primary Memory: RAM vs ROM</h4>
+              <ul>
+                <li><strong>RAM (Random Access Memory):</strong> Read and Write capability; <strong>Volatile</strong> (loses contents when power turned off); stores operating system software currently running and active user programs/data.</li>
+                <li><strong>ROM (Read Only Memory):</strong> Read-Only; <strong>Non-Volatile</strong> (retains contents when powered off); stores factory-written <strong>BIOS/bootstrap loader</strong> required to boot computer.</li>
+              </ul>
+            `
           }
         ],
         "Physics": [
           {
-            title: "Electricity & Circuits",
-            items: ["Current, Voltage, Resistance", "Series vs Parallel", "Power equations"],
-            notes: "<p><strong>Core Equations:</strong></p><ul><li>Voltage: $V = I \times R$</li><li>Charge: $Q = I \times t$</li><li>Power: $P = V \times I = I^2 \times R$</li><li>Energy: $E = P \times t = V \times Q$</li></ul><p><strong>Circuit Rules:</strong> In series, current is equal everywhere; in parallel, total current is the sum of branch currents.</p>"
+            title: "Electricity & Circuit Rules",
+            items: ["Current, Potential Difference & Resistance", "Series vs Parallel laws", "I-V Characteristic graphs", "Power calculations"],
+            notes: `
+              <h4>1. Core Electrical Quantities & Equations</h4>
+              <ul>
+                <li><strong>Current ($I$):</strong> Rate of flow of electrical charge. Unit: Amperes ($A$). Formula: $$Q = I \times t \quad (\text{Charge } Q \text{ in Coulombs } C)$$</li>
+                <li><strong>Potential Difference ($V$):</strong> Energy transferred per unit charge passed. Unit: Volts ($V$). Formula: $$V = \frac{E}{Q} \quad (\text{Energy } E \text{ in Joules } J)$$</li>
+                <li><strong>Ohm's Law:</strong> Potential difference is directly proportional to current at constant temperature. $$V = I \times R \quad (\text{Resistance } R \text{ in Ohms } \Omega)$$</li>
+                <li><strong>Electrical Power Formulas:</strong>
+                  <br>$$P = V \times I \quad | \quad P = I^2 \times R \quad (\text{Power } P \text{ in Watts } W)$$</li>
+              </ul>
+
+              <h4>2. Series vs Parallel Circuit Rules</h4>
+              <ul>
+                <li><strong>Series Circuits:</strong>
+                  <ul>
+                    <li>Current is <strong>same at all points</strong>: $I_1 = I_2 = I_3$.</li>
+                    <li>Total Voltage is <strong>shared across components</strong>: $V_{\text{Total}} = V_1 + V_2 + \dots$.</li>
+                    <li>Total Resistance is sum of individual resistances: $R_{\text{Total}} = R_1 + R_2 + \dots$.</li>
+                  </ul>
+                </li>
+                <li><strong>Parallel Circuits:</strong>
+                  <ul>
+                    <li>Voltage is <strong>same across every parallel branch</strong>: $V_1 = V_2 = V_{\text{Total}}$.</li>
+                    <li>Total Current is <strong>sum of branch currents</strong>: $I_{\text{Total}} = I_1 + I_2 + \dots$.</li>
+                    <li>Adding extra parallel resistors <strong>decreases total equivalent resistance</strong> because it creates additional parallel pathways for current flow.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>3. Component $I$-$V$ Graphs Analysis</h4>
+              <ul>
+                <li><strong>Ohmic Conductor (Resistor at constant temp):</strong> Straight line passing through origin. Resistance is constant ($I \propto V$).</li>
+                <li><strong>Filament Lamp:</strong> S-shaped curve. As current increases, temperature rises $\rightarrow$ lattice ions vibrate faster $\rightarrow$ electron collisions increase $\rightarrow$ resistance increases (graph curves towards horizontal).</li>
+                <li><strong>Diode / LED:</strong> Current flows in forward direction only once threshold voltage (approx $0.7\text{V}$) is reached. Extremely high resistance in reverse direction.</li>
+              </ul>
+            `
+          },
+          {
+            title: "Forces, Motion & Newton's Laws",
+            items: ["Newton's Three Laws of Motion", "Distance-time & Velocity-time graphs", "Stopping distances components", "Momentum conservation"],
+            notes: `
+              <h4>1. Newton's Three Laws of Motion</h4>
+              <ul>
+                <li><strong>Newton's First Law (Inertia):</strong> An object remains at rest or continues at constant velocity in a straight line unless acted upon by a non-zero resultant force.</li>
+                <li><strong>Newton's Second Law:</strong> Resultant force is directly proportional to acceleration.
+                  <br>$$F = m \times a \quad (\text{Force } F \text{ in } N, \text{ Mass } m \text{ in } kg, \text{ Acceleration } a \text{ in } m/s^2)$$</li>
+                <li><strong>Newton's Third Law:</strong> When two objects interact, they exert equal magnitude and opposite direction forces on each other.</li>
+              </ul>
+
+              <h4>2. Interpreting Motion Graphs</h4>
+              <ul>
+                <li><strong>Distance-Time Graphs:</strong>
+                  <ul>
+                    <li>Gradient = Speed ($m/s$).</li>
+                    <li>Flat horizontal line = Stationary (speed = $0$).</li>
+                    <li>Straight sloping line = Constant speed.</li>
+                    <li>Curving line = Accelerating (steeper) or decelerating (flatter). Find instantaneous speed using a <em>tangent line</em>.</li>
+                  </ul>
+                </li>
+                <li><strong>Velocity-Time Graphs:</strong>
+                  <ul>
+                    <li>Gradient = Acceleration ($m/s^2$).</li>
+                    <li>Flat horizontal line = Constant velocity.</li>
+                    <li>Area under graph = Total Distance travelled ($m$). Calculate using triangles and rectangles.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>3. Vehicle Stopping Distances</h4>
+              <p>$$\text{Total Stopping Distance} = \text{Thinking Distance} + \text{Braking Distance}$$</p>
+              <ul>
+                <li><strong>Thinking Distance:</strong> Distance travelled while driver reacts.
+                  <br><em>Affected by:</em> Reaction time, tiredness, alcohol/drugs, distractions (phones), speed.</li>
+                <li><strong>Braking Distance:</strong> Distance travelled while brakes applied.
+                  <br><em>Affected by:</em> Vehicle speed (doubling speed quadruples braking distance because $E_k = \frac{1}{2}mv^2$), tire tread depth, brake pad wear, wet/icy road surfaces, mass of car.</li>
+              </ul>
+            `
+          }
+        ],
+        "History": [
+          {
+            title: "Weimar and Nazi Germany (1918-1939)",
+            items: ["Weimar Republic establishment & 1923 crises", "Hitler's rise to power (1929-1933)", "Nazi Police State control", "Life under Nazi rule"],
+            notes: `
+              <h4>1. The Weimar Republic & Crises of 1923</h4>
+              <p>Following WWI defeat, Kaiser Wilhelm II abdicated and the Weimar Republic was formed in 1919 under President Friedrich Ebert. Forced to sign the hated <strong>Treaty of Versailles</strong> (LAMB: Loss of land $13\%$, Army capped at $100,000$, Money reparations $\text{£6.6 billion}$, Blame Article 231 war guilt).</p>
+              <ul>
+                <li><strong>1923 Ruhr Crisis:</strong> Germany defaulted on reparations. French/Belgian troops occupied Ruhr industrial region. German workers went on passive resistance strike. Government printed money to pay striking workers, triggering catastrophic <strong>Hyperinflation</strong>.</li>
+                <li><strong>Stresemann Era (1924–1929):</strong> Gustav Stresemann introduced Rentenmark currency, negotiated <strong>Dawes Plan (1924)</strong> (USA loans) and <strong>Young Plan (1929)</strong> (reduced reparations).</li>
+              </ul>
+
+              <h4>2. Hitler's Rise to Power (1929–1933)</h4>
+              <ul>
+                <li><strong>Wall Street Crash (Oct 1929):</strong> US recalled loans, driving German economy into Great Depression. Unemployment skyrocketed to $6\text{ million}$.</li>
+                <li>Desperate voters turned to extremist parties: Communists (KPD) and Nazis (NSDAP). Nazi propaganda led by Joseph Goebbels promised "Work and Bread".</li>
+                <li>Backroom political deals by Hindenburg and Von Papen led to Hitler being appointed Chancellor on <strong>30th January 1933</strong>.</li>
+              </ul>
+
+              <h4>3. Consolidation into Totalitarian Dictatorship</h4>
+              <ul>
+                <li><strong>Reichstag Fire (Feb 1933):</strong> Blamed on communist Marinus van der Lubbe. Emergency decree suspended civil rights.</li>
+                <li><strong>Enabling Act (March 1933):</strong> Allowed Hitler to pass laws without Reichstag consent for 4 years. Banned trade unions and opposing political parties.</li>
+                <li><strong>Night of the Long Knives (June 1934):</strong> SS purged SA leader Ernst Röhm and internal rivals.</li>
+                <li>President Hindenburg died (Aug 1934); Hitler merged roles of Chancellor and President into <strong>Führer</strong>. Army swore personal oath to Hitler.</li>
+              </ul>
+            `
           }
         ]
       }
     };
 
-    // App State
+    // Application State
     let currentYear = 7;
     let currentSubject = "All";
     let searchQuery = "";
-    let expandedCardIndex = null;
 
-    // DOM Elements
+    // DOM References
     const yearBtns = document.querySelectorAll('.year-btn');
     const subjectFiltersContainer = document.getElementById('subject-filters');
     const topicsGrid = document.getElementById('topics-grid');
     const searchInput = document.getElementById('search-input');
 
-    // Parse Hash URL on Load
+    // Parse URL Hash
     function parseHash() {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
@@ -475,14 +1254,14 @@
       window.location.hash = params.toString();
     }
 
-    // Toggle Card Expansion
+    // Toggle Expansion
     function toggleCard(cardId) {
       const cardElem = document.getElementById(cardId);
       if (cardElem) {
         cardElem.classList.toggle('expanded');
-        const badge = cardElem.querySelector('.expand-badge span');
-        if (badge) {
-          badge.textContent = cardElem.classList.contains('expanded') ? 'Click to collapse' : 'Click for full notes';
+        const badgeSpan = cardElem.querySelector('.expand-badge span');
+        if (badgeSpan) {
+          badgeSpan.textContent = cardElem.classList.contains('expanded') ? 'Collapse notes' : 'Expand full notes';
         }
       }
     }
@@ -523,7 +1302,7 @@
           if (q === "" || matchesTitle || matchesSubject || matchesItems || matchesNotes) {
             matchCount++;
             const cardId = `card-${sub.replace(/\s+/g, '')}-${idx}`;
-            const defaultNotes = topic.notes || "<p>Revision notes for this module are currently being updated into the specification booklet.</p>";
+            const notesText = topic.notes || "<p>Detailed notes for this topic are being updated based on the specification.</p>";
 
             cardsHTML += `
               <div class="card" id="${cardId}" onclick="toggleCard('${cardId}')">
@@ -533,7 +1312,7 @@
                     <div class="card-title">${topic.title}</div>
                   </div>
                   <div class="expand-badge">
-                    <span>Click for full notes</span>
+                    <span>Expand full notes</span>
                   </div>
                 </div>
                 <ul class="card-list">
@@ -542,10 +1321,10 @@
                 <div class="notes-panel">
                   <div class="notes-title">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                    Full Revision Notes & Key Concepts
+                    Comprehensive Revision Notes & Exam Concepts
                   </div>
                   <div class="notes-content">
-                    ${defaultNotes}
+                    ${notesText}
                   </div>
                 </div>
               </div>
@@ -557,8 +1336,8 @@
       if (matchCount === 0) {
         topicsGrid.innerHTML = `
           <div class="empty-state">
-            <h3>No matching revision topics found</h3>
-            <p>Try searching for a different key term or selecting another year group.</p>
+            <h3>No matching topics found</h3>
+            <p>Try clearing your search query or selecting a different year group filter.</p>
           </div>
         `;
       } else {
